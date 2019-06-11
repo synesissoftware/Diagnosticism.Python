@@ -1,14 +1,22 @@
 
 # directories (by name)
 
+build/
+dist/
+*.egg-info/
+
 # directories (by pattern)
 
 # files (by name)
+
+.DS_Store
 
 # files (by pattern)
 
 *~
 *.pyc
+*.pyo
+*.swo
 *.swp
 *.tmp
 

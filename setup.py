@@ -3,8 +3,8 @@ import setuptools
 
 setuptools.setup(
 
-    name='pydiagnosticism',
-    version='0.1.0',
+    name='diagnosticism',
+    version='0.1.1',
 
     author='Matt Wilson',
     author_email='matthew@synesis.com.au',
@@ -13,7 +13,7 @@ setuptools.setup(
     license='BSD-3-Clause',
     long_description=open('README.md').read(),
     long_description_content_type="text/markdown",
-    packages=['pydiagnosticism', 'examples', 'tests'],
+    packages=['diagnosticism', 'examples', 'tests'],
     url='https://github.com/synesissoftware/diagnosticism.Python',
     classifiers=[
 
