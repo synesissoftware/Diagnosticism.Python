@@ -18,21 +18,14 @@ T.B.C.
 Install via **pip** or **pip3**, as in:
 
 ```
-	pip3 install pydiagnosticism
+	pip3 install diagnosticism
 ```
 
 Use via **import**:
 
 ```Python
 
-import pydiagnosticism
-```
-
-or, as we prefer,
-
-```Python
-
-import pydiagnosticism as diagnosticism
+import diagnosticism
 ```
 
 ## Components
