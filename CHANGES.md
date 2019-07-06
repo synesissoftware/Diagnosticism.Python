@@ -1,5 +1,9 @@
 # **diagnosticism.Python** Changes
 
+## 0.2.1 - 7th July 2019
+
+* ~ fixed missing name ``report`` exported at top-level
+
 ## 0.2.0 - 7th July 2019
 
 * + added module ``diagnosticism.program_name``, with members ``get_program_name()`` and ``set_program_name()``

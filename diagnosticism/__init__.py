@@ -9,9 +9,9 @@ __email__       =   'matthew@synesis.com.au'
 __license__     =   'BSD-3-Clause'
 __maintainer__  =   'Matt Wilson'
 __status__      =   'Beta'
-__version__     =   '0.2.0'
+__version__     =   '0.2.1'
 
-from .conrep import abort, conrep#accounce, println
+from .conrep import abort, report
 from .program_name import *
 from .trace import enable_tracing, is_tracing_enabled, trace
 
