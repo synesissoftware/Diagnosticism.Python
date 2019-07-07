@@ -1,7 +1,11 @@
 
 from .program_name import get_program_name
 
+import os
 import sys
+
+_STDERR_ISATTY = sys.stderr.isatty()
+_OS_IS_POSIX = os.name.lower() == 'posix'
 
 def _emit_to_cr_stm(message):
 
@@ -10,6 +14,10 @@ def _emit_to_cr_stm(message):
 def _add_eol_and_emit_to_cr_stm(message):
 
     _emit_to_cr_stm(message + "\n")
+
+def _isatty():
+
+    return _STDERR_ISATTY and _OS_IS_POSIX
 
 def conrep(message, **kwargs):
 

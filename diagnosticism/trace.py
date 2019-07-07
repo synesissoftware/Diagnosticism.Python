@@ -1,6 +1,8 @@
 
+from .log import do_log
+from . import severity
+
 import inspect
-import sys
 
 _tracingEnabled =   False
 
@@ -13,7 +15,7 @@ def _derive_param(pname, params):
 
 def _log_s(severity, message):
 
-    sys.stderr.write(message + "\n")
+    do_log(severity, message)
 
 def enable_tracing(enabled):
 
@@ -56,13 +58,13 @@ def trace():
 
                     plist = ", ".join(["%s(%s)=%s" % _derive_param(n, params) for n in pnames[1:]])
 
-                    _log_s(None, "%s.%s(%s)" % (typ0, fname, plist))
+                    _log_s(severity.TRACE, "%s.%s(%s)" % (typ0, fname, plist))
 
                     return
 
             plist = ", ".join(["%s(%s)=%s" % _derive_param(n, params) for n in pnames])
 
-            _log_s(None, "%s(%s)" % (fname, plist))
+            _log_s(severity.TRACE, "%s(%s)" % (fname, plist))
         finally:
 
             del fr

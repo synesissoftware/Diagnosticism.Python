@@ -1,5 +1,10 @@
 # **diagnosticism.Python** Changes
 
+## 0.3.0 - 7th July 2019
+
+* + added module ``diagnosticism.log``, with members ``enable_logging()``, ``is_logging_enabled()``, and ``log()``
+* + added module ``diagnosticism.severity``, with members ``VIOLATION``, ``ALERT``, ... ``DEBUG5``, ``TRACE``
+
 ## 0.2.1 - 7th July 2019
 
 * ~ fixed missing name ``report`` exported at top-level

@@ -30,7 +30,11 @@ import diagnosticism
 
 ## Components
 
-T.B.C.
+**diagnosticism.Python** provides components in the following categories:
+
+* Contingent Reporting
+* Diagnostic Logging
+* Tracing
 
 ## Examples
 
