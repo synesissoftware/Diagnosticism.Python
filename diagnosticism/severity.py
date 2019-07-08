@@ -16,6 +16,7 @@ __all__ = [
     'DEBUG4',
     'DEBUG5',
     'TRACE',
+    'BENCHMARK',
 
     'FAIL',
     'WARN',
@@ -38,6 +39,7 @@ DEBUG3          =   11
 DEBUG4          =   12
 DEBUG5          =   13
 TRACE           =   14
+BENCHMARK       =   15
 
 FAIL            =   FAILURE
 WARN            =   WARNING
@@ -59,6 +61,7 @@ _STOCK_SEVERITY_LEVELS = {
     DEBUG4          :   'DEBUG4',
     DEBUG5          :   'DEBUG5',
     TRACE           :   'TRACE',
+    BENCHMARK       :   'BENCHMARK',
 }
 
 

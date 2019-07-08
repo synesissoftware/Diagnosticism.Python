@@ -34,6 +34,7 @@ class _clrs:
         _severity.DEBUG4          :   BLUE,
         _severity.DEBUG5          :   BLUE,
         _severity.TRACE           :   DARKGREY,
+        _severity.BENCHMARK       :   DARKGREY,
     }
 
 
