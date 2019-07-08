@@ -1,5 +1,9 @@
 # **diagnosticism.Python** Changes
 
+## 0.3.1 - 8th July 2019
+
+* ~ ``abort()`` now applies ``str()`` on ``message`` param, to allow argument types such as exceptions
+
 ## 0.3.0 - 7th July 2019
 
 * + added module ``diagnosticism.log``, with members ``enable_logging()``, ``is_logging_enabled()``, and ``log()``

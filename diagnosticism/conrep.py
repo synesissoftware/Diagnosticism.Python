@@ -33,7 +33,7 @@ def report(message, show_program_name=True):
 
         pn = get_program_name()
 
-        _emit_to_cr_stm(pn + ": " + message + "\n")
+        _emit_to_cr_stm(pn + ": " + str(message) + "\n")
     else:
 
         _add_eol_and_emit_to_cr_stm(message)
@@ -42,8 +42,9 @@ def abort(message, do_exit=True, show_program_name=True):
 
     """Emits the program prefix and the given message on the contingent report stream, and then terminates the process"""
 
-    conrep(message, show_program_name=show_program_name)
+    report(message, show_program_name=show_program_name)
 
     if do_exit:
+
         sys.exit(1)
 
