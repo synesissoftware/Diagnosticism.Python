@@ -1,4 +1,10 @@
-# **diagnosticism.Python** Changes
+# **Diagnosticism.Python** Changes
+
+## 0.4.0 - 11th July 2020
+
+* ~ changed project name from **diagnosticism.Python** to **Diagnosticism.Python**
+* + added **tests/test_conrep.py**
+
 
 ## 0.3.1 - 8th July 2019
 

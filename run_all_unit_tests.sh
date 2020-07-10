@@ -6,7 +6,7 @@
 # Purpose:      Executes the unit-tests regardless of calling directory
 #
 # Created:      12th February 2019
-# Updated:      12th February 2019
+# Updated:      11th July 2020
 #
 # Author:       Matthew Wilson
 #
@@ -23,6 +23,6 @@ dir="$( cd -P "$( dirname "$source" )" && pwd )"
 
 # This will operate recursively as long as each subdirectory of $dir/tests
 # contains an __init__.py file (which may be empty)
-python -m unittest discover $dir/tests
+python3 -m unittest discover $dir/tests
 
 

@@ -2,7 +2,6 @@
 
 import diagnosticism as d
 import diagnosticism.severity as sev
-import logging
 
 d.enable_logging(True)
 

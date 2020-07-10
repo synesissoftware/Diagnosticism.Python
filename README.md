@@ -1,5 +1,5 @@
-# diagnosticism.Python
-diagnosticism library, for Python
+# Diagnosticism.Python
+Diagnosticism library, for Python
 
 ## Table of Contents
 
@@ -30,7 +30,7 @@ import diagnosticism
 
 ## Components
 
-**diagnosticism.Python** provides components in the following categories:
+**Diagnosticism.Python** provides components in the following categories:
 
 * Contingent Reporting
 * Diagnostic Logging
@@ -46,20 +46,20 @@ Examples are provided in the ```examples``` directory, along with a markdown des
 
 ### Where to get help
 
-[GitHub Page](https://github.com/synesissoftware/diagnosticism.Python "GitHub Page")
+[GitHub Page](https://github.com/synesissoftware/Diagnosticism.Python "GitHub Page")
 
 ### Contribution guidelines
 
-Defect reports, feature requests, and pull requests are welcome on https://github.com/synesissoftware/diagnosticism.Python.
+Defect reports, feature requests, and pull requests are welcome on https://github.com/synesissoftware/Diagnosticism.Python.
 
 ### Dependencies
 
 ### Related projects
 
-* [**diagnosticism.Go**](https://github.com/synesissoftware/diagnosticism.Go/)
-* [**diagnosticism.NET**](https://github.com/synesissoftware/diagnosticism.NET/)
+* [**Diagnosticism.Go**](https://github.com/synesissoftware/Diagnosticism.Go/)
+* [**Diagnosticism.NET**](https://github.com/synesissoftware/Diagnosticism.NET/)
 
 ### License
 
-**diagnosticism.Python** is released under the 3-clause BSD license. See [LICENSE](./LICENSE) for details.
+**Diagnosticism.Python** is released under the 3-clause BSD license. See [LICENSE](./LICENSE) for details.
 

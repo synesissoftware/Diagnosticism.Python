@@ -1,4 +1,4 @@
-# diagnosticism.Python Examples
+# Diagnosticism.Python Examples
 
 |Name|Source & Description|Summary|
 |---|---|---|
