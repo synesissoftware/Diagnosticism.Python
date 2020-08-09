@@ -5,7 +5,6 @@
 * ~ changed project name from **diagnosticism.Python** to **Diagnosticism.Python**
 * + added **tests/test_conrep.py**
 
-
 ## 0.3.1 - 8th July 2019
 
 * ~ ``abort()`` now applies ``str()`` on ``message`` param, to allow argument types such as exceptions
