@@ -1,4 +1,4 @@
-#!/usr/bin/env pyton
+#!/usr/bin/env python
 
 from diagnosticism.conrep import conrep as conrep
 

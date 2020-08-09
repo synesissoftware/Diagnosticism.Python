@@ -11,6 +11,8 @@ dist/
 
 .DS_Store
 
+notes.txt
+
 # files (by pattern)
 
 *~
