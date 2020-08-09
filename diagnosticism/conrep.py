@@ -48,3 +48,8 @@ def abort(message, do_exit=True, show_program_name=True):
 
         sys.exit(1)
 
+def warn(message):
+    """Analogue of Ruby's Kernel#warn()"""
+
+    _add_eol_and_emit_to_cr_stm(message)
+

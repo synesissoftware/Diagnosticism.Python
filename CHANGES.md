@@ -1,5 +1,9 @@
 # **Diagnosticism.Python** Changes
 
+## 0.4.1 - 9th August 2019
+
+* + added ``warn()`` (as an analogue of Ruby's ``Kernel#warn()``)
+
 ## 0.4.0 - 11th July 2020
 
 * ~ changed project name from **diagnosticism.Python** to **Diagnosticism.Python**
