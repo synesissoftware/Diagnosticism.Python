@@ -10,3 +10,4 @@ d.report("some slightly less important information: %s, %d, %f" % ('abc', -1, 23
 d.abort("and we're out")
 d.report("ERROR: should not get here!")
 
+

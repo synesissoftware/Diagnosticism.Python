@@ -11,9 +11,11 @@ def _emit_to_cr_stm(message):
 
     sys.stderr.write(message)
 
+
 def _add_eol_and_emit_to_cr_stm(message):
 
     _emit_to_cr_stm(message + "\n")
+
 
 def _isatty():
 
@@ -21,9 +23,11 @@ def _isatty():
 
 def conrep(message, **kwargs):
 
-    """DEPRECATED: use report()"""
+def conrep(message, **kwargs):
+    """DEPRECATED: use report()."""
 
     return report(message, **kwargs)
+
 
 def report(message, show_program_name=True):
 
@@ -47,6 +51,7 @@ def abort(message, do_exit=True, show_program_name=True):
     if do_exit:
 
         sys.exit(1)
+
 
 def warn(message):
     """Analogue of Ruby's Kernel#warn()"""
