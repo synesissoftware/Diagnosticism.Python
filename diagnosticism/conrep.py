@@ -51,6 +51,66 @@ def _isatty():
     return _STDERR_ISATTY and _OS_IS_POSIX
 
 
+def _do_report(message, program_name, trailing_prompt):
+
+    # first process trailing prompt (as more complex)
+
+    if False != trailing_prompt:
+
+        if False:
+
+            pass
+        elif True == trailing_prompt:
+
+            dtp = _trailing_prompt
+
+            if dtp:
+
+                trailing_prompt = dtp
+            else:
+
+                trailing_prompt = STOCK_TRAILING_PROMPT
+        elif None == trailing_prompt:
+
+            dtp = _trailing_prompt
+
+            if dtp:
+
+                trailing_prompt = dtp
+        else:
+
+            trailing_prompt = str(trailing_prompt)
+
+            #trailing_prompt = trailing_prompt.strip()
+
+            if not trailing_prompt:
+
+                trailing_prompt = False
+
+    if program_name:
+
+        if True == program_name:
+
+            program_name = get_program_name()
+
+    if program_name:
+
+        if trailing_prompt:
+
+            _emit_to_cr_stm(program_name + ": " + str(message) + '; ' + trailing_prompt + "\n")
+        else:
+
+            _emit_to_cr_stm(program_name + ": " + str(message) + "\n")
+    else:
+
+        if trailing_prompt:
+
+            _emit_to_cr_stm(message + '; ' + trailing_prompt + "\n")
+        else:
+
+            _add_eol_and_emit_to_cr_stm(message)
+
+
 def conrep(message, **kwargs):
     """DEPRECATED: use report()."""
 
@@ -69,14 +129,8 @@ def report(message, show_program_name=True):
         Prevents the default prefixing of the message with program-name + ': ' if False. Default is True
 """
 
-    if show_program_name:
+    _do_report(message, show_program_name, False)
 
-        pn = get_program_name()
-
-        _emit_to_cr_stm(pn + ": " + str(message) + "\n")
-    else:
-
-        _add_eol_and_emit_to_cr_stm(message)
 
 
 def abort(message, do_exit=True, show_program_name=True, trailing_prompt=None):
@@ -97,42 +151,7 @@ def abort(message, do_exit=True, show_program_name=True, trailing_prompt=None):
         Affects the use of the trailing prompt as follows: if False, no trailing prompt is shown; if a (non-empty) string, that is used; if None, the default trailing prompt, if any, is used; if True, the default trailing prompt is used if specified, otherwise the STOCK_TRAILING_PROMPT is used
 """
 
-    if False:
-
-        pass
-    elif False == trailing_prompt:
-
-        pass
-    elif True == trailing_prompt:
-
-        dtp = _trailing_prompt
-
-        if dtp:
-
-            trailing_prompt = dtp
-        else:
-
-            trailing_prompt = STOCK_TRAILING_PROMPT
-    elif None == trailing_prompt:
-
-        dtp = _trailing_prompt
-
-        if dtp:
-
-            trailing_prompt = dtp
-    else:
-
-        trailing_prompt = str(trailing_prompt)
-
-        if not trailing_prompt:
-
-            trailing_prompt = False
-
-    if trailing_prompt:
-
-        message = message + '; ' + trailing_prompt
-
-    report(message, show_program_name=show_program_name)
+    _do_report(message, show_program_name, trailing_prompt)
 
     if do_exit:
 
