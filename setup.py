@@ -4,7 +4,7 @@ import setuptools
 setuptools.setup(
 
     name='diagnosticism',
-    version='0.4.1.2',
+    version='0.5.0',
 
     author='Matt Wilson',
     author_email='matthew@synesis.com.au',

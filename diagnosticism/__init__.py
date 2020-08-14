@@ -9,7 +9,7 @@ __email__       =   'matthew@synesis.com.au'
 __license__     =   'BSD-3-Clause'
 __maintainer__  =   'Matt Wilson'
 __status__      =   'Beta'
-__version__     =   '0.4.1.2'
+__version__     =   '0.5.0'
 
 from .conrep import abort, report
 from .log import enable_logging, is_logging_enabled, log

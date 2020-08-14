@@ -44,9 +44,12 @@ def enable_logging(is_enabled):
 
     global _logging_is_enabled
 
-    _logging_is_enabled = is_enabled
+    _logging_is_enabled, is_enabled = is_enabled, _logging_is_enabled
+
+    return is_enabled
 
 def is_logging_enabled():
+    """Indicate whether logging is enabled"""
 
     return _logging_is_enabled
 
@@ -66,15 +69,34 @@ def do_log(severity, message):
 
     prefix = "[%s, %s, %s, %s]" % (get_program_name(), threading.current_thread().ident, str(now), ss)
 
+    if hasattr(message, '__call__'):
+
+        message = message()
+
     full = prefix + ': ' + message
 
     report(full, show_program_name=False)
 
 def log(severity, message):
+    """Conditionally issue the given log message based on the given severity
+
+    Parameters
+    ----------
+    severity : int
+        The severity associated with the message
+
+    message : str, callable
+        A message string to be emitted, or a callable object that will yield an emittable string when called
+
+    Return
+    ------
+    None
+"""
 
     if not _logging_is_enabled:
 
         return
 
     return do_log(severity, message)
+
 
