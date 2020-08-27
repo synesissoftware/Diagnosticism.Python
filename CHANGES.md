@@ -1,10 +1,10 @@
 # **Diagnosticism.Python** Changes
 
-## 0.4.1 - 13th August 2019
+## 0.5.0 - 13th August 2020
 
 * ~ ``log()`` now can take a message lamba as well as a message string
 
-## 0.4.1 - 13th August 2019
+## 0.4.1 - 13th August 2020
 
 * + added ``warn()`` (as an analogue of Ruby's ``Kernel#warn()``)
 * + added ``conrep.set_default_usage_prompt()`` to allow a default usage prompt for ``abort()``
