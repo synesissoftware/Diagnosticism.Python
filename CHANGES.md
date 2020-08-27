@@ -1,5 +1,9 @@
 # **Diagnosticism.Python** Changes
 
+## 0.5.1 - 28th August 2020
+
+* + added more documentation and parameter assertions
+
 ## 0.5.0 - 13th August 2020
 
 * ~ ``log()`` now can take a message lamba as well as a message string

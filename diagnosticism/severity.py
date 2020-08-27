@@ -67,6 +67,9 @@ _STOCK_SEVERITY_LEVELS = {
 
 
 def severity_to_string(severity):
+    """Converts a severity to its string form
+
+"""
 
     s = _STOCK_SEVERITY_LEVELS.get(severity, None)
 

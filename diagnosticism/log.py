@@ -41,6 +41,19 @@ class _clrs:
 _logging_is_enabled = False
 
 def enable_logging(is_enabled):
+    """Enables/disables logging
+
+    Parameters
+    ----------
+    is_enabled : boolean
+        Determines whether logging will be enabled/disabled
+
+    Returns
+    -------
+    The previous enable/disable setting
+"""
+
+    assert(is_enabled == True or is_enabled == False)
 
     global _logging_is_enabled
 
