@@ -163,7 +163,7 @@ def warn(message):
 
     Parameters
     ----------
-        message : str, None
+    message : str, None
         The message to be emitted to the standard error stream (along with a new-line sequence). If None, nothing is emitted
     """
 
