@@ -38,7 +38,9 @@ class _clrs:
     }
 
 
-_logging_is_enabled = False
+_logging_is_enabled =   None
+_log_filter         =   None
+_others_action      =   None
 
 def enable_logging(is_enabled):
     """Enables/disables logging
@@ -53,7 +55,7 @@ def enable_logging(is_enabled):
     The previous enable/disable setting
 """
 
-    assert(is_enabled == True or is_enabled == False)
+    assert(is_enabled == True or is_enabled == False or is_enabled is None)
 
     global _logging_is_enabled
 
@@ -65,6 +67,28 @@ def is_logging_enabled():
     """Indicate whether logging is enabled"""
 
     return _logging_is_enabled
+
+def set_log_filter(log_filter, others_action=None):
+    """Sets a logging filter, which may either specify a threshold severity or a mapping of levels to actions
+
+    Parameters
+    ----------
+    log_filter : severity-level, dict
+        If a dictionary, it is interpreted as a mapping from severity-level to True/False that controls each level's output; otherwise, treated as a severity-level threshold (and must be convertible to int)
+
+    Returns
+    -------
+    Tuple of the previous (log_filter, others_action) value(s)
+"""
+
+    assert log_filter is None or isinstance(log_filter, (dict, )) or isinstance(int(log_filter), int)
+
+    global _log_filter, _others_action
+
+    _log_filter, log_filter, _others_action, others_action = log_filter, _log_filter, others_action, _others_action
+
+    return (log_filter, others_action)
+
 
 def do_log(severity, message):
 
@@ -106,9 +130,33 @@ def log(severity, message):
     None
 """
 
-    if not _logging_is_enabled:
+    if _logging_is_enabled is None:
 
-        return
+        # use filter
+
+        if _log_filter:
+
+            if isinstance(_log_filter, (dict, )):
+
+                r = _log_filter.get(severity, _others_action)
+
+                if not r:
+
+                    return
+            else:
+
+                if int(severity) > int(_log_filter):
+
+                    return
+        else:
+
+            return
+    else:
+
+        if not _logging_is_enabled:
+
+            return
+
 
     return do_log(severity, message)
 
