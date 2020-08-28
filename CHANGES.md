@@ -1,5 +1,9 @@
 # **Diagnosticism.Python** Changes
 
+## 0.6.1 - 28th August 2020
+
+* ~ fixed recently introduced defect in ``enable_tracing()``
+
 ## 0.6.0 - 28th August 2020
 
 * + added ``set_log_filter()``, which takes a severity-level as a threshold or a dictionary that controls emission of individual severity-levels
