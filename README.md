@@ -20,7 +20,7 @@ T.B.C.
 Install via **pip** or **pip3**, as in:
 
 ```
-	pip3 install diagnosticism
+$ pip3 install diagnosticism
 ```
 
 Use via **import**:
@@ -64,4 +64,5 @@ Defect reports, feature requests, and pull requests are welcome on https://githu
 ### License
 
 **Diagnosticism.Python** is released under the 3-clause BSD license. See [LICENSE](./LICENSE) for details.
+
 
