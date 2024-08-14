@@ -157,17 +157,3 @@ def abort(message, do_exit=True, show_program_name=True, trailing_prompt=None):
 
         sys.exit(1)
 
-
-def warn(message):
-    """Analogue of Ruby's Kernel#warn()
-
-    Parameters
-    ----------
-    message : str, None
-        The message to be emitted to the standard error stream (along with a new-line sequence). If None, nothing is emitted
-    """
-
-    if message:
-
-        _add_eol_and_emit_to_cr_stm(message)
-

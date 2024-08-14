@@ -4,7 +4,7 @@ import os
 import sys
 import threading
 
-from .conrep import report, _isatty
+from .contingent_reporting import report, _isatty
 from .program_name import get_program_name
 from . import severity as _severity
 
@@ -107,7 +107,6 @@ def do_log(severity, message):
     prefix = "[%s, %s, %s, %s]" % (get_program_name(), threading.current_thread().ident, str(now), ss)
 
     if hasattr(message, '__call__'):
-
         message = message()
 
     full = prefix + ': ' + message

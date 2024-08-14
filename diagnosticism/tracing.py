@@ -1,5 +1,5 @@
 
-from .log import do_log
+from .logging import do_log
 from . import severity
 
 import inspect

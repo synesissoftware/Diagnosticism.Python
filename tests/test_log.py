@@ -1,6 +1,6 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 
-from diagnosticism.log import log, enable_logging, set_log_filter
+from diagnosticism.logging import log, enable_logging, set_log_filter
 from diagnosticism.severity import *
 
 import unittest

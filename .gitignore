@@ -3,15 +3,20 @@
 
 build/
 dist/
+scratch/
+
 *.egg-info/
 
+
 # directories (by pattern)
+
 
 # files (by name)
 
 .DS_Store
 
 notes.txt
+
 
 # files (by pattern)
 
@@ -21,4 +26,5 @@ notes.txt
 *.swo
 *.swp
 *.tmp
+*.zip
 

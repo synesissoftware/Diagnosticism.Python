@@ -1,8 +1,8 @@
-#!/usr/bin/env python
+#! /usr/bin/env python3
 
-from diagnosticism.conrep import abort
-from diagnosticism.conrep import conrep
-from diagnosticism.conrep import set_default_trailing_prompt
+from diagnosticism.contingent_reporting import abort
+from diagnosticism.contingent_reporting import conrep
+from diagnosticism.contingent_reporting import set_default_trailing_prompt
 
 import unittest
 from unittest.mock import patch
