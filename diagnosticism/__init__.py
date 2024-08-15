@@ -9,10 +9,10 @@ __email__       =   'matthew@synesis.com.au'
 __license__     =   'BSD-3-Clause'
 __maintainer__  =   'Matt Wilson'
 __status__      =   'Beta'
-__version__     =   '0.7.0'
+__version__     =   '0.7.1'
 
 from .contingent_reporting import abort, report
-from .logging import enable_logging, is_logging_enabled, log
+from .logging import enable_logging, is_logging_enabled, log, set_log_filter
 from .program_name import *
 from .severity import *
 from .tracing import enable_tracing, is_tracing_enabled, trace

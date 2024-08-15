@@ -1,5 +1,11 @@
 # **Diagnosticism.Python** Changes
 
+## 0.7.1 - 15th August 2024
+
+* + added missing `set_log_filter` export to top-level module
+* ~ ANSI sequences on Windows 10+
+
+
 ## 0.7.0 - 14th August 2024
 
 * ~ numerous changes to module names, including `diagnosticism.log` => `diagnosticism.logging`, to avoid name conflicts with functions (such as `log()` and `trace()`);
