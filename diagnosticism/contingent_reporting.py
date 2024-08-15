@@ -4,8 +4,39 @@ from .program_name import get_program_name
 import os
 import sys
 
+def _is_windows_10_or_later():
+
+    if os.name.lower() != 'nt':
+
+        return False
+
+    from platform import release as platform_release
+
+    release = platform_release()
+
+    try:
+
+        release_i = int(release)
+
+        return release_i >= 10
+    except ValueError:
+
+        return False
+
+def _supports_ansi_sequences():
+
+    if os.name.lower() == 'posix':
+
+        return True
+
+    if _is_windows_10_or_later():
+
+        return True
+
+    return False
+
 _STDERR_ISATTY = sys.stderr.isatty()
-_OS_IS_POSIX = os.name.lower() == 'posix'
+_OS_IS_POSIX = _supports_ansi_sequences()
 
 STOCK_TRAILING_PROMPT = 'use --help for usage'
 """The trailing prompt used when trailing_prompt=True is passed to abort() (and family) and no default trailing prompt has been set (via set_default_trailing_prompt())"""
