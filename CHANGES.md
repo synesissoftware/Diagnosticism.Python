@@ -1,5 +1,10 @@
 # **Diagnosticism.Python** Changes
 
+## 0.7.2 - 16th August 2024
+
+* ~ ANSI sequences on Windows 11+ (from build 22000 onwards)
+
+
 ## 0.7.1 - 15th August 2024
 
 * + added missing `set_log_filter` export to top-level module

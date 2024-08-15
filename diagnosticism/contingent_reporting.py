@@ -4,13 +4,14 @@ from .program_name import get_program_name
 import os
 import sys
 
-def _is_windows_10_or_later():
+def _is_windows_11_or_later():
 
     if os.name.lower() != 'nt':
 
         return False
 
     from platform import release as platform_release
+    from platform import version as platform_version
 
     release = platform_release()
 
@@ -18,7 +19,41 @@ def _is_windows_10_or_later():
 
         release_i = int(release)
 
-        return release_i >= 10
+        if release_i < 10:
+
+            return False
+    except ValueError:
+
+        return False
+
+    version = platform_version().split('.')
+
+    if len(version) < 3:
+
+        return False
+
+    try:
+
+        version_major   =   int(version[0])
+        version_minor   =   int(version[1])
+        version_patch   =   int(version[2])
+
+        if version_major > 10:
+
+            return True
+
+        if version_major < 10:
+
+            return False
+
+        if version_minor > 0:
+
+            return True
+
+        if version_patch >= 22000:
+
+            return True
+
     except ValueError:
 
         return False
@@ -29,7 +64,7 @@ def _supports_ansi_sequences():
 
         return True
 
-    if _is_windows_10_or_later():
+    if _is_windows_11_or_later():
 
         return True
 
