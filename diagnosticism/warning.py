@@ -5,12 +5,17 @@ from . import severity
 
 
 def warn(message, **kwargs):
-    """Analogue of Ruby's Kernel#warn()
+    """
+    Analogue of Ruby's `Kernel#warn()`
 
     Parameters
     ----------
     message : str, None
-        The message to be emitted to the standard error stream (along with a new-line sequence). If None, nothing is emitted
+        The message to be emitted to the standard error stream (along with a new-line sequence). If `None`, nothing is emitted
+
+    Returns
+    -------
+    None
     """
 
     if message:
@@ -20,4 +25,3 @@ def warn(message, **kwargs):
             do_log()
 
         _add_eol_and_emit_to_cr_stm(message)
-

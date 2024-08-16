@@ -45,13 +45,14 @@ def enable_logging(is_enabled):
 
     Parameters
     ----------
-    is_enabled : boolean
+    is_enabled : bool
         Determines whether logging will be enabled/disabled
 
     Returns
     -------
-    The previous enable/disable setting
-"""
+    bool
+        The previous enable/disable setting
+    """
 
     assert(is_enabled == True or is_enabled == False or is_enabled is None)
 
@@ -62,22 +63,29 @@ def enable_logging(is_enabled):
     return is_enabled
 
 def is_logging_enabled():
-    """Indicate whether logging is enabled"""
+    """
+    Indicate whether logging is enabled
+    """
 
     return _logging_is_enabled
 
 def set_log_filter(log_filter, others_action=None):
-    """Sets a logging filter, which may either specify a threshold severity or a mapping of levels to actions
+    """
+    Sets a logging filter, which may either specify a threshold severity or a mapping of levels to actions
 
     Parameters
     ----------
-    log_filter : severity-level, dict
-        If a dictionary, it is interpreted as a mapping from severity-level to True/False that controls each level's output; otherwise, treated as a severity-level threshold (and must be convertible to int)
+    log_filter : int, dict
+        If a dictionary, it is interpreted as a mapping from severity-level to `True`/`False` that controls each level's output; otherwise, treated as a severity-level threshold (and must be convertible to `int`)
+
+    others_action : obj, optional
+        An object to be passed to be used in the case that the log_filter is a dictionary and the severity is not recognised
 
     Returns
     -------
-    Tuple of the previous (log_filter, others_action) value(s)
-"""
+    tuple
+        Tuple of the previous (log_filter, others_action) value(s)
+    """
 
     assert log_filter is None or isinstance(log_filter, (dict, )) or isinstance(int(log_filter), int)
 
@@ -89,6 +97,9 @@ def set_log_filter(log_filter, others_action=None):
 
 
 def do_log(severity, message):
+    """
+    INTERNAL FUNCTION ONLY
+    """
 
     now = dt.now()
 
@@ -112,7 +123,8 @@ def do_log(severity, message):
     report(full, show_program_name=False)
 
 def log(severity, message):
-    """Conditionally issue the given log message based on the given severity
+    """
+    Conditionally issue the given log message based on the given severity
 
     Parameters
     ----------
@@ -125,7 +137,7 @@ def log(severity, message):
     Return
     ------
     None
-"""
+    """
 
     if not _logging_is_enabled:
 

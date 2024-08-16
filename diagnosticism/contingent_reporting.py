@@ -79,21 +79,23 @@ STOCK_TRAILING_PROMPT = 'use --help for usage'
 _trailing_prompt = None
 
 def set_default_trailing_prompt(prompt):
-    """Sets the default trailing prompt.
+    """
+    Sets the default trailing prompt.
 
     Parameters
     ----------
-    prompt : string
+    prompt : str
         The new default trailing prompt
 
     Returns
     -------
+    str
         The previous default trailing prompt
 
     Notes
     -----
         This method is NOT threadsafe, so in a multithreaded context the set prompt and/or the return value may not be as expected
-"""
+    """
 
     global _trailing_prompt
 
@@ -178,13 +180,16 @@ def _do_report(message, program_name, trailing_prompt):
 
 
 def conrep(message, **kwargs):
-    """DEPRECATED: use report()."""
+    """
+    DEPRECATED: use `report()`.
+    """
 
     return report(message, **kwargs)
 
 
 def report(message, show_program_name=True):
-    """Emits the given message (and optional prefix) on the contingent report stream.
+    """
+    Emits the given message (and optional prefix) on the contingent report stream.
 
     Parameters
     ----------
@@ -192,15 +197,16 @@ def report(message, show_program_name=True):
         The (main body of the) message to be displayed, which is optionally prefixed by program-name + ': '
 
     show_program_name : bool, optional
-        Prevents the default prefixing of the message with program-name + ': ' if False. Default is True
-"""
+        Prevents the default prefixing of the message with program-name + ': ' if `False`. Default is `True`
+    """
 
     _do_report(message, show_program_name, False)
 
 
 
 def abort(message, do_exit=True, show_program_name=True, trailing_prompt=None):
-    """Emits the given message (and optional prefix and suffix) on the contingent report stream, and then terminates the process
+    """
+    Emits the given message (and optional prefix and suffix) on the contingent report stream, and then terminates the process
 
     Parameters
     ----------
@@ -208,14 +214,14 @@ def abort(message, do_exit=True, show_program_name=True, trailing_prompt=None):
         The (main body of the) message to be displayed, which is optionally prefixed by program-name + ': ' and optionally suffixed by '; ' + trailing-prompt
 
     do_exit : bool, optional
-        Prevents default behaviour of a call to sys.exit(1) (after printing the abort message) if False. Default is True
+        Prevents default behaviour of a call to `sys.exit(1)` (after printing the abort message) if `False`. Default is `True`
 
     show_program_name : bool, optional
-        Prevents the default prefixing of the message with program-name + ': ' if False. Default is True
+        Prevents the default prefixing of the message with program-name + ': ' if `False`. Default is `True`
 
     trailing_prompt : str, bool, optional
-        Affects the use of the trailing prompt as follows: if False, no trailing prompt is shown; if a (non-empty) string, that is used; if None, the default trailing prompt, if any, is used; if True, the default trailing prompt is used if specified, otherwise the STOCK_TRAILING_PROMPT is used
-"""
+        Affects the use of the trailing prompt as follows: if `False`, no trailing prompt is shown; if a (non-empty) string, that is used; if `None`, the default trailing prompt, if any, is used; if `True`, the default trailing prompt is used if specified, otherwise `STOCK_TRAILING_PROMPT` is used
+    """
 
     _do_report(message, show_program_name, trailing_prompt)
 
