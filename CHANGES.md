@@ -1,5 +1,10 @@
 # **Diagnosticism.Python** Changes
 
+## 0.7.3 - 16th August 2024
+
+* ~ fixed filter logic
+
+
 ## 0.7.2 - 16th August 2024
 
 * ~ ANSI sequences on Windows 11+ (from build 22000 onwards)

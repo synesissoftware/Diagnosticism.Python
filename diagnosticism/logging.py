@@ -1,7 +1,5 @@
 
 from datetime import datetime as dt
-import os
-import sys
 import threading
 
 from .contingent_reporting import report, _isatty
@@ -129,33 +127,24 @@ def log(severity, message):
     None
 """
 
-    if _logging_is_enabled is None:
+    if not _logging_is_enabled:
 
-        # use filter
+        return
 
-        if _log_filter:
+    if _log_filter:
 
-            if isinstance(_log_filter, (dict, )):
+        if isinstance(_log_filter, (dict, )):
 
-                r = _log_filter.get(severity, _others_action)
+            r = _log_filter.get(severity, _others_action)
 
-                if not r:
+            if not r:
 
-                    return
-            else:
-
-                if int(severity) > int(_log_filter):
-
-                    return
+                return
         else:
 
-            return
-    else:
+            if int(severity) > int(_log_filter):
 
-        if not _logging_is_enabled:
-
-            return
-
+                return
 
     return do_log(severity, message)
 
