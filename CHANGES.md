@@ -1,5 +1,10 @@
 # **Diagnosticism.Python** Changes
 
+## 0.8.0 - 17th August 2024
+
+* + added `is_severity_logged()`
+
+
 ## 0.7.3 - 16th August 2024
 
 * ~ fixed filter logic

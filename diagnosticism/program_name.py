@@ -5,17 +5,19 @@ import sys
 _program_name = None
 
 def set_program_name(name):
-    """Sets the program name
+    """
+    Sets the program name
 
     Parameters
     ----------
-        name : str
+    name : str
         The string to be used for the program name
 
     Returns
     -------
-    The previous program name
-"""
+    str
+        The previous program name
+    """
 
     global _program_name
 
@@ -29,7 +31,9 @@ def set_program_name(name):
     return _program_name
 
 def get_program_name():
-    """Gets the program name"""
+    """
+    Gets the program name
+    """
 
     return _program_name
 

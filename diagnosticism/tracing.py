@@ -18,17 +18,19 @@ def _log_s(severity, message):
     do_log(severity, message)
 
 def enable_tracing(is_enabled):
-    """Enables/disables tracing
+    """
+    Enables/disables tracing
 
     Parameters
     ----------
-    is_enabled : boolean
+    is_enabled : bool
         Determines whether tracing will be enabled/disabled
 
     Returns
     -------
-    The previous enable/disable setting
-"""
+    bool
+        The previous enable/disable setting
+    """
 
     assert(is_enabled == True or is_enabled == False)
 
@@ -37,13 +39,24 @@ def enable_tracing(is_enabled):
     _tracingEnabled = is_enabled
 
 def is_tracing_enabled():
-    """Indicate whether tracing is enabled"""
+    """
+    Indicate whether tracing is enabled
 
+    Returns
+    -------
+    bool
+    """
 
     return _tracingEnabled
 
 def trace():
-    """Traces parameters of the calling function"""
+    """
+    Traces function signature, including parameters, of the calling function
+
+    Returns
+    -------
+    None
+    """
 
     if _tracingEnabled:
 
