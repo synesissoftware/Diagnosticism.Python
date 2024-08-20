@@ -4,6 +4,7 @@ import diagnosticism as d
 
 import sys
 
+
 def func1():
 
     #sys.stderr.write("locals(%s)=%s\n" % (type
@@ -11,9 +12,11 @@ def func1():
     #d.trace()
     pass
 
+
 def func2(x, y):
 
     d.trace()
+
 
 def func3(x, y, **options):
 
@@ -23,15 +26,19 @@ def func3(x, y, **options):
 
     return z
 
+
 def func4(x, y, *args):
 
     d.trace()
+
 
 def func5(x, y, *args, **options):
 
     d.trace()
 
+
 class Thing:
+
 
     def __init__(self):
 
@@ -39,11 +46,13 @@ class Thing:
 
         pass
 
+
     def some_method(self, x, y, z):
 
         d.trace()
 
         pass
+
 
 d.enable_tracing(True)
 

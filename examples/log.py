@@ -22,7 +22,7 @@ if ENV_VAR_NAME in os.environ:
         d.set_log_filter(threshold)
     except ValueError:
 
-        d.abort(f"environment variable '{ENV_VAR_NAME}' exists and has a value not convertible to `int`")
+        d.abort("environment variable '%s' exists and has a value not convertible to `int`" % (ENV_VAR_NAME))
 else:
 
     d.set_log_filter(FILTER_LEVEL)

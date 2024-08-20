@@ -4,7 +4,9 @@ from . import severity
 
 import inspect
 
+
 _tracingEnabled =   False
+
 
 def _derive_param(pname, params):
 
@@ -13,9 +15,11 @@ def _derive_param(pname, params):
 
     return (pname, typ, val)
 
+
 def _log_s(severity, message):
 
     do_log(severity, message)
+
 
 def enable_tracing(is_enabled):
     """
@@ -38,6 +42,7 @@ def enable_tracing(is_enabled):
 
     _tracingEnabled = is_enabled
 
+
 def is_tracing_enabled():
     """
     Indicate whether tracing is enabled
@@ -48,6 +53,7 @@ def is_tracing_enabled():
     """
 
     return _tracingEnabled
+
 
 def trace():
     """

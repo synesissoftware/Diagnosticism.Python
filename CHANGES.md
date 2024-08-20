@@ -1,5 +1,10 @@
 # **Diagnosticism.Python** Changes
 
+## 0.9.0 - 20th August 2024
+
+* + added `parse_severity()`
+
+
 ## 0.8.0 - 17th August 2024
 
 * + added `is_severity_logged()`

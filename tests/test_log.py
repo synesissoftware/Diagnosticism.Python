@@ -1,14 +1,15 @@
 #! /usr/bin/env python3
 
 from diagnosticism.logging import log, enable_logging, set_log_filter
+from diagnosticism.program_name import set_program_name
 from diagnosticism.severity import *
 
 import unittest
 from unittest.mock import patch
 
-import diagnosticism
 
 import re
+
 
 try:
 
@@ -20,6 +21,7 @@ except ImportError:
 
 class Logp_tester(unittest.TestCase):
 
+
     def test_logging_off(self):
 
         with patch('sys.stderr', new=StringIO()) as fake_stderr:
@@ -28,7 +30,7 @@ class Logp_tester(unittest.TestCase):
 
             try:
 
-                diagnosticism.set_program_name('myprog1')
+                set_program_name('myprog1')
 
                 log(INFORMATIONAL, 'msg-1')
 
@@ -36,6 +38,7 @@ class Logp_tester(unittest.TestCase):
             finally:
 
                 enable_logging(logging)
+
 
     def test_message_as_string(self):
 
@@ -45,7 +48,7 @@ class Logp_tester(unittest.TestCase):
 
             try:
 
-                diagnosticism.set_program_name('myprog1')
+                set_program_name('myprog1')
 
                 log(INFORMATIONAL, 'msg-1')
 
@@ -53,6 +56,7 @@ class Logp_tester(unittest.TestCase):
             finally:
 
                 enable_logging(logging)
+
 
     def test_message_as_lambda(self):
 
@@ -62,7 +66,7 @@ class Logp_tester(unittest.TestCase):
 
             try:
 
-                diagnosticism.set_program_name('myprog1')
+                set_program_name('myprog1')
 
                 log(INFORMATIONAL, lambda: 'msg-1')
 
@@ -71,15 +75,18 @@ class Logp_tester(unittest.TestCase):
 
                 enable_logging(logging)
 
+
     def test_threshold_filter(self):
 
         with patch('sys.stderr', new=StringIO()) as fake_stderr:
+
+            logging = enable_logging(True)
 
             log_filter = set_log_filter(WARNING)
 
             try:
 
-                diagnosticism.set_program_name('myprog1')
+                set_program_name('myprog1')
 
                 log(DEBUG0, 'msg-debug0')
                 log(INFORMATIONAL, 'msg-informational')
@@ -102,9 +109,12 @@ class Logp_tester(unittest.TestCase):
 
                 set_log_filter(log_filter[0], log_filter[1])
 
+
     def test_dict_filter_others_action_False(self):
 
         with patch('sys.stderr', new=StringIO()) as fake_stderr:
+
+            logging = enable_logging(True)
 
             filter_dict = {
 
@@ -119,7 +129,7 @@ class Logp_tester(unittest.TestCase):
 
             try:
 
-                diagnosticism.set_program_name('myprog1')
+                set_program_name('myprog1')
 
                 log(DEBUG0, 'msg-debug0')
                 log(INFORMATIONAL, 'msg-informational')
@@ -141,9 +151,12 @@ class Logp_tester(unittest.TestCase):
 
                 set_log_filter(log_filter[0], log_filter[1])
 
+
     def test_dict_filter_others_action_True(self):
 
         with patch('sys.stderr', new=StringIO()) as fake_stderr:
+
+            logging = enable_logging(True)
 
             filter_dict = {
 
@@ -158,7 +171,7 @@ class Logp_tester(unittest.TestCase):
 
             try:
 
-                diagnosticism.set_program_name('myprog1')
+                set_program_name('myprog1')
 
                 log(DEBUG0, 'msg-debug0')
                 log(INFORMATIONAL, 'msg-informational')
@@ -183,9 +196,8 @@ class Logp_tester(unittest.TestCase):
 
                 set_log_filter(log_filter[0], log_filter[1])
 
+
 if '__main__' == __name__:
 
     unittest.main()
-
-
 

@@ -2,7 +2,9 @@
 import os
 import sys
 
+
 _program_name = None
+
 
 def set_program_name(name):
     """
@@ -30,12 +32,14 @@ def set_program_name(name):
 
     return _program_name
 
+
 def get_program_name():
     """
     Gets the program name
     """
 
     return _program_name
+
 
 # initialise the program name
 set_program_name(None)

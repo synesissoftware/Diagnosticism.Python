@@ -4,6 +4,7 @@ from .program_name import get_program_name
 import os
 import sys
 
+
 def _is_windows_11_or_later():
 
     if os.name.lower() != 'nt':
@@ -58,6 +59,7 @@ def _is_windows_11_or_later():
 
         return False
 
+
 def _supports_ansi_sequences():
 
     if os.name.lower() == 'posix':
@@ -70,6 +72,7 @@ def _supports_ansi_sequences():
 
     return False
 
+
 _STDERR_ISATTY = sys.stderr.isatty()
 _OS_IS_POSIX = _supports_ansi_sequences()
 
@@ -77,6 +80,7 @@ STOCK_TRAILING_PROMPT = 'use --help for usage'
 """The trailing prompt used when trailing_prompt=True is passed to abort() (and family) and no default trailing prompt has been set (via set_default_trailing_prompt())"""
 
 _trailing_prompt = None
+
 
 def set_default_trailing_prompt(prompt):
     """
@@ -179,12 +183,19 @@ def _do_report(message, program_name, trailing_prompt):
             _add_eol_and_emit_to_cr_stm(message)
 
 
-def conrep(message, **kwargs):
-    """
-    DEPRECATED: use `report()`.
-    """
+if sys.version_info[:2] >= (2, 7):
 
-    return report(message, **kwargs)
+    def conrep(message, **kwargs):
+        """
+        DEPRECATED: use `report()`.
+        """
+
+        show_program_name = kwargs.get('show_program_name', True)
+
+        return report(
+            message,
+            show_program_name=show_program_name,
+        )
 
 
 def report(message, show_program_name=True):
@@ -201,7 +212,6 @@ def report(message, show_program_name=True):
     """
 
     _do_report(message, show_program_name, False)
-
 
 
 def abort(message, do_exit=True, show_program_name=True, trailing_prompt=None):

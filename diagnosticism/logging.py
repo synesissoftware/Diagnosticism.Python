@@ -18,27 +18,28 @@ class _clrs:
 
     D   =   {
 
-        _severity.VIOLATION       :   RED,
-        _severity.ALERT           :   RED,
-        _severity.CRITICAL        :   RED,
-        _severity.FAILURE         :   RED,
-        _severity.WARNING         :   YELLOW,
-        _severity.NOTICE          :   MAGENTA,
-        _severity.INFORMATIONAL   :   MAGENTA,
-        _severity.DEBUG0          :   BLUE,
-        _severity.DEBUG1          :   BLUE,
-        _severity.DEBUG2          :   BLUE,
-        _severity.DEBUG3          :   BLUE,
-        _severity.DEBUG4          :   BLUE,
-        _severity.DEBUG5          :   BLUE,
-        _severity.TRACE           :   DARKGREY,
-        _severity.BENCHMARK       :   DARKGREY,
+        _severity.VIOLATION         :   RED,
+        _severity.ALERT             :   RED,
+        _severity.CRITICAL          :   RED,
+        _severity.FAILURE           :   RED,
+        _severity.WARNING           :   YELLOW,
+        _severity.NOTICE            :   MAGENTA,
+        _severity.INFORMATIONAL     :   MAGENTA,
+        _severity.DEBUG0            :   BLUE,
+        _severity.DEBUG1            :   BLUE,
+        _severity.DEBUG2            :   BLUE,
+        _severity.DEBUG3            :   BLUE,
+        _severity.DEBUG4            :   BLUE,
+        _severity.DEBUG5            :   BLUE,
+        _severity.TRACE             :   DARKGREY,
+        _severity.BENCHMARK         :   DARKGREY,
     }
 
 
 _logging_is_enabled =   None
 _log_filter         =   None
 _others_action      =   None
+
 
 def enable_logging(is_enabled):
     """Enables/disables logging
@@ -62,12 +63,14 @@ def enable_logging(is_enabled):
 
     return is_enabled
 
+
 def is_logging_enabled():
     """
     Indicate whether logging is enabled
     """
 
     return _logging_is_enabled
+
 
 def is_severity_logged(severity):
     """
@@ -154,6 +157,7 @@ def do_log(severity, message):
 
     report(full, show_program_name=False)
 
+
 def log(severity, message):
     """
     Conditionally issue the given log message based on the given severity
@@ -166,8 +170,8 @@ def log(severity, message):
     message : str, callable
         A message string to be emitted, or a callable object that will yield an emittable string when called
 
-    Return
-    ------
+    Returns
+    -------
     None
     """
 
