@@ -1,15 +1,17 @@
 #! /usr/bin/env python3
 
-from diagnosticism.logging import log, enable_logging, set_log_filter
+from diagnosticism.logging import (
+    enable_logging,
+    log,
+    set_log_filter,
+)
 from diagnosticism.program_name import set_program_name
 from diagnosticism.severity import *
 
 import unittest
 from unittest.mock import patch
 
-
 import re
-
 
 try:
 

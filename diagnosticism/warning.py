@@ -1,6 +1,9 @@
 
 from .contingent_reporting import _add_eol_and_emit_to_cr_stm
-from .logging import do_log, is_logging_enabled
+from .logging import (
+    do_log,
+    is_logging_enabled,
+)
 from . import severity
 
 import sys

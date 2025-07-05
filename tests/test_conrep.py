@@ -8,7 +8,6 @@ from diagnosticism.program_name import set_program_name
 import unittest
 from unittest.mock import patch
 
-
 try:
 
     from StringIO import StringIO
