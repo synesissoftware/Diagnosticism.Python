@@ -2,7 +2,10 @@
 from datetime import datetime as dt
 import threading
 
-from .contingent_reporting import report, _isatty
+from .contingent_reporting import (
+    _isatty,
+    report,
+)
 from .program_name import get_program_name
 from . import severity as _severity
 

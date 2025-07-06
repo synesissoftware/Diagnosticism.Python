@@ -1,21 +1,27 @@
-# Diagnosticism.Python
+# Diagnosticism.Python <!-- omit from toc -->
+
 Diagnosticism library, for Python
 
 [![PyPI version](https://badge.fury.io/py/diagnosticism.svg)](https://badge.fury.io/py/diagnosticism)
 
 
-## Table of Contents
+## Table of Contents <!-- omit from toc -->
 
-1. [Introduction](#introduction)
-2. [Installation](#installation)
-3. [Components](#components)
-4. [Examples](#examples)
-5. [Project Information](#project-information)
+- [Introduction](#introduction)
+- [Installation \& usage](#installation--usage)
+- [Components](#components)
+- [Examples](#examples)
+- [Project Information](#project-information)
+	- [Where to get help](#where-to-get-help)
+	- [Contribution guidelines](#contribution-guidelines)
+	- [Dependencies](#dependencies)
+	- [Related projects](#related-projects)
+	- [License](#license)
 
 
 ## Introduction
 
-T.B.C.
+**Diagnosticism** is a standalone library of simple components for aiding in diagnostics for Python projects. It contains versions of components seen in the other **Diagnosticism**s - see [below](#related-projects) - though there is not a 1-to-1 correspondence between any of them.
 
 
 ## Installation & usage
@@ -68,6 +74,7 @@ Defect reports, feature requests, and pull requests are welcome on https://githu
 
 ### Related projects
 
+* [**Diagnosticism**](https://github.com/synesissoftware/Diagnosticism/)
 * [**Diagnosticism.Go**](https://github.com/synesissoftware/Diagnosticism.Go/)
 * [**Diagnosticism.NET**](https://github.com/synesissoftware/Diagnosticism.NET/)
 
@@ -76,4 +83,7 @@ Defect reports, feature requests, and pull requests are welcome on https://githu
 
 **Diagnosticism.Python** is released under the 3-clause BSD license. See [LICENSE](./LICENSE) for details.
 
+
+
+<!-- ########################### end of file ########################### -->
 

@@ -8,7 +8,6 @@ from unittest.mock import patch
 import re
 import sys
 
-
 try:
 
     from StringIO import StringIO

@@ -74,32 +74,38 @@ def trace():
 
             code = fr.f_code
 
-            fname = code.co_name
-            vnames = code.co_varnames
-            params = fr.f_locals
+            if '<module>' == code.co_name:
 
-            pnames = [n for n in vnames if n in params]
+                _log_s(severity.TRACE, "%s:%d" % (code.co_filename, code.co_firstlineno))
+            else:
 
-            # Algorithm informed by http://blog.mclemon.io/python-efficient-string-concatenation-in-python-2016-edition
+                fname = code.co_name
+                vnames = code.co_varnames
+                params = fr.f_locals
 
-            if 0 != len(params):
+                pnames = [n for n in vnames if n in params]
 
-                pname0 = pnames[0]
 
-                if 'self' == pname0:
+                # Algorithm informed by http://blog.mclemon.io/python-efficient-string-concatenation-in-python-2016-edition
 
-                    val0 = params[pname0]
-                    typ0 = val0.__class__.__name__
+                if 0 != len(pnames):
 
-                    plist = ", ".join(["%s(%s)=%s" % _derive_param(n, params) for n in pnames[1:]])
+                    pname0 = pnames[0]
 
-                    _log_s(severity.TRACE, "%s.%s(%s)" % (typ0, fname, plist))
+                    if 'self' == pname0:
 
-                    return
+                        val0 = params[pname0]
+                        typ0 = val0.__class__.__name__
 
-            plist = ", ".join(["%s(%s)=%s" % _derive_param(n, params) for n in pnames])
+                        plist = ", ".join(["%s(%s)=%s" % _derive_param(n, params) for n in pnames[1:]])
 
-            _log_s(severity.TRACE, "%s(%s)" % (fname, plist))
+                        _log_s(severity.TRACE, "%s.%s(%s)" % (typ0, fname, plist))
+
+                        return
+
+                plist = ", ".join(["%s(%s)=%s" % _derive_param(n, params) for n in pnames])
+
+                _log_s(severity.TRACE, "%s(%s)" % (fname, plist))
         finally:
 
             del fr

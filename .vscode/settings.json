@@ -1,12 +1,13 @@
 {
-  "[python]": {
-    "diffEditor.ignoreTrimWhitespace": false,
-    "editor.insertSpaces": true,
-    "editor.rulers": [ 51, 61, 76 ],
-    "editor.tabSize": 4,
-  },
-  "editor.insertSpaces": false,
-  "editor.renderWhitespace": "all",
-  "editor.tabSize": 2,
-  "files.trimTrailingWhitespace": true,
+	"[python]": {
+		 "diffEditor.ignoreTrimWhitespace": false,
+		 "editor.insertSpaces": true,
+		 "editor.rulers": [ 51, 61, 76 ],
+		 "editor.tabSize": 4,
+	},
+	"editor.insertSpaces": false,
+	"editor.renderWhitespace": "all",
+	"editor.rulers": [	76 ],
+	"editor.tabSize": 2,
+	"files.trimTrailingWhitespace": true,
 }
