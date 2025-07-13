@@ -1,8 +1,9 @@
 # **Diagnosticism.Python** Changes
 
-## 0.10.0 - 13h July 2025
+## 0.10.0 - 14h July 2025
 
 * + added `file()`, `line()`, `func()`, `fileline()`, `filelinefunc()`;
+* + added `dbg()`, `dbgfl()`;
 
 
 ## 0.9.1 - 6h July 2025

@@ -25,6 +25,8 @@ from .logging import (
 from .program_name import *
 from .severity import *
 from .tracing import (
+    dbg,
+    dbgfl,
     enable_tracing,
     file,
     fileline,

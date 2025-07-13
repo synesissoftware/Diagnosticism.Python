@@ -17,6 +17,65 @@ def _derive_param(pname, params):
     return (pname, typ, val)
 
 
+def _dbg(
+        fr,
+        show_fileline,
+        *args,
+        **kwargs,
+    ):
+
+    try:
+
+        fr = fr.f_back
+
+        code = fr.f_code
+
+        file_name   =   code.co_filename
+        line_number =   fr.f_lineno
+
+        vnames = code.co_varnames
+        params = fr.f_locals
+
+        kwnames = list(kwargs)
+
+        if 0 != len(args):
+
+            s0 = ", ".join(["(%s)=%s" % (type(arg).__name__, arg) for arg in args])
+        else:
+
+            s0 = ''
+
+        if 0 != len(kwargs):
+
+            s1 = ", ".join(["%s(%s)=%s" % (name, type(arg).__name__, arg) for name, arg in kwargs.items()])
+        else:
+
+            s1 = ''
+
+        if s0 and s1:
+
+            s = ", ".join([s0, s1])
+        elif s0:
+
+            s = s0
+        elif s1:
+
+            s = s1
+        else:
+
+            s = ''
+
+        if show_fileline:
+
+            _log_s(severity.TRACE, "%s:%s: %s" % (_basename(file_name), line_number, s))
+        else:
+
+            _log_s(severity.TRACE, "%s" % s)
+    finally:
+
+        del fr
+
+
 def _flf(
         depth=1,
         **kwargs,
@@ -55,6 +114,54 @@ def _flf(
 def _log_s(severity, message):
 
     do_log(severity, message)
+
+
+def dbgfl(
+        *args,
+        **kwargs,
+    ):
+    """
+    Traces arguments and keyword-arguments with file + line.
+
+    Returns
+    -------
+    None
+    """
+
+    if _tracingEnabled:
+
+        fr = inspect.currentframe()
+
+        _dbg(
+            fr,
+            True,
+            *args,
+            **kwargs,
+        )
+
+
+def dbg(
+        *args,
+        **kwargs,
+    ):
+    """
+    Traces arguments and keyword-arguments.
+
+    Returns
+    -------
+    None
+    """
+
+    if _tracingEnabled:
+
+        fr = inspect.currentframe()
+
+        _dbg(
+            fr,
+            False,
+            *args,
+            **kwargs,
+        )
 
 
 def enable_tracing(is_enabled):
@@ -196,12 +303,11 @@ def trace():
                 _log_s(severity.TRACE, "%s:%d" % (code.co_filename, code.co_firstlineno))
             else:
 
-                fname = code.co_name
-                vnames = code.co_varnames
-                params = fr.f_locals
+                fname   =   code.co_name
+                vnames  =   code.co_varnames
+                params  =   fr.f_locals
 
-                pnames = [vname for vname in vnames if vname in params]
-
+                pnames  =   [vname for vname in vnames if vname in params]
 
                 # Algorithm informed by http://blog.mclemon.io/python-efficient-string-concatenation-in-python-2016-edition
 
@@ -211,10 +317,10 @@ def trace():
 
                     if 'self' == pname0:
 
-                        val0 = params[pname0]
-                        typ0 = val0.__class__.__name__
+                        val0    =   params[pname0]
+                        typ0    =   val0.__class__.__name__
 
-                        plist = ", ".join(["%s(%s)=%s" % _derive_param(pname, params) for pname in pnames[1:]])
+                        plist   =   ", ".join(["%s(%s)=%s" % _derive_param(pname, params) for pname in pnames[1:]])
 
                         _log_s(severity.TRACE, "%s.%s(%s)" % (typ0, fname, plist))
 
