@@ -83,7 +83,7 @@ def trace():
                 vnames = code.co_varnames
                 params = fr.f_locals
 
-                pnames = [n for n in vnames if n in params]
+                pnames = [vname for vname in vnames if vname in params]
 
 
                 # Algorithm informed by http://blog.mclemon.io/python-efficient-string-concatenation-in-python-2016-edition
@@ -97,13 +97,13 @@ def trace():
                         val0 = params[pname0]
                         typ0 = val0.__class__.__name__
 
-                        plist = ", ".join(["%s(%s)=%s" % _derive_param(n, params) for n in pnames[1:]])
+                        plist = ", ".join(["%s(%s)=%s" % _derive_param(pname, params) for pname in pnames[1:]])
 
                         _log_s(severity.TRACE, "%s.%s(%s)" % (typ0, fname, plist))
 
                         return
 
-                plist = ", ".join(["%s(%s)=%s" % _derive_param(n, params) for n in pnames])
+                plist = ", ".join(["%s(%s)=%s" % _derive_param(pname, params) for pname in pnames])
 
                 _log_s(severity.TRACE, "%s(%s)" % (fname, plist))
         finally:
