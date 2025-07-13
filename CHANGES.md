@@ -1,5 +1,10 @@
 # **Diagnosticism.Python** Changes
 
+## 0.10.0 - 13h July 2025
+
+* + added `file()`, `line()`, `func()`, `fileline()`, `filelinefunc()`;
+
+
 ## 0.9.1 - 6h July 2025
 
 * ~ fixed erroneous behaviour of `trace()` when used in module context

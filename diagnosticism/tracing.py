@@ -1,6 +1,7 @@
 
 from .logging import do_log
 from . import severity
+from .internal import _basename
 
 import inspect
 
@@ -14,6 +15,41 @@ def _derive_param(pname, params):
     typ = val.__class__.__name__
 
     return (pname, typ, val)
+
+
+def _flf(
+        depth=1,
+        **kwargs,
+    ):
+
+    assert 1 == depth
+
+    fr = inspect.currentframe()
+
+    try:
+
+        fr = fr.f_back
+        fr = fr.f_back
+
+        code = fr.f_code
+
+        file_name   =   code.co_filename
+        line_number =   fr.f_lineno
+        if '<module>' == code.co_name:
+
+            function_name   =   "<module>"
+        else:
+
+            function_name   =   code.co_name
+
+        if kwargs.get('basename', False):
+
+            file_name = _basename(file_name)
+
+        return [ file_name, line_number, function_name ]
+    finally:
+
+        del fr
 
 
 def _log_s(severity, message):
@@ -41,6 +77,87 @@ def enable_tracing(is_enabled):
     global _tracingEnabled
 
     _tracingEnabled = is_enabled
+
+
+def file(
+        **kwargs,
+    ):
+    """
+    Obtains the file of the caller.
+
+    Returns
+    -------
+    str
+    """
+
+    return _flf(depth=1, **kwargs)[0]
+
+
+def func(
+        **kwargs,
+    ):
+    """
+    Obtains the function of the caller.
+
+    Returns
+    -------
+    str
+    """
+
+    return _flf(depth=1)[2]
+
+
+def line(
+        **kwargs,
+    ):
+    """
+    Obtains the line of the caller.
+
+    Returns
+    -------
+    int
+    """
+
+    return _flf(depth=1)[1]
+
+
+def fileline(
+        **kwargs,
+    ):
+    """
+    Obtains a string representing the file and line of the caller.
+
+    Returns
+    -------
+    str
+        String of the form "file:line".
+    """
+
+    sep = kwargs.get('sep', ':')
+
+    flf = _flf(depth=1, **kwargs)
+
+    return flf[0] + sep + str(flf[1])
+
+
+def filelinefunc(
+        **kwargs,
+    ):
+    """
+    Obtains a string representing the file, line, and function of the
+    caller.
+
+    Returns
+    -------
+    str
+        String of the form "file:line:func".
+    """
+
+    sep = kwargs.get('sep', ':')
+
+    flf = _flf(depth=1, **kwargs)
+
+    return flf[0] + sep + str(flf[1]) + sep + flf[2]
 
 
 def is_tracing_enabled():

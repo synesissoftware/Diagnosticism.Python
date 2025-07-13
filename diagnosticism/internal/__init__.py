@@ -82,3 +82,24 @@ def _is_windows_11_or_later():
         return False
 
 
+def _basename(path):
+    """
+    Obtains the basename form of the path.
+
+    Returns
+    -------
+    str
+    """
+
+    ix_last_slash   =   path.rfind('/')
+
+    if _is_windows():
+
+        ix_last_bslash  =   path.rfind('\\')
+
+        if ix_last_bslash > ix_last_slash:
+
+            ix_last_slash = ix_last_bslash
+
+    return path[ix_last_slash + 1:]
+
