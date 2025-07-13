@@ -45,6 +45,7 @@ DEBUG5          =   13
 TRACE           =   14
 BENCHMARK       =   15
 
+DEBUG           =   DEBUG5
 FAIL            =   FAILURE
 WARN            =   WARNING
 INFO            =   INFORMATIONAL
