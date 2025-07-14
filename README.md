@@ -39,6 +39,22 @@ Use via **import**:
 import diagnosticism
 ```
 
+When using the simple logging facilities, we find it convenient to import as follows:
+
+```Python
+
+import diagnosticism as d
+import diagnosticism.severity as sev
+```
+
+that may then be used as:
+
+```Python
+
+d.log(sev.INFO, "hello")
+```
+
+
 
 ## Components
 
