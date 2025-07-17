@@ -10,7 +10,7 @@ ENV_VAR_NAME = 'DP_LOG_THRESHOLD'
 FILTER_LEVEL = sev.INFO
 
 
-d.enable_logging(True)
+d.enable_logging(('DIAGNOSTICISM_ENABLE_LOGGING', 'ENABLE_LOGGING'), True)
 
 
 if ENV_VAR_NAME in os.environ:

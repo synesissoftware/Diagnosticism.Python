@@ -1,10 +1,8 @@
 #! /usr/bin/env python
 
-from diagnosticism.contingent_reporting import abort (
-    d_abort,
-    get_program_name,
-    parse_verbosity,
-)
+from diagnosticism.contingent_reporting import abort as d_abort
+from diagnosticism.program_name import get_program_name
+from diagnosticism.severity import parse_verbosity
 
 import sys
 

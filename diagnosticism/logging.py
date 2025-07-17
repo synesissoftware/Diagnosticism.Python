@@ -1,13 +1,16 @@
 
-from datetime import datetime as dt
-import threading
-
 from .contingent_reporting import (
     _isatty,
     report,
 )
 from .program_name import get_program_name
 from . import severity as _severity
+
+from .internal import _bool_from_env
+
+from datetime import datetime as dt
+import threading
+
 
 class _clrs:
 
@@ -44,19 +47,27 @@ _log_filter         =   None
 _others_action      =   None
 
 
-def enable_logging(is_enabled):
-    """Enables/disables logging
+def enable_logging(*args):
+    """
+    Enables/disables logging.
 
     Parameters
     ----------
-    is_enabled : bool
-        Determines whether logging will be enabled/disabled
+    *args
+        1 or 2 arguments: if 1, then is a `bool` determining whether should be enabled; if 2, then is name of environment variable to be parsed and a `bool` specifying the default if not found in the environment
 
     Returns
     -------
     bool
         The previous enable/disable setting
+
+    Raises
+    ------
+    ValueError
+        If the string form of `v` does not contain a recognisable severity level
     """
+
+    is_enabled = _bool_from_env(args, 'enable_logging')
 
     assert(is_enabled == True or is_enabled == False or is_enabled is None)
 

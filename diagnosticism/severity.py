@@ -118,6 +118,26 @@ def _parse_verbosity(
     v,
     strict_case_comparison,
 ):
+    """
+    Parses the verbosity from `v`.
+
+    Parameters
+    ----------
+    v : str | int | *
+        The variable from which to parse the verbosity. If an integer, is taken as is; if not a string then converted to a string, and in either case is then subject to parsing
+    strict_case_comparison : bool
+        Specifies whether any string comparison should be strict or permissive
+
+    Returns
+    -------
+    int
+        The severity level
+
+    Raises
+    ------
+    ValueError
+        If the string form of `v` does not contain a recognisable severity level
+    """
 
     if isinstance(v, _INTEGER_TYPES):
 
@@ -152,40 +172,63 @@ def _parse_verbosity(
 if sys.version_info[:2] >= (2, 7):
 
     def parse_verbosity(
-        s,
+        v,
         **kwargs,
     ):
         """
-        Attempts to recognise
+        Attempts to parse the verbosity from `v`.
 
         Parameters
         ----------
-        s : str, int
+        v : str | int | *
+            The variable from which to parse the verbosity. If an integer, is taken as is; if not a string is converted to a string, and in either case is then subject to parsing
+        kwargs : dict
+            Keyword arguments. Currently only `strict_case_comparison` is recognised, which defaults to `False` if not specified by the caller
 
         Returns
         -------
+        int
+            The severity level
 
-        TBC
+        Raises
+        ------
+        ValueError
+            If the string form of `v` does not contain a recognisable severity level
         """
 
         strict_case_comparison = kwargs.get('strict_case_comparison', False)
 
 
         return _parse_verbosity(
-            s,
+            v,
             strict_case_comparison=strict_case_comparison,
         )
 else:
 
     def parse_verbosity(
-        s,
+        v,
     ):
         """
-        TBC
+        Attempts to parse the verbosity from `v`.
+
+        Parameters
+        ----------
+        v : str | int | *
+            The variable from which to parse the verbosity. If an integer, is taken as is; if not a string is converted to a string, and in either case is then subject to parsing
+
+        Returns
+        -------
+        int
+            The severity level
+
+        Raises
+        ------
+        ValueError
+            If the string form of `v` does not contain a recognisable severity level
         """
 
         return _parse_verbosity(
-            s,
+            v,
             False, # strict_case_comparison
         )
 
