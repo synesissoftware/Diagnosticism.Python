@@ -1,6 +1,11 @@
 # **Diagnosticism.Python** Changes
 
-## 0.10.0 - 14h July 2025
+## 0.10.1 - 17th July 2025
+
+* ~ fixed package error;
+
+
+## 0.10.0 - 14th July 2025
 
 * + added `file()`, `line()`, `func()`, `fileline()`, `filelinefunc()`;
 * + added `dbg()`, `dbgfl()`;
