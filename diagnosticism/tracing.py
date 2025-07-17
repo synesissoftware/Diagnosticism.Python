@@ -2,7 +2,11 @@
 from .logging import do_log
 from . import severity
 
-from .internal import _basename
+from .internal import (
+    _basename,
+    _bool_from_env,
+    _str2bool,
+)
 
 import inspect
 
@@ -165,20 +169,22 @@ def dbg(
         )
 
 
-def enable_tracing(is_enabled):
+def enable_tracing(*args):
     """
     Enables/disables tracing.
 
     Parameters
     ----------
-    is_enabled : bool
-        Determines whether tracing will be enabled/disabled
+    *args
+        1 or 2 arguments: if 1, then is a `bool` determining whether should be enabled; if 2, then is name of environment variable to be parsed and a `bool` specifying the default if not found in the environment
 
     Returns
     -------
     bool
         The previous enable/disable setting
     """
+
+    is_enabled = _bool_from_env(args, 'enable_tracing')
 
     assert(is_enabled == True or is_enabled == False)
 

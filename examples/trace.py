@@ -54,7 +54,7 @@ class Thing:
         pass
 
 
-d.enable_tracing(True)
+d.enable_tracing('ENABLE_TRACING', True)
 
 func1()
 
