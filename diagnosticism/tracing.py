@@ -1,6 +1,7 @@
 
 from .logging import do_log
 from . import severity
+
 from .internal import _basename
 
 import inspect

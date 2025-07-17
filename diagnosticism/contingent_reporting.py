@@ -1,6 +1,7 @@
 
-from .internal import _is_windows_11_or_later
 from .program_name import get_program_name
+
+from .internal import _is_windows_11_or_later
 
 import os
 import sys
