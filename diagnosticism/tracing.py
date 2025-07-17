@@ -167,7 +167,7 @@ def dbg(
 
 def enable_tracing(is_enabled):
     """
-    Enables/disables tracing
+    Enables/disables tracing.
 
     Parameters
     ----------

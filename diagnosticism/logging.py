@@ -46,7 +46,8 @@ _others_action      =   None
 
 
 def enable_logging(is_enabled):
-    """Enables/disables logging
+    """
+    Enables/disables logging.
 
     Parameters
     ----------
