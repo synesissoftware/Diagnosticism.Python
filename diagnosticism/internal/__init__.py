@@ -195,20 +195,27 @@ def _bool_from_env(args, fn_name):
 
     if len(args) == 2:
 
-        ev_name =   args[0]
         def_val =   args[1]
 
-        if ev_name in os.environ:
+        if isinstance(args[0], (list, tuple)):
 
-            ev_val = os.environ[ev_name]
-
-            return _str2bool(ev_val, def_val)
+            ev_names    =   args[0]
         else:
 
-            if not isinstance(def_val, bool):
+            ev_names    =   [ args[0] ]
 
-                raise TypeError("`%s()` second argument must be `True` or `False`" % fn_name)
+        for ev_name in ev_names:
 
-            return def_val
+            if ev_name in os.environ:
+
+                ev_val = os.environ[ev_name]
+
+                return _str2bool(ev_val, def_val)
+
+        if not isinstance(def_val, bool):
+
+            raise TypeError("`%s()` second argument must be `True` or `False`" % fn_name)
+
+        return def_val
 
     raise TypeError("`%s()` takes 1 or 2 arguments" % fn_name)

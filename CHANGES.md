@@ -1,9 +1,9 @@
 # **Diagnosticism.Python** Changes
 
-## 0.11.0 - 17th July 2025
+## 0.11.0 - 18th July 2025
 
-* ~ `enable_logging()` now also takes 2-parameters (environment variable name, default value);
-* ~ `enable_tracing()` now also takes 2-parameters (environment variable name, default value);
+* ~ `enable_logging()` now also takes 2-parameters (environment variable name(s), default value) as well as 1-parameter (is_enabled) ;
+* ~ `enable_tracing()` now also takes 2-parameters (environment variable name(s), default value) as well as 1-parameter (is_enabled);
 
 
 ## 0.10.1 - 17th July 2025
