@@ -15,7 +15,7 @@ def _warn(message):
 
         if is_logging_enabled():
 
-            do_log()
+            do_log(severity.WARN, message)
 
         _add_eol_and_emit_to_cr_stm(message)
 
