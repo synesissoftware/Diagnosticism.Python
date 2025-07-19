@@ -54,7 +54,7 @@ def enable_logging(*args):
     Parameters
     ----------
     *args
-        1 or 2 arguments: if 1, then is a `bool` determining whether should be enabled; if 2, then is name of environment variable to be parsed and a `bool` specifying the default if not found in the environment
+        1 or 2 arguments: if 1, then is a `bool` determining whether should be enabled; if 2, then first is name(s) of environment variable(s) to be parsed and second is a `bool` specifying the default if not found in the environment
 
     Returns
     -------
