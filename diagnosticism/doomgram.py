@@ -427,8 +427,5 @@ class DOOMScope:
         self._dg.push_event_time_ns(after - self._before)
 
 
-
-
-
 # ############################## end of file ############################# #
 
