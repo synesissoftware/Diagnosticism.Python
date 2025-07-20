@@ -9,11 +9,15 @@ __email__       =   'matthew@synesis.com.au'
 __license__     =   'BSD-3-Clause'
 __maintainer__  =   'Matt Wilson'
 __status__      =   'Beta'
-__version__     =   '0.11.1'
+__version__     =   '0.12.0'
 
 from .contingent_reporting import (
     abort,
     report,
+)
+from .doomgram import (
+    DOOMGram,
+    DOOMScope,
 )
 from .logging import (
     enable_logging,

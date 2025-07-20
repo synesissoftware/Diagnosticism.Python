@@ -1,5 +1,10 @@
 # **Diagnosticism.Python** Changes
 
+## 0.12.0 - 20th July 2025
+
+* added `DOOMGram` and `DOOMScope`;
+
+
 ## 0.11.1 - 19th July 2025
 
 * ~ fix to `warn()` (when logging is enabled);
@@ -132,4 +137,7 @@
 ## previous versions
 
 T.B.C.
+
+
+<!-- ########################### end of file ########################### -->
 

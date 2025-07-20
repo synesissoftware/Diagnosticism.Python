@@ -100,6 +100,5 @@ Defect reports, feature requests, and pull requests are welcome on https://githu
 **Diagnosticism.Python** is released under the 3-clause BSD license. See [LICENSE](./LICENSE) for details.
 
 
-
 <!-- ########################### end of file ########################### -->
 

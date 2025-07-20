@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 
 from diagnosticism.contingent_reporting import abort as d_abort
 from diagnosticism.program_name import get_program_name
