@@ -15,6 +15,10 @@ from .contingent_reporting import (
     abort,
     report,
 )
+from .doomgram import (
+    DOOMGram,
+    DOOMScope,
+)
 from .logging import (
     enable_logging,
     is_logging_enabled,
