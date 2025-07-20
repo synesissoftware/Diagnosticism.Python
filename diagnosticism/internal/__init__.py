@@ -1,6 +1,7 @@
 
 import os
 import platform
+import sys
 
 
 TRUE_STRINGS    =   [
@@ -219,6 +220,16 @@ def _bool_from_env(args, fn_name):
         return def_val
 
     raise TypeError("`%s()` takes 1 or 2 arguments" % fn_name)
+
+
+def _is_python_2_7_or_later():
+
+    return sys.version_info[:2] >= (2, 7)
+
+
+def _is_python_3_0_or_later():
+
+    return sys.version_info[:2] >= (3, 0)
 
 
 # ############################## end of file ############################# #

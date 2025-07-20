@@ -1,5 +1,9 @@
 
-import sys
+from .internal import (
+    _is_python_2_7_or_later,
+    _is_python_3_0_or_later,
+)
+
 
 __all__ = [
 
@@ -106,7 +110,7 @@ _STRINGS_RECOGNISABLE_AS_SEVERITY_LEVELS = {
     "BENCH"                     :   BENCHMARK,
 }
 
-if sys.version_info[:2] >= (3, 0):
+if _is_python_3_0_or_later():
 
     _INTEGER_TYPES = (int, )
 else:
@@ -169,7 +173,7 @@ def _parse_verbosity(
         raise ValueError("could not recognise value '%s' as a severity" % (v))
 
 
-if sys.version_info[:2] >= (2, 7):
+if _is_python_2_7_or_later():
 
     def parse_verbosity(
         v,

@@ -6,7 +6,9 @@ from .logging import (
 )
 from . import severity
 
-import sys
+from .internal import (
+    _is_python_2_7_or_later,
+)
 
 
 def _warn(message):
@@ -21,7 +23,7 @@ def _warn(message):
 
 
 
-if sys.version_info[:2] >= (2, 7):
+if _is_python_2_7_or_later():
 
     def warn(
         message,

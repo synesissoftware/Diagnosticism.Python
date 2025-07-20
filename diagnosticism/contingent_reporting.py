@@ -1,7 +1,10 @@
 
 from .program_name import get_program_name
 
-from .internal import _is_windows_11_or_later
+from .internal import (
+    _is_python_2_7_or_later,
+    _is_windows_11_or_later,
+)
 
 import os
 import sys
@@ -130,7 +133,7 @@ def _do_report(message, program_name, trailing_prompt):
             _add_eol_and_emit_to_cr_stm(message)
 
 
-if sys.version_info[:2] >= (2, 7):
+if _is_python_2_7_or_later():
 
     def conrep(message, **kwargs):
         """
