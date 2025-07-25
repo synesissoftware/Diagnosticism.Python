@@ -1,7 +1,11 @@
 
-from .contingent_reporting import _add_eol_and_emit_to_cr_stm
+from .contingent_reporting import (
+    _add_eol_and_emit_to_cr_stm,
+    _get_cr_file_or_default,
+)
 from .logging import (
-    do_log,
+    _do_log,
+    _get_log_file_or_default,
     is_logging_enabled,
 )
 from . import severity
@@ -9,55 +13,78 @@ from . import severity
 import sys
 
 
-def _warn(message):
+def _warn(
+    file_cr,
+    file_dl,
+    message_lines,
+):
 
-    if message:
+    file_cr = _get_cr_file_or_default(file_cr)
 
-        if is_logging_enabled():
+    if is_logging_enabled():
 
-            do_log(severity.WARN, message)
+        file_dl = _get_log_file_or_default(file_dl)
 
-        _add_eol_and_emit_to_cr_stm(message)
+    for message in message_lines:
+
+        if message:
+
+            if is_logging_enabled():
+
+                _do_log(
+                    file_dl,
+                    severity.WARN,
+                    message,
+                )
+
+            _add_eol_and_emit_to_cr_stm(
+                file_cr,
+                message,
+            )
 
 
+def warn(
+    *message_lines,
+    file=None,
+    file_cr=None,
+    file_dl=None,
+):
+    """
+    Analogue of Ruby's `Kernel#warn()`
 
-if sys.version_info[:2] >= (2, 7):
+    Parameters
+    ----------
+    message : str, None
+        The message to be emitted to the standard error stream (along with a new-line sequence). If `None`, nothing is emitted
 
-    def warn(
-        message,
-        **kwargs,
-    ):
-        """
-        Analogue of Ruby's `Kernel#warn()`
+    file : file-object, optional
+        An object with a `write(str)` method, or `None` (or not present), in which case the default of `sys.stderr` will be used
 
-        Parameters
-        ----------
-        message : str, None
-            The message to be emitted to the standard error stream (along with a new-line sequence). If `None`, nothing is emitted
+    file_cr : file-object, optional
+        An object with a `write(str)` method, or `None` (or not present), in which case the default given in `file` will be used. Used for contingent report output
 
-        Returns
-        -------
-        None
-        """
+    file_dl : file-object, optional
+        An object with a `write(str)` method, or `None` (or not present), in which case the default given in `file` will be used. Used for diagnostic logging output
 
-        _warn(message)
-else:
+    Returns
+    -------
+    None
+    """
 
-    def warn(
-        message,
-    ):
-        """
-        Analogue of Ruby's `Kernel#warn()`
+    if file_cr is None:
 
-        Parameters
-        ----------
-        message : str, None
-            The message to be emitted to the standard error stream (along with a new-line sequence). If `None`, nothing is emitted
+        file_cr = file
 
-        Returns
-        -------
-        None
-        """
+    if file_dl is None:
 
-        _warn(message)
+        file_dl = file
+
+    _warn(
+        file_cr,
+        file_dl,
+        message_lines,
+    )
+
+
+# ############################## end of file ############################# #
 

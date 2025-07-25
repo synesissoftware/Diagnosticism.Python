@@ -1,6 +1,7 @@
 
 import os
 import platform
+import sys
 
 
 TRUE_STRINGS    =   [
@@ -189,7 +190,7 @@ def _bool_from_env(args, fn_name):
 
         if not isinstance(v, bool):
 
-            raise TypeError("`%s()` argument must be `True` or `False`" % fn_name)
+            raise TypeError("`%s()` argument must be `True` or `False`; type `%s` provided" % (fn_name, type(v)))
 
         return v
 
@@ -214,8 +215,22 @@ def _bool_from_env(args, fn_name):
 
         if not isinstance(def_val, bool):
 
-            raise TypeError("`%s()` second argument must be `True` or `False`" % fn_name)
+            raise TypeError("`%s()` argument must be `True` or `False`; type `%s` provided" % (fn_name, type(def_val)))
 
         return def_val
 
     raise TypeError("`%s()` takes 1 or 2 arguments" % fn_name)
+
+
+def _is_python_2_7_or_later():
+
+    return sys.version_info[:2] >= (2, 7)
+
+
+def _is_python_3_0_or_later():
+
+    return sys.version_info[:2] >= (3, 0)
+
+
+# ############################## end of file ############################# #
+

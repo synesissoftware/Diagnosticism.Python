@@ -1,7 +1,10 @@
 
 from .program_name import get_program_name
 
-from .internal import _is_windows_11_or_later
+from .internal import (
+    _is_python_2_7_or_later,
+    _is_windows_11_or_later,
+)
 
 import os
 import sys
@@ -20,7 +23,6 @@ def _supports_ansi_sequences():
     return False
 
 
-_STDERR_ISATTY = sys.stderr.isatty()
 _OS_IS_POSIX = _supports_ansi_sequences()
 
 STOCK_TRAILING_PROMPT = 'use --help for usage'
@@ -55,22 +57,59 @@ def set_default_trailing_prompt(prompt):
     return prompt
 
 
-def _emit_to_cr_stm(message):
+def _emit_to_cr_stm(
+    file,
+    message,
+):
+    assert file
 
-    sys.stderr.write(message)
-
-
-def _add_eol_and_emit_to_cr_stm(message):
-
-    _emit_to_cr_stm(message + "\n")
-
-
-def _isatty():
-
-    return _STDERR_ISATTY and _OS_IS_POSIX
+    file.write(message)
 
 
-def _do_report(message, program_name, trailing_prompt):
+def _get_cr_file_or_default(file):
+
+    if file:
+
+        return file
+
+    return sys.stderr
+
+
+def _add_eol_and_emit_to_cr_stm(
+    file,
+    message,
+):
+
+    _emit_to_cr_stm(
+        file,
+        message + "\n",
+    )
+
+
+def _isatty(
+    file,
+):
+
+    if not _OS_IS_POSIX:
+
+        return False
+
+    file = _get_cr_file_or_default(file)
+
+    if not file.isatty():
+
+        return False
+
+    return True
+
+
+def _do_report(
+    file,
+    message,
+    program_name,
+    trailing_prompt,
+):
+    assert file
 
     # first process trailing prompt (as more complex)
 
@@ -116,23 +155,29 @@ def _do_report(message, program_name, trailing_prompt):
 
         if trailing_prompt:
 
-            _emit_to_cr_stm(program_name + ": " + str(message) + '; ' + trailing_prompt + "\n")
+            # TODO: perf test this
+            _emit_to_cr_stm(file, program_name + ": " + str(message) + '; ' + trailing_prompt + "\n")
         else:
 
-            _emit_to_cr_stm(program_name + ": " + str(message) + "\n")
+            # TODO: perf test this
+            _emit_to_cr_stm(file, program_name + ": " + str(message) + "\n")
     else:
 
         if trailing_prompt:
 
-            _emit_to_cr_stm(message + '; ' + trailing_prompt + "\n")
+            # TODO: perf test this
+            _emit_to_cr_stm(file, message + '; ' + trailing_prompt + "\n")
         else:
 
-            _add_eol_and_emit_to_cr_stm(message)
+            _add_eol_and_emit_to_cr_stm(file, message)
 
 
-if sys.version_info[:2] >= (2, 7):
+if _is_python_2_7_or_later():
 
-    def conrep(message, **kwargs):
+    def conrep(
+        message,
+        **kwargs,
+    ):
         """
         DEPRECATED: use `report()`.
         """
@@ -145,7 +190,11 @@ if sys.version_info[:2] >= (2, 7):
         )
 
 
-def report(message, show_program_name=True):
+def report(
+    message,
+    show_program_name=True,
+    file=None,
+):
     """
     Emits the given message (and optional prefix) on the contingent report stream.
 
@@ -158,10 +207,25 @@ def report(message, show_program_name=True):
         Prevents the default prefixing of the message with program-name + ': ' if `False`. Default is `True`
     """
 
-    _do_report(message, show_program_name, False)
+    trailing_prompt = False
+
+    file = _get_cr_file_or_default(file)
+
+    _do_report(
+        file,
+        message,
+        show_program_name,
+        trailing_prompt,
+    )
 
 
-def abort(message, do_exit=True, show_program_name=True, trailing_prompt=None):
+def abort(
+    message,
+    do_exit=True,
+    show_program_name=True,
+    trailing_prompt=None,
+    file=None,
+):
     """
     Emits the given message (and optional prefix and suffix) on the contingent report stream, and then terminates the process
 
@@ -180,9 +244,19 @@ def abort(message, do_exit=True, show_program_name=True, trailing_prompt=None):
         Affects the use of the trailing prompt as follows: if `False`, no trailing prompt is shown; if a (non-empty) string, that is used; if `None`, the default trailing prompt, if any, is used; if `True`, the default trailing prompt is used if specified, otherwise `STOCK_TRAILING_PROMPT` is used
     """
 
-    _do_report(message, show_program_name, trailing_prompt)
+    file = _get_cr_file_or_default(file)
+
+    _do_report(
+        file,
+        message,
+        show_program_name,
+        trailing_prompt,
+    )
 
     if do_exit:
 
         sys.exit(1)
+
+
+# ############################## end of file ############################# #
 

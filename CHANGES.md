@@ -1,5 +1,11 @@
 # **Diagnosticism.Python** Changes
 
+## 0.13.0 - 25th July 2025
+
+* `abort()`, `log()`, `report()`, `trace()`, `warn()` now each take `file` optional parameter;
+* `warn()` can take multiple strings (a la **Ruby**'s `warn()`);
+
+
 ## 0.12.1 - 25th July 2025
 
 * `DOOMScope` now uses `time.perf_counter_ns()`;

@@ -1,5 +1,9 @@
 
-import sys
+from .internal import (
+    _is_python_2_7_or_later,
+    _is_python_3_0_or_later,
+)
+
 
 __all__ = [
 
@@ -72,41 +76,41 @@ _STOCK_SEVERITY_LEVELS = {
 _STRINGS_RECOGNISABLE_AS_SEVERITY_LEVELS = {
 
     # actual values
-    "VIOLATION"                 :   VIOLATION,
-    "ALERT"                     :   ALERT,
-    "CRITICAL"                  :   CRITICAL,
-    "FAILURE"                   :   FAILURE,
-    "WARNING"                   :   WARNING,
-    "NOTICE"                    :   NOTICE,
-    "INFORMATIONAL"             :   INFORMATIONAL,
-    "DEBUG0"                    :   DEBUG0,
-    "DEBUG1"                    :   DEBUG1,
-    "DEBUG2"                    :   DEBUG2,
-    "DEBUG3"                    :   DEBUG3,
-    "DEBUG4"                    :   DEBUG4,
-    "DEBUG5"                    :   DEBUG5,
-    "TRACE"                     :   TRACE,
-    "BENCHMARK"                 :   BENCHMARK,
+    'VIOLATION'                 :   VIOLATION,
+    'ALERT'                     :   ALERT,
+    'CRITICAL'                  :   CRITICAL,
+    'FAILURE'                   :   FAILURE,
+    'WARNING'                   :   WARNING,
+    'NOTICE'                    :   NOTICE,
+    'INFORMATIONAL'             :   INFORMATIONAL,
+    'DEBUG0'                    :   DEBUG0,
+    'DEBUG1'                    :   DEBUG1,
+    'DEBUG2'                    :   DEBUG2,
+    'DEBUG3'                    :   DEBUG3,
+    'DEBUG4'                    :   DEBUG4,
+    'DEBUG5'                    :   DEBUG5,
+    'TRACE'                     :   TRACE,
+    'BENCHMARK'                 :   BENCHMARK,
 
     # stock shorthands
-    "FAIL"                      :   FAILURE,
-    "WARN"                      :   WARNING,
-    "INFO"                      :   INFORMATIONAL,
+    'FAIL'                      :   FAILURE,
+    'WARN'                      :   WARNING,
+    'INFO'                      :   INFORMATIONAL,
 
     # de-facto public synonyms
-    "EMERGENCY"                 :   VIOLATION,
-    "ERROR"                     :   FAILURE,
-    "DEBUG"                     :   DEBUG5,
+    'EMERGENCY'                 :   VIOLATION,
+    'ERROR'                     :   FAILURE,
+    'DEBUG'                     :   DEBUG5,
 
     # de-facto public shorthands
-    "ALRT"                      :   ALERT,
-    "CRIT"                      :   CRITICAL,
-    "ERR"                       :   FAILURE,
-    "TRC"                       :   TRACE,
-    "BENCH"                     :   BENCHMARK,
+    'ALRT'                      :   ALERT,
+    'CRIT'                      :   CRITICAL,
+    'ERR'                       :   FAILURE,
+    'TRC'                       :   TRACE,
+    'BENCH'                     :   BENCHMARK,
 }
 
-if sys.version_info[:2] >= (3, 0):
+if _is_python_3_0_or_later():
 
     _INTEGER_TYPES = (int, )
 else:
@@ -169,7 +173,7 @@ def _parse_verbosity(
         raise ValueError("could not recognise value '%s' as a severity" % (v))
 
 
-if sys.version_info[:2] >= (2, 7):
+if _is_python_2_7_or_later():
 
     def parse_verbosity(
         v,
@@ -263,4 +267,7 @@ def severity_to_string(severity):
     else:
 
         return s
+
+
+# ############################## end of file ############################# #
 
