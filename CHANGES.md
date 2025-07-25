@@ -6,6 +6,11 @@
 * `warn()` can take multiple strings (a la **Ruby**'s `warn()`);
 
 
+## 0.12.1 - 25th July 2025
+
+* `DOOMScope` now uses `time.perf_counter_ns()`;
+
+
 ## 0.12.0 - 20th July 2025
 
 * added `DOOMGram` and `DOOMScope`;
