@@ -3,6 +3,7 @@
 ## 0.13.0 - 25th July 2025
 
 * `abort()`, `log()`, `report()`, `trace()`, `warn()` now each take `file` optional parameter;
+* `warn()` can take multiple strings (a la **Ruby**'s `warn()`);
 
 
 ## 0.12.0 - 20th July 2025

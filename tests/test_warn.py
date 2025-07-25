@@ -173,3 +173,26 @@ class Warn_tester(unittest.TestCase):
         self.assertEqual("warning-4\n", result)
         self.assertRegex(result_dl, regex)
 
+
+    def test__warn__WITH_MULTIPLE_LINES_WITH_PROGRAM_NAME_AND_LOGGING_DISABLED(self):
+
+        with patch('sys.stderr', new=StringIO()) as fake_stderr:
+
+            set_program_name('myprog5')
+
+            logging_enabled = True if enable_logging(False) else False
+
+            try:
+
+                warn(
+                    'warning-5a',
+                    'warning-5b',
+                )
+            finally:
+
+                enable_logging(logging_enabled)
+
+            result = fake_stderr.getvalue()
+
+            self.assertEqual('warning-5a\nwarning-5b\n', result)
+

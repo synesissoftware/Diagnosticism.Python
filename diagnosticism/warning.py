@@ -16,31 +16,35 @@ import sys
 def _warn(
     file_cr,
     file_dl,
-    message,
+    message_lines,
 ):
 
-    if message:
+    file_cr = _get_cr_file_or_default(file_cr)
 
-        if is_logging_enabled():
+    if is_logging_enabled():
 
-            file_dl = _get_log_file_or_default(file_dl)
+        file_dl = _get_log_file_or_default(file_dl)
 
-            _do_log(
-                file_dl,
-                severity.WARN,
+    for message in message_lines:
+
+        if message:
+
+            if is_logging_enabled():
+
+                _do_log(
+                    file_dl,
+                    severity.WARN,
+                    message,
+                )
+
+            _add_eol_and_emit_to_cr_stm(
+                file_cr,
                 message,
             )
 
-        file_cr = _get_cr_file_or_default(file_cr)
-
-        _add_eol_and_emit_to_cr_stm(
-            file_cr,
-            message,
-        )
-
 
 def warn(
-    message,
+    *message_lines,
     file=None,
     file_cr=None,
     file_dl=None,
@@ -78,7 +82,7 @@ def warn(
     _warn(
         file_cr,
         file_dl,
-        message,
+        message_lines,
     )
 
 
