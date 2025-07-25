@@ -65,6 +65,32 @@ class Report_tester(unittest.TestCase):
             self.assertEqual('string-1\n', fake_stderr.getvalue())
 
 
+    def test__report__WITH_file_PARAM_AND_show_program_name_False(self):
+
+        file = StringIO()
+
+        set_program_name('myprog3')
+
+        report('string-3', file=file, show_program_name=False)
+
+        result = file.getvalue()
+
+        self.assertEqual('string-3\n', result)
+
+
+    def test__report__WITH_file_PARAM_AND_show_program_name_True(self):
+
+        file = StringIO()
+
+        set_program_name('myprog4')
+
+        report('string-4', file=file, show_program_name=True)
+
+        result = file.getvalue()
+
+        self.assertEqual('myprog4: string-4\n', result)
+
+
 class Abort_tester(unittest.TestCase):
 
 

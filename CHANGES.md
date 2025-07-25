@@ -1,5 +1,10 @@
 # **Diagnosticism.Python** Changes
 
+## 0.13.0 - 25th July 2025
+
+* `abort()`, `log()`, `report()`, `trace()`, `warn()` now each take `file` optional parameter;
+
+
 ## 0.12.0 - 20th July 2025
 
 * added `DOOMGram` and `DOOMScope`;

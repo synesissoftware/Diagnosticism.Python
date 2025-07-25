@@ -190,7 +190,7 @@ def _bool_from_env(args, fn_name):
 
         if not isinstance(v, bool):
 
-            raise TypeError("`%s()` argument must be `True` or `False`" % fn_name)
+            raise TypeError("`%s()` argument must be `True` or `False`; type `%s` provided" % (fn_name, type(v)))
 
         return v
 
@@ -215,7 +215,7 @@ def _bool_from_env(args, fn_name):
 
         if not isinstance(def_val, bool):
 
-            raise TypeError("`%s()` second argument must be `True` or `False`" % fn_name)
+            raise TypeError("`%s()` argument must be `True` or `False`; type `%s` provided" % (fn_name, type(def_val)))
 
         return def_val
 

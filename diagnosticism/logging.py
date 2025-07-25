@@ -1,15 +1,39 @@
 
 from .contingent_reporting import (
+    _do_report,
+    _get_cr_file_or_default,
     _isatty,
-    report,
 )
 from .program_name import get_program_name
 from . import severity as _severity
 
-from .internal import _bool_from_env
+from .internal import (
+    _bool_from_env,
+)
 
 from datetime import datetime as dt
+import sys
 import threading
+
+
+_REAL_STDERR = sys.stderr
+
+def _get_stderr_dynamic():
+
+    return sys.stderr
+
+def _get_stderr_static():
+
+    return _REAL_STDERR
+
+
+def _get_log_file_or_default(file):
+
+    if file:
+
+        return file
+
+    return _get_stderr_dynamic()
 
 
 class _clrs:
@@ -41,6 +65,9 @@ class _clrs:
         _severity.BENCHMARK         :   DARKGREY,
     }
 
+
+# ######################################
+# Runtime shared state
 
 _logging_is_enabled =   None
 _log_filter         =   None
@@ -118,7 +145,10 @@ def is_severity_logged(severity):
     return True
 
 
-def set_log_filter(log_filter, others_action=None):
+def set_log_filter(
+    log_filter,
+    others_action=None,
+):
     """
     Sets a logging filter, which may either specify a threshold severity or a mapping of levels to actions
 
@@ -145,16 +175,22 @@ def set_log_filter(log_filter, others_action=None):
     return (log_filter, others_action)
 
 
-def do_log(severity, message):
+def _do_log(
+    file,
+    severity,
+    message,
+):
     """
     INTERNAL FUNCTION ONLY
     """
+
+    assert file
 
     now = dt.now()
 
     ss = _severity.severity_to_string(severity)
 
-    if _isatty():
+    if _isatty(file):
 
         r = _clrs.D.get(severity, None)
 
@@ -162,17 +198,33 @@ def do_log(severity, message):
 
             ss = r + ss + _clrs.NONE
 
+    # TODO: perf test this
     prefix = "[%s, %s, %s, %s]" % (get_program_name(), threading.current_thread().ident, str(now), ss)
 
     if hasattr(message, '__call__'):
         message = message()
 
+    # TODO: perf test this
     full = prefix + ': ' + message
 
-    report(full, show_program_name=False)
+    show_program_name = False
+    trailing_prompt = False
+
+    file = _get_cr_file_or_default(file)
+
+    _do_report(
+        file,
+        full,
+        show_program_name,
+        trailing_prompt,
+    )
 
 
-def log(severity, message):
+def log(
+    severity,
+    message,
+    file=None,
+):
     """
     Conditionally issue the given log message based on the given severity
 
@@ -193,7 +245,13 @@ def log(severity, message):
 
         return
 
-    return do_log(severity, message)
+    file = _get_log_file_or_default(file)
+
+    return _do_log(
+        file,
+        severity,
+        message,
+    )
 
 
 # ############################## end of file ############################# #

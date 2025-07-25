@@ -28,7 +28,7 @@ class Logp_tester(unittest.TestCase):
 
         with patch('sys.stderr', new=StringIO()) as fake_stderr:
 
-            logging = enable_logging(False)
+            logging_enabled = True if enable_logging(False) else False
 
             try:
 
@@ -39,14 +39,14 @@ class Logp_tester(unittest.TestCase):
                 self.assertEqual('', fake_stderr.getvalue())
             finally:
 
-                enable_logging(logging)
+                enable_logging(logging_enabled)
 
 
     def test_message_as_string(self):
 
         with patch('sys.stderr', new=StringIO()) as fake_stderr:
 
-            logging = enable_logging(True)
+            logging_enabled = True if enable_logging(True) else False
 
             try:
 
@@ -57,14 +57,34 @@ class Logp_tester(unittest.TestCase):
                 self.assertRegex(fake_stderr.getvalue(), r'^\[myprog1, \d+, \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6}, .*INFORMATIONAL.*\]: msg-1')
             finally:
 
-                enable_logging(logging)
+                enable_logging(logging_enabled)
+
+
+    def test__log__WITH_str_AND_file_PARAM(self):
+
+        file = StringIO()
+
+        logging_enabled = True if enable_logging(True) else False
+
+        try:
+
+            set_program_name('myprog3')
+
+            log(INFORMATIONAL, 'msg-3', file=file)
+        finally:
+
+            enable_logging(logging_enabled)
+
+        result = file.getvalue()
+
+        self.assertRegex(result, r'^\[myprog3, \d+, \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6}, .*INFORMATIONAL.*\]: msg-3')
 
 
     def test_message_as_lambda(self):
 
         with patch('sys.stderr', new=StringIO()) as fake_stderr:
 
-            logging = enable_logging(True)
+            logging_enabled = True if enable_logging(True) else False
 
             try:
 
@@ -75,7 +95,7 @@ class Logp_tester(unittest.TestCase):
                 self.assertRegex(fake_stderr.getvalue(), r'^\[myprog1, \d+, \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6}, .*INFORMATIONAL.*\]: msg-1')
             finally:
 
-                enable_logging(logging)
+                enable_logging(logging_enabled)
 
 
     def test_threshold_filter(self):

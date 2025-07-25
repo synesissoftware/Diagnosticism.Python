@@ -1,5 +1,8 @@
 
-from .logging import do_log
+from .logging import (
+    _do_log,
+    _get_log_file_or_default,
+)
 from . import severity
 
 from .internal import (
@@ -9,12 +12,16 @@ from .internal import (
 )
 
 import inspect
+import sys
 
 
 _tracingEnabled =   False
 
 
-def _derive_param(pname, params):
+def _derive_param(
+    pname,
+    params,
+):
 
     val = params[pname]
     typ = val.__class__.__name__
@@ -23,11 +30,12 @@ def _derive_param(pname, params):
 
 
 def _dbg(
-        fr,
-        show_fileline,
-        *args,
-        **kwargs,
-    ):
+    file,
+    fr,
+    show_fileline,
+    *args,
+    **kwargs,
+):
 
     try:
 
@@ -72,19 +80,19 @@ def _dbg(
 
         if show_fileline:
 
-            _log_s(severity.TRACE, "%s:%s: %s" % (_basename(file_name), line_number, s))
+            _log_s(file, severity.TRACE, "%s:%s: %s" % (_basename(file_name), line_number, s))
         else:
 
-            _log_s(severity.TRACE, "%s" % s)
+            _log_s(file, severity.TRACE, "%s" % s)
     finally:
 
         del fr
 
 
 def _flf(
-        depth=1,
-        **kwargs,
-    ):
+    depth=1,
+    **kwargs,
+):
 
     assert 1 == depth
 
@@ -116,15 +124,25 @@ def _flf(
         del fr
 
 
-def _log_s(severity, message):
+def _log_s(
+    file,
+    severity,
+    message,
+):
 
-    do_log(severity, message)
+    file = _get_log_file_or_default(file)
+
+    _do_log(
+        file,
+        severity,
+        message,
+    )
 
 
 def dbgfl(
-        *args,
-        **kwargs,
-    ):
+    *args,
+    **kwargs,
+):
     """
     Traces arguments and keyword-arguments with file + line.
 
@@ -137,7 +155,10 @@ def dbgfl(
 
         fr = inspect.currentframe()
 
+        file = kwargs.get('file', None)
+
         _dbg(
+            file,
             fr,
             True,
             *args,
@@ -146,9 +167,9 @@ def dbgfl(
 
 
 def dbg(
-        *args,
-        **kwargs,
-    ):
+    *args,
+    **kwargs,
+):
     """
     Traces arguments and keyword-arguments.
 
@@ -161,7 +182,10 @@ def dbg(
 
         fr = inspect.currentframe()
 
+        file = kwargs.get('file', None)
+
         _dbg(
+            file,
             fr,
             False,
             *args,
@@ -194,8 +218,8 @@ def enable_tracing(*args):
 
 
 def file(
-        **kwargs,
-    ):
+    **kwargs,
+):
     """
     Obtains the file of the caller.
 
@@ -208,8 +232,8 @@ def file(
 
 
 def func(
-        **kwargs,
-    ):
+    **kwargs,
+):
     """
     Obtains the function of the caller.
 
@@ -222,8 +246,8 @@ def func(
 
 
 def line(
-        **kwargs,
-    ):
+    **kwargs,
+):
     """
     Obtains the line of the caller.
 
@@ -236,8 +260,8 @@ def line(
 
 
 def fileline(
-        **kwargs,
-    ):
+    **kwargs,
+):
     """
     Obtains a string representing the file and line of the caller.
 
@@ -255,8 +279,8 @@ def fileline(
 
 
 def filelinefunc(
-        **kwargs,
-    ):
+    **kwargs,
+):
     """
     Obtains a string representing the file, line, and function of the
     caller.
@@ -286,7 +310,9 @@ def is_tracing_enabled():
     return _tracingEnabled
 
 
-def trace():
+def trace(
+    file=None,
+):
     """
     Traces function signature, including parameters, of the calling function
 
@@ -307,7 +333,7 @@ def trace():
 
             if '<module>' == code.co_name:
 
-                _log_s(severity.TRACE, "%s:%d" % (code.co_filename, code.co_firstlineno))
+                _log_s(file, severity.TRACE, "%s:%d" % (code.co_filename, code.co_firstlineno))
             else:
 
                 fname   =   code.co_name
@@ -329,13 +355,13 @@ def trace():
 
                         plist   =   ", ".join(["%s(%s)=%s" % _derive_param(pname, params) for pname in pnames[1:]])
 
-                        _log_s(severity.TRACE, "%s.%s(%s)" % (typ0, fname, plist))
+                        _log_s(file, severity.TRACE, "%s.%s(%s)" % (typ0, fname, plist))
 
                         return
 
                 plist = ", ".join(["%s(%s)=%s" % _derive_param(pname, params) for pname in pnames])
 
-                _log_s(severity.TRACE, "%s(%s)" % (fname, plist))
+                _log_s(file, severity.TRACE, "%s(%s)" % (fname, plist))
         finally:
 
             del fr
