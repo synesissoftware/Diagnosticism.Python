@@ -56,7 +56,7 @@ class Warn_tester(unittest.TestCase):
 
             result = fake_stderr.getvalue()
 
-            self.assertEqual('warning-1\n', result)
+            self.assertEqual("warning-1\n", result)
 
 
     def test__warn__WITH_PROGRAM_NAME_AND_LOGGING_ENSABLED(self):
@@ -98,7 +98,7 @@ class Warn_tester(unittest.TestCase):
 
         result = file.getvalue()
 
-        self.assertEqual('warning-3\n', result)
+        self.assertEqual("warning-3\n", result)
 
 
     def test__warn__WITH_file_PARAM_AND_LOGGING_ENABLED(self):
@@ -194,5 +194,5 @@ class Warn_tester(unittest.TestCase):
 
             result = fake_stderr.getvalue()
 
-            self.assertEqual('warning-5a\nwarning-5b\n', result)
+            self.assertEqual("warning-5a\nwarning-5b\n", result)
 

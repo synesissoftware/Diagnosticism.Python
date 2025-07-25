@@ -53,14 +53,14 @@ def _dbg(
 
         if 0 != len(args):
 
-            s0 = ", ".join(["(%s)=%s" % (type(arg).__name__, arg) for arg in args])
+            s0 = ', '.join(["(%s)=%s" % (type(arg).__name__, arg) for arg in args])
         else:
 
             s0 = ''
 
         if 0 != len(kwargs):
 
-            s1 = ", ".join(["%s(%s)=%s" % (name, type(arg).__name__, arg) for name, arg in kwargs.items()])
+            s1 = ', '.join(["%s(%s)=%s" % (name, type(arg).__name__, arg) for name, arg in kwargs.items()])
         else:
 
             s1 = ''

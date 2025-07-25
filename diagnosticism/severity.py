@@ -76,38 +76,38 @@ _STOCK_SEVERITY_LEVELS = {
 _STRINGS_RECOGNISABLE_AS_SEVERITY_LEVELS = {
 
     # actual values
-    "VIOLATION"                 :   VIOLATION,
-    "ALERT"                     :   ALERT,
-    "CRITICAL"                  :   CRITICAL,
-    "FAILURE"                   :   FAILURE,
-    "WARNING"                   :   WARNING,
-    "NOTICE"                    :   NOTICE,
-    "INFORMATIONAL"             :   INFORMATIONAL,
-    "DEBUG0"                    :   DEBUG0,
-    "DEBUG1"                    :   DEBUG1,
-    "DEBUG2"                    :   DEBUG2,
-    "DEBUG3"                    :   DEBUG3,
-    "DEBUG4"                    :   DEBUG4,
-    "DEBUG5"                    :   DEBUG5,
-    "TRACE"                     :   TRACE,
-    "BENCHMARK"                 :   BENCHMARK,
+    'VIOLATION'                 :   VIOLATION,
+    'ALERT'                     :   ALERT,
+    'CRITICAL'                  :   CRITICAL,
+    'FAILURE'                   :   FAILURE,
+    'WARNING'                   :   WARNING,
+    'NOTICE'                    :   NOTICE,
+    'INFORMATIONAL'             :   INFORMATIONAL,
+    'DEBUG0'                    :   DEBUG0,
+    'DEBUG1'                    :   DEBUG1,
+    'DEBUG2'                    :   DEBUG2,
+    'DEBUG3'                    :   DEBUG3,
+    'DEBUG4'                    :   DEBUG4,
+    'DEBUG5'                    :   DEBUG5,
+    'TRACE'                     :   TRACE,
+    'BENCHMARK'                 :   BENCHMARK,
 
     # stock shorthands
-    "FAIL"                      :   FAILURE,
-    "WARN"                      :   WARNING,
-    "INFO"                      :   INFORMATIONAL,
+    'FAIL'                      :   FAILURE,
+    'WARN'                      :   WARNING,
+    'INFO'                      :   INFORMATIONAL,
 
     # de-facto public synonyms
-    "EMERGENCY"                 :   VIOLATION,
-    "ERROR"                     :   FAILURE,
-    "DEBUG"                     :   DEBUG5,
+    'EMERGENCY'                 :   VIOLATION,
+    'ERROR'                     :   FAILURE,
+    'DEBUG'                     :   DEBUG5,
 
     # de-facto public shorthands
-    "ALRT"                      :   ALERT,
-    "CRIT"                      :   CRITICAL,
-    "ERR"                       :   FAILURE,
-    "TRC"                       :   TRACE,
-    "BENCH"                     :   BENCHMARK,
+    'ALRT'                      :   ALERT,
+    'CRIT'                      :   CRITICAL,
+    'ERR'                       :   FAILURE,
+    'TRC'                       :   TRACE,
+    'BENCH'                     :   BENCHMARK,
 }
 
 if _is_python_3_0_or_later():

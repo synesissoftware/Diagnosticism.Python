@@ -30,7 +30,7 @@ class ConRep_tester(unittest.TestCase):
 
             conrep('string-1', show_program_name=True)
 
-            self.assertEqual('myprog1: string-1\n', fake_stderr.getvalue())
+            self.assertEqual("myprog1: string-1\n", fake_stderr.getvalue())
 
 
     def test_without_program_name(self):
@@ -39,7 +39,7 @@ class ConRep_tester(unittest.TestCase):
 
             conrep('string-1', show_program_name=False)
 
-            self.assertEqual('string-1\n', fake_stderr.getvalue())
+            self.assertEqual("string-1\n", fake_stderr.getvalue())
 
 
 class Report_tester(unittest.TestCase):
@@ -53,7 +53,7 @@ class Report_tester(unittest.TestCase):
 
             report('string-1', show_program_name=True)
 
-            self.assertEqual('myprog1: string-1\n', fake_stderr.getvalue())
+            self.assertEqual("myprog1: string-1\n", fake_stderr.getvalue())
 
 
     def test_without_program_name(self):
@@ -62,7 +62,7 @@ class Report_tester(unittest.TestCase):
 
             report('string-1', show_program_name=False)
 
-            self.assertEqual('string-1\n', fake_stderr.getvalue())
+            self.assertEqual("string-1\n", fake_stderr.getvalue())
 
 
     def test__report__WITH_file_PARAM_AND_show_program_name_False(self):
@@ -75,7 +75,7 @@ class Report_tester(unittest.TestCase):
 
         result = file.getvalue()
 
-        self.assertEqual('string-3\n', result)
+        self.assertEqual("string-3\n", result)
 
 
     def test__report__WITH_file_PARAM_AND_show_program_name_True(self):
@@ -88,7 +88,7 @@ class Report_tester(unittest.TestCase):
 
         result = file.getvalue()
 
-        self.assertEqual('myprog4: string-4\n', result)
+        self.assertEqual("myprog4: string-4\n", result)
 
 
 class Abort_tester(unittest.TestCase):
@@ -102,7 +102,7 @@ class Abort_tester(unittest.TestCase):
 
             abort('over and out!', do_exit=False)
 
-            self.assertEqual('myprog1: over and out!\n', fake_stderr.getvalue())
+            self.assertEqual("myprog1: over and out!\n", fake_stderr.getvalue())
 
 
     def test_explicit_trailing_prompt(self):
@@ -113,7 +113,7 @@ class Abort_tester(unittest.TestCase):
 
             abort('over and out!', do_exit=False, trailing_prompt='get over yourself!')
 
-            self.assertEqual('myprog1: over and out!; get over yourself!\n', fake_stderr.getvalue())
+            self.assertEqual("myprog1: over and out!; get over yourself!\n", fake_stderr.getvalue())
 
 
     def test_stock_trailing_prompt(self):
@@ -124,7 +124,7 @@ class Abort_tester(unittest.TestCase):
 
             abort('over and out!', do_exit=False, trailing_prompt=True)
 
-            self.assertEqual('myprog1: over and out!; use --help for usage\n', fake_stderr.getvalue())
+            self.assertEqual("myprog1: over and out!; use --help for usage\n", fake_stderr.getvalue())
 
 
     def test_set_default_trailing_prompt_1(self):
@@ -139,7 +139,7 @@ class Abort_tester(unittest.TestCase):
 
             set_default_trailing_prompt(None)
 
-            self.assertEqual('myprog1: over and out!; ok, now\n', fake_stderr.getvalue())
+            self.assertEqual("myprog1: over and out!; ok, now\n", fake_stderr.getvalue())
 
 
     def test_set_default_trailing_prompt_2(self):
@@ -154,8 +154,7 @@ class Abort_tester(unittest.TestCase):
 
             set_default_trailing_prompt(None)
 
-            self.assertEqual('myprog1: over and out!\n', fake_stderr.getvalue())
-
+            self.assertEqual("myprog1: over and out!\n", fake_stderr.getvalue())
 
 
 if '__main__' == __name__:

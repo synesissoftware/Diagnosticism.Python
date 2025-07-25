@@ -38,13 +38,13 @@ def _get_log_file_or_default(file):
 
 class _clrs:
 
-    RED         =   '\x1B[31m'
-    GREEN       =   '\x1B[32m'
-    YELLOW      =   '\x1B[33m'
-    BLUE        =   '\x1B[34m'
-    MAGENTA     =   '\x1B[35m'
-    DARKGREY    =   '\x1B[90m'
-    NONE        =   '\x1B[0m'
+    RED         =   "\x1B[31m"
+    GREEN       =   "\x1B[32m"
+    YELLOW      =   "\x1B[33m"
+    BLUE        =   "\x1B[34m"
+    MAGENTA     =   "\x1B[35m"
+    DARKGREY    =   "\x1B[90m"
+    NONE        =   "\x1B[0m"
 
     D   =   {
 
