@@ -77,7 +77,7 @@ class Abort_tester(unittest.TestCase):
             self.assertEqual('myprog1: over and out!; use --help for usage\n', fake_stderr.getvalue())
 
 
-    def test_set_default_trailing_prompt(self):
+    def test_set_default_trailing_prompt_1(self):
 
         with patch('sys.stderr', new=StringIO()) as fake_stderr:
 
@@ -92,7 +92,7 @@ class Abort_tester(unittest.TestCase):
             self.assertEqual('myprog1: over and out!; ok, now\n', fake_stderr.getvalue())
 
 
-    def test_set_default_trailing_prompt(self):
+    def test_set_default_trailing_prompt_2(self):
 
         with patch('sys.stderr', new=StringIO()) as fake_stderr:
 
