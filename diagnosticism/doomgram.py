@@ -4,7 +4,7 @@
 # Purpose:  Definition of the `DOOMGram` class.
 #
 # Created:  19th July 2025
-# Updated:  20th July 2025
+# Updated:  24th July 2025
 #
 # Author:   Matthew Wilson
 #
@@ -416,13 +416,13 @@ class DOOMScope:
 
     def __enter__(self):
 
-        self._before = time.monotonic_ns()
+        self._before = time.perf_counter_ns()
 
         return self._dg
 
     def __exit__(self, x_type, x_val, x_tb):
 
-        after = time.monotonic_ns()
+        after = time.perf_counter_ns()
 
         self._dg.push_event_time_ns(after - self._before)
 

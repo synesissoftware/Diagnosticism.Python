@@ -1,5 +1,10 @@
 # **Diagnosticism.Python** Changes
 
+## 0.12.1 - 24th July 2025
+
+* `DOOMScope` now uses `time.perf_counter_ns()`;
+
+
 ## 0.12.0 - 20th July 2025
 
 * added `DOOMGram` and `DOOMScope`;
