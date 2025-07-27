@@ -19,14 +19,22 @@ _tracingEnabled =   False
 
 
 def _derive_param(
-    pname,
-    params,
+    param_name, # : str
+    params, # : list[str]
 ):
+    """
+    xxx.
 
-    val = params[pname]
-    typ = val.__class__.__name__
+    Returns
+    -------
+    tuple
+        Tuple of the previous (param_name, param_type, param_value) value(s)
+    """
 
-    return (pname, typ, val)
+    param_value =   params[param_name]
+    param_type  =   param_value.__class__.__name__
+
+    return (param_name, param_type, param_value)
 
 
 def _dbg(
