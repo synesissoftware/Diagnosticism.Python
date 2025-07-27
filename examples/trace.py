@@ -56,6 +56,9 @@ class Thing:
 
 d.enable_tracing(('DIAGNOSTICISM_ENABLE_TRACING', 'ENABLE_TRACING'), True)
 
+
+d.trace()
+
 func1()
 
 func2('abc', 12)
