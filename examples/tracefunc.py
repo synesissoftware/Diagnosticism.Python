@@ -2,9 +2,7 @@
 
 import diagnosticism as d
 
-import sys
-
-
+@d.tracefunc
 def func1():
 
     #sys.stderr.write("locals(%s)=%s\n" % (type
@@ -13,51 +11,49 @@ def func1():
     pass
 
 
+@d.tracefunc
 def func2(x, y):
 
-    d.trace()
+    pass
 
 
+@d.tracefunc
 def func3(x, y, **options):
-
-    d.trace()
 
     z = x * y
 
     return z
 
 
+@d.tracefunc
 def func4(x, y, *args):
 
-    d.trace()
+    pass
 
 
+@d.tracefunc
 def func5(x, y, *args, **options):
 
-    d.trace()
+    pass
 
 
 class Thing:
 
 
+    @d.tracefunc
     def __init__(self):
-
-        d.trace()
 
         pass
 
 
+    @d.tracefunc
     def some_method(self, x, y, z):
-
-        d.trace()
 
         pass
 
 
 d.enable_tracing(('DIAGNOSTICISM_ENABLE_TRACING', 'ENABLE_TRACING'), True)
 
-
-d.trace()
 
 func1()
 

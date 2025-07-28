@@ -232,5 +232,10 @@ def _is_python_3_0_or_later():
     return sys.version_info[:2] >= (3, 0)
 
 
+def _is_python_3_9_or_later():
+
+    return sys.version_info[:2] >= (3, 9)
+
+
 # ############################## end of file ############################# #
 

@@ -9,7 +9,7 @@ __email__       =   'matthew@synesis.com.au'
 __license__     =   'BSD-3-Clause'
 __maintainer__  =   'Matt Wilson'
 __status__      =   'Beta'
-__version__     =   '0.13.0'
+__version__     =   '0.14.0'
 
 from .contingent_reporting import (
     abort,
@@ -39,6 +39,7 @@ from .tracing import (
     is_tracing_enabled,
     line,
     trace,
+    tracefunc,
 )
 from .warning import warn
 
