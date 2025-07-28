@@ -8,7 +8,7 @@ from . import severity
 from .internal import (
     _basename,
     _bool_from_env,
-    _str2bool,
+    _is_python_3_9_or_later,
 )
 
 import inspect
@@ -373,6 +373,107 @@ def trace(
         finally:
 
             del fr
+
+
+if _is_python_3_9_or_later():
+
+    def tracefunc(
+        func,
+        file=None,
+    ):
+        """
+        Decorator function that equates to the receiver function calling `trace()`
+
+        Returns
+        -------
+        None
+        """
+
+        def wrapper(*args, **kwargs):
+
+            if is_tracing_enabled():
+
+                sig =   None
+
+                try:
+
+                    sig         =   inspect.signature(func) # py 3.3
+
+                    params      =   sig.parameters
+                    params_l    =   list([(k, v) for (k, v) in params.items()])
+                    args_n      =   args
+
+                    # S=self, N=normal, A=*args, K=**kwargs
+
+                    paramA      =   None
+                    paramK      =   None
+
+                    partN       =   None
+                    partA       =   None
+                    partK       =   None
+
+                    typeS       =   None
+
+                    if len(params_l) != 0:
+
+                        if 'self' == params_l[0][0]:
+
+                            typeS   =   args[0].__class__.__name__
+                            args_n  =   args[1:]
+
+                    if len(params_l) != 0:
+
+                        if params_l[-1][1].kind == inspect.Parameter.VAR_KEYWORD:
+
+                            paramK  =   params_l.pop()
+                            partK   =   f"{paramK[0]}(dict)={kwargs}"
+
+                    if len(params_l) != 0:
+
+                        if params_l[-1][1].kind == inspect.Parameter.VAR_POSITIONAL:
+
+                            paramA  =   params_l.pop()
+                            partA   =   f"{paramA[0]}(tuple)={args_n[len(params_l):]}"
+
+                    if len(params_l) != 0:
+
+                        namesN  =   [p[0] for p in params_l]
+                        partN   =   ', '.join([f"{k}({v.__class__.__name__})={v}" for (k, v) in dict(zip(namesN, args_n)).items()])
+
+
+                    fname   =   func.__name__
+
+
+                    args_list = []
+
+                    if partN and len(partN) != 0:
+
+                        args_list.append(partN)
+
+                    if partA and len(partA) != 0:
+
+                        args_list.append(partA)
+
+                    if partK and len(partK) != 0:
+
+                        args_list.append(partK)
+
+                    plist = ', '.join(args_list)
+
+
+                    if typeS:
+
+                        _log_s(file, severity.TRACE, "%s.%s(%s)" % (typeS, fname, plist))
+                    else:
+
+                        _log_s(file, severity.TRACE, "%s(%s)" % (fname, plist))
+                finally:
+
+                    del sig
+
+            result = func(*args, **kwargs)
+
+        return wrapper
 
 
 # ############################## end of file ############################# #

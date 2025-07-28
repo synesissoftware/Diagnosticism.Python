@@ -1,5 +1,10 @@
 # **Diagnosticism.Python** Changes
 
+## 0.14.0 - 28th July 2025
+
+* added `tracefunc` decorator;
+
+
 ## 0.13.0 - 25th July 2025
 
 * `abort()`, `log()`, `report()`, `trace()`, `warn()` now each take `file` optional parameter;
