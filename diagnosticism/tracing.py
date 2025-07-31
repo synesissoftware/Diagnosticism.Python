@@ -471,7 +471,7 @@ if _is_python_3_9_or_later():
 
                     del sig
 
-            result = func(*args, **kwargs)
+            return func(*args, **kwargs)
 
         return wrapper
 
