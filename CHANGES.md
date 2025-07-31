@@ -1,5 +1,10 @@
 # **Diagnosticism.Python** Changes
 
+## 0.14.1 - 31st July 2025
+
+* fixed `tracefunc`;
+
+
 ## 0.14.0 - 28th July 2025
 
 * added `tracefunc` decorator;
