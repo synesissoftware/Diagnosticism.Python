@@ -8,6 +8,7 @@ from diagnosticism.tracing import (
 )
 
 import unittest
+from unittest.mock import patch
 
 import re
 
@@ -84,3 +85,19 @@ class Trace_tester(unittest.TestCase):
             enable_tracing(tracing_enabled)
 
 
+    def test__tracefunc__WITH_TRACING_ENABLED(self):
+
+        with patch('sys.stderr', new=StringIO()) as fake_stderr:
+
+            tracing_enabled = True if enable_tracing(True) else False
+
+            try:
+
+                set_program_name('myprog3')
+
+                f2()
+
+                self.assertRegex(fake_stderr.getvalue(), r'^\[myprog3, \d+, \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6}, .*TRACE.*\]: f2()')
+            finally:
+
+                enable_tracing(tracing_enabled)
