@@ -26,10 +26,12 @@ def f1():
 
     trace(file=file)
 
+    return "f1-result"
+
 @tracefunc
 def f2():
 
-    pass
+    return "f2-result"
 
 
 class Trace_tester(unittest.TestCase):
@@ -49,8 +51,9 @@ class Trace_tester(unittest.TestCase):
 
             try:
 
-                f1()
+                r = f1()
 
+                self.assertEqual('f1-result', r)
                 self.assertEqual('', file.getvalue())
             finally:
 
@@ -74,8 +77,9 @@ class Trace_tester(unittest.TestCase):
 
             try:
 
-                f1()
+                r = f1()
 
+                self.assertEqual('f1-result', r)
                 self.assertRegex(file.getvalue(), r'^\[myprog1, \d+, \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6}, .*TRACE.*\]: f1()')
             finally:
 
@@ -95,8 +99,9 @@ class Trace_tester(unittest.TestCase):
 
                 set_program_name('myprog3')
 
-                f2()
+                r = f2()
 
+                self.assertEqual('f2-result', r)
                 self.assertRegex(fake_stderr.getvalue(), r'^\[myprog3, \d+, \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6}, .*TRACE.*\]: f2()')
             finally:
 
