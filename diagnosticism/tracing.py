@@ -386,7 +386,7 @@ if _is_python_3_9_or_later():
 
         Returns
         -------
-        None
+            A wrapper function that calls the decorated function
         """
 
         def wrapper(*args, **kwargs):
@@ -474,6 +474,20 @@ if _is_python_3_9_or_later():
             return func(*args, **kwargs)
 
         return wrapper
+
+    def asynctracefunc(
+        func,
+        file=None,
+    ):
+        """
+        Async decorator function that equates to the receiver function calling `trace()`
+
+        Returns
+        -------
+            A wrapper function that calls the decorated function
+        """
+
+        return tracefunc(func, file)
 
 
 # ############################## end of file ############################# #

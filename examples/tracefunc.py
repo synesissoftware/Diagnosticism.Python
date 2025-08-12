@@ -5,9 +5,6 @@ import diagnosticism as d
 @d.tracefunc
 def func1():
 
-    #sys.stderr.write("locals(%s)=%s\n" % (type
-
-    #d.trace()
     pass
 
 

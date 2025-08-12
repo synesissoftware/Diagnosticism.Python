@@ -1,5 +1,10 @@
 # **Diagnosticism.Python** Changes
 
+## 0.15.0 - 13th August 2025
+
+* added `asynctracefunc` decorator;
+
+
 ## 0.14.1 - 31st July 2025
 
 * fixed `tracefunc`;
