@@ -90,9 +90,10 @@ Defect reports, feature requests, and pull requests are welcome on https://githu
 
 ### Related projects
 
-* [**Diagnosticism**](https://github.com/synesissoftware/Diagnosticism/)
-* [**Diagnosticism.Go**](https://github.com/synesissoftware/Diagnosticism.Go/)
-* [**Diagnosticism.NET**](https://github.com/synesissoftware/Diagnosticism.NET/)
+* [**Diagnosticism**](https://github.com/synesissoftware/Diagnosticism/) (**C**);
+* [**Diagnosticism.Go**](https://github.com/synesissoftware/Diagnosticism.Go/);
+* [**Diagnosticism.NET**](https://github.com/synesissoftware/Diagnosticism.NET/);
+* [**Diagnosticism.Rust**](https://github.com/synesissoftware/Diagnosticism.Rust/);
 
 
 ### License
