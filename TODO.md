@@ -7,7 +7,7 @@
 * [ ] Logging/tracing interacting with existing logging libraries;
 * [x] Separate out the file/line/function facilities from `#trace()`;
 * [ ] Use **pyproject.toml**;
-* [ ] `warn()` can take multiple strings (a la **Ruby**'s `warn()`);
+* [x] `warn()` can take multiple strings (a la **Ruby**'s `warn()`);
 * [ ] `set_log_filter()` to allow filter to be callable;
 * [ ] `log()` to work with standard logger;
 
