@@ -1,5 +1,14 @@
 # **Diagnosticism.Python** Changes
 
+## 0.15.1 - 24th August 2025
+
+* Python version compatibility claims;
+* Python 3.8 compatibility;
+* GitHub Actions;
+* badges;
+* boilerplate;
+
+
 ## 0.15.0 - 13th August 2025
 
 * added `asynctracefunc` decorator;

@@ -9,7 +9,9 @@ __email__       =   'matthew@synesis.com.au'
 __license__     =   'BSD-3-Clause'
 __maintainer__  =   'Matt Wilson'
 __status__      =   'Beta'
-__version__     =   '0.15.0'
+__version__     =   '0.15.1'
+
+import sys
 
 from .contingent_reporting import (
     abort,
@@ -39,9 +41,13 @@ from .tracing import (
     is_tracing_enabled,
     line,
     trace,
-    tracefunc,
-    asynctracefunc,
 )
+if sys.version_info[:2] >= (3, 9):
+    from .tracing import (
+        tracefunc,
+        asynctracefunc,
+    )
+
 from .warning import warn
 
 
