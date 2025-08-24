@@ -2,8 +2,12 @@
 
 Diagnosticism library, for Python
 
+<!--
+[![CircleCI](https://circleci.com/gh/google/diagnosticism.svg?style=svg)](https://circleci.com/gh/google/diagnosticism)
+-->
 [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![PyPI version](https://badge.fury.io/py/diagnosticism.svg)](https://badge.fury.io/py/diagnosticism)
+![versions](https://img.shields.io/pypi/pyversions/diagnosticism.svg)
 [![Last Commit](https://img.shields.io/github/last-commit/synesissoftware/Diagnosticism.Python)](https://github.com/synesissoftware/Diagnosticism.Python/commits/master)
 
 
