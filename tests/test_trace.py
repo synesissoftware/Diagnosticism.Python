@@ -4,8 +4,12 @@ from diagnosticism.program_name import set_program_name
 from diagnosticism.tracing import (
     enable_tracing,
     trace,
-    tracefunc,
 )
+import sys
+if sys.version_info[:2] >= (3, 9):
+    from diagnosticism.tracing import (
+        tracefunc,
+    )
 
 import unittest
 from unittest.mock import patch
@@ -28,11 +32,17 @@ def f1():
 
     return "f1-result"
 
-@tracefunc
-def f2():
+if sys.version_info[:2] >= (3, 9):
 
-    return "f2-result"
+    @tracefunc
+    def f2():
 
+        return "f2-result"
+else:
+
+    def f2():
+
+        pass
 
 class Trace_tester(unittest.TestCase):
 
