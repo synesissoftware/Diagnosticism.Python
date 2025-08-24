@@ -2,7 +2,9 @@
 
 Diagnosticism library, for Python
 
+[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![PyPI version](https://badge.fury.io/py/diagnosticism.svg)](https://badge.fury.io/py/diagnosticism)
+[![Last Commit](https://img.shields.io/github/last-commit/synesissoftware/Diagnosticism.Python)](https://github.com/synesissoftware/Diagnosticism.Python/commits/master)
 
 
 ## Table of Contents <!-- omit from toc -->
