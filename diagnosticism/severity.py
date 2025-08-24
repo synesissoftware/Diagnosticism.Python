@@ -115,6 +115,7 @@ if _is_python_3_0_or_later():
     _INTEGER_TYPES = (int, )
 else:
 
+    # noqa: F821
     _INTEGER_TYPES = (int, long, )
 
 
