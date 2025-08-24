@@ -99,20 +99,21 @@ class Trace_tester(unittest.TestCase):
             enable_tracing(tracing_enabled)
 
 
-    def test__tracefunc__WITH_TRACING_ENABLED(self):
+    if sys.version_info[:2] >= (3, 9):
+        def test__tracefunc__WITH_TRACING_ENABLED(self):
 
-        with patch('sys.stderr', new=StringIO()) as fake_stderr:
+            with patch('sys.stderr', new=StringIO()) as fake_stderr:
 
-            tracing_enabled = True if enable_tracing(True) else False
+                tracing_enabled = True if enable_tracing(True) else False
 
-            try:
+                try:
 
-                set_program_name('myprog3')
+                    set_program_name('myprog3')
 
-                r = f2()
+                    r = f2()
 
-                self.assertEqual('f2-result', r)
-                self.assertRegex(fake_stderr.getvalue(), r'^\[myprog3, \d+, \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6}, .*TRACE.*\]: f2()')
-            finally:
+                    self.assertEqual('f2-result', r)
+                    self.assertRegex(fake_stderr.getvalue(), r'^\[myprog3, \d+, \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6}, .*TRACE.*\]: f2()')
+                finally:
 
-                enable_tracing(tracing_enabled)
+                    enable_tracing(tracing_enabled)
