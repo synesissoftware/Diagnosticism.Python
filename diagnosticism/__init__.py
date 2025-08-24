@@ -11,6 +11,8 @@ __maintainer__  =   'Matt Wilson'
 __status__      =   'Beta'
 __version__     =   '0.15.1'
 
+import sys
+
 from .contingent_reporting import (
     abort,
     report,
@@ -40,7 +42,7 @@ from .tracing import (
     line,
     trace,
 )
-if _is_python_3_9_or_later():
+if sys.version_info[:2] >= (3, 9):
     from .tracing import (
         tracefunc,
         asynctracefunc,
