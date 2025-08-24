@@ -4,7 +4,7 @@ import setuptools
 setuptools.setup(
 
     name='diagnosticism',
-    version='0.15.0',
+    version='0.15.1',
 
     author='Matt Wilson',
     author_email='matthew@synesis.com.au',
@@ -17,6 +17,12 @@ setuptools.setup(
         "Programming Language :: Python",
         "Programming Language :: Python :: 2",
         "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
     ],
     description='Basic diagnostic facilities, for Python',
     keywords='Diagnostic Diagnostics Logging Trace Tracing Stopwatch',
