@@ -3,6 +3,7 @@
 ## 0.15.1 - 24th August 2025
 
 * Python version compatibility claims;
+* Python 3.8 compatibility;
 * GitHub Actions;
 * badges;
 * boilerplate;

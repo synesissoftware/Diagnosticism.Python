@@ -39,9 +39,13 @@ from .tracing import (
     is_tracing_enabled,
     line,
     trace,
-    tracefunc,
-    asynctracefunc,
 )
+if _is_python_3_9_or_later():
+    from .tracing import (
+        tracefunc,
+        asynctracefunc,
+    )
+
 from .warning import warn
 
 
