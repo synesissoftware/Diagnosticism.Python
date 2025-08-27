@@ -194,14 +194,34 @@ The following decorators are defined:
 
 #### `asynctracefunc`
 
-T.B.C.
+Decorate that provides the equivalent functionality as `@tracefunc` for `async` functions and methods.
 
 
 #### `tracefunc`
 
-T.B.C.
+Decorator to be applied to functions and methods to save the need to call `d.trace()`, for example rather than:
 
+```Python
+def start():
+	d.trace()
+	. . .
 
+def submit_work(name, job, priority=-1):
+	d.trace()
+	. . .
+```
+
+you can, more cleanly, write:
+
+```Python
+@d.tracefunc
+def start():
+	. . .
+
+@d.tracefunc
+def submit_work(name, job, priority=-1):
+	. . .
+```
 
 
 
@@ -245,7 +265,7 @@ The following functions are defined:
 
 | Function | Purpose |
 | -------- | ------- |
-| `dbg()` | Similar to **Rust**'s `dbg!()` macro, any number of normal and keyword arguments and traces their type, value, and name. |
+| `dbg()` | Similar to **Rust**'s `dbg!()` macro, can be passed any number of normal and keyword arguments and traces their name, type, and value. |
 | `dbgfl()` | Like `dbg()`, but include `fileline()` information in the `TRACE` statement produced. |
 | `enable_tracing()` | Enables/disables tracing, whether from a constant or from a named environment variable. |
 | `is_tracing_enabled()` | Indicates whether tracing is enabled. |
