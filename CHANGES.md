@@ -1,5 +1,11 @@
 # **Diagnosticism.Python** Changes
 
+## 0.15.2 - 27th August 2025
+
+* project boilerplate;
+* documentation;
+
+
 ## 0.15.1 - 24th August 2025
 
 * Python version compatibility claims;

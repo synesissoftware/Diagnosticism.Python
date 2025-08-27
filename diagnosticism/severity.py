@@ -34,20 +34,35 @@ __all__ = [
 
 UNSPECIFIED     =   0
 VIOLATION       =   1
+"""Severity level suitable for use when logging that a design violation has occurred."""
 ALERT           =   2
+"""Severity level suitable for use when logging that a fatal program failure has occurred."""
 CRITICAL        =   3
+"""Severity level suitable for use when logging that a critical failure has occurred."""
 FAILURE         =   4
+"""Severity level suitable for use when logging that a failure has occurred."""
 WARNING         =   5
+"""Severity level suitable for use when issuing a warning."""
 NOTICE          =   6
+"""Severity level suitable for use when logging an important normative condition."""
 INFORMATIONAL   =   7
+"""Severity level suitable for use when logging a normative condition."""
 DEBUG0          =   8
+"""The highest debug severity level."""
 DEBUG1          =   9
+"""The second highest debug severity level."""
 DEBUG2          =   10
+"""The third highest debug severity level."""
 DEBUG3          =   11
+"""The fourth highest debug severity level."""
 DEBUG4          =   12
+"""The fifth highest debug severity level."""
 DEBUG5          =   13
+"""The sixth highest debug severity level."""
 TRACE           =   14
+"""Severity level suitable at which trace statements are issued."""
 BENCHMARK       =   15
+"""Severity level suitable at which benchmark statements are issued."""
 
 DEBUG           =   DEBUG5
 FAIL            =   FAILURE

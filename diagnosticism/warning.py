@@ -54,8 +54,8 @@ def warn(
 
     Parameters
     ----------
-    message : str, None
-        The message to be emitted to the standard error stream (along with a new-line sequence). If `None`, nothing is emitted
+    message_lines : list[str]
+        The message line(s) to be emitted to the standard error stream (along with a new-line sequence). If `None`, nothing is emitted
 
     file : file-object, optional
         An object with a `write(str)` method, or `None` (or not present), in which case the default of `sys.stderr` will be used

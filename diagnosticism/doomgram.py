@@ -4,7 +4,7 @@
 # Purpose:  Definition of the `DOOMGram` class.
 #
 # Created:  19th July 2025
-# Updated:  24th July 2025
+# Updated:  27th August 2025
 #
 # Author:   Matthew Wilson
 #
@@ -399,7 +399,7 @@ class DOOMGram:
 
 class DOOMScope:
     """
-    Scoping class for histogram timings using `DOOMScope`.
+    Context manager class for histogram timings using `DOOMScope`.
     """
 
     __slots__ = (
