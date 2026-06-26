@@ -48,8 +48,7 @@ class Warn_tester(unittest.TestCase):
             logging_enabled = True if enable_logging(False) else False
 
             try:
-
-                warn('warning-1')
+                warn("warning-1")
             finally:
 
                 enable_logging(logging_enabled)
@@ -68,8 +67,7 @@ class Warn_tester(unittest.TestCase):
             logging_enabled = True if enable_logging(True) else False
 
             try:
-
-                warn('warning-2')
+                warn("warning-2")
             finally:
 
                 enable_logging(logging_enabled)
@@ -90,8 +88,7 @@ class Warn_tester(unittest.TestCase):
         logging_enabled = True if enable_logging(False) else False
 
         try:
-
-            warn('warning-3', file=file)
+            warn("warning-3", file=file)
         finally:
 
             enable_logging(logging_enabled)
@@ -110,10 +107,8 @@ class Warn_tester(unittest.TestCase):
         logging_enabled = True if enable_logging(True) else False
 
         try:
-
-            warn('warning-4', file=file)
+            warn("warning-4", file=file)
         finally:
-
             enable_logging(logging_enabled)
 
         result = file.getvalue()
@@ -133,8 +128,7 @@ class Warn_tester(unittest.TestCase):
         logging_enabled = True if enable_logging(True) else False
 
         try:
-
-            warn('warning-4', file_cr=file_cr, file_dl=file_dl)
+            warn("warning-4", file_cr=file_cr, file_dl=file_dl)
         finally:
 
             enable_logging(logging_enabled)
@@ -159,8 +153,7 @@ class Warn_tester(unittest.TestCase):
         logging_enabled = True if enable_logging(True) else False
 
         try:
-
-            warn('warning-4', file=file, file_dl=file_dl)
+            warn("warning-4", file=file, file_dl=file_dl)
         finally:
 
             enable_logging(logging_enabled)
@@ -185,8 +178,8 @@ class Warn_tester(unittest.TestCase):
             try:
 
                 warn(
-                    'warning-5a',
-                    'warning-5b',
+                    "warning-5a",
+                    "warning-5b",
                 )
             finally:
 

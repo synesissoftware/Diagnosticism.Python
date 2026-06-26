@@ -63,8 +63,8 @@ class Trace_tester(unittest.TestCase):
 
                 r = f1()
 
-                self.assertEqual('f1-result', r)
-                self.assertEqual('', file.getvalue())
+                self.assertEqual("f1-result", r)
+                self.assertEqual("", file.getvalue())
             finally:
 
                 file = None

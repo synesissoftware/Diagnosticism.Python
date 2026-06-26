@@ -42,7 +42,7 @@ def _dbg(
     fr,
     show_fileline,
     *args,
-    **kwargs,
+    **kwargs
 ):
 
     try:
@@ -60,18 +60,14 @@ def _dbg(
         kwnames = list(kwargs)
 
         if 0 != len(args):
-
-            s0 = ', '.join(["(%s)=%s" % (type(arg).__name__, arg) for arg in args])
+            s0 = ", ".join(["(%s)=%s" % (type(arg).__name__, arg) for arg in args])
         else:
-
-            s0 = ''
+            s0 = ""
 
         if 0 != len(kwargs):
-
-            s1 = ', '.join(["%s(%s)=%s" % (name, type(arg).__name__, arg) for name, arg in kwargs.items()])
+            s1 = ", ".join(["%s(%s)=%s" % (name, type(arg).__name__, arg) for name, arg in kwargs.items()])
         else:
-
-            s1 = ''
+            s1 = ""
 
         if s0 and s1:
 
@@ -84,7 +80,7 @@ def _dbg(
             s = s1
         else:
 
-            s = ''
+            s = ""
 
         if show_fileline:
 
@@ -99,7 +95,7 @@ def _dbg(
 
 def _flf(
     depth=1,
-    **kwargs,
+    **kwargs
 ):
 
     assert 1 == depth
@@ -116,8 +112,7 @@ def _flf(
         file_name   =   code.co_filename
         line_number =   fr.f_lineno
         if '<module>' == code.co_name:
-
-            function_name   =   "<module>"
+            function_name   =   '<module>'
         else:
 
             function_name   =   code.co_name
@@ -126,7 +121,7 @@ def _flf(
 
             file_name = _basename(file_name)
 
-        return [ file_name, line_number, function_name ]
+        return [file_name, line_number, function_name]
     finally:
 
         del fr
@@ -149,7 +144,7 @@ def _log_s(
 
 def dbgfl(
     *args,
-    **kwargs,
+    **kwargs
 ):
     """
     Traces arguments and keyword-arguments with file + line.
@@ -170,13 +165,13 @@ def dbgfl(
             fr,
             True,
             *args,
-            **kwargs,
+            **kwargs
         )
 
 
 def dbg(
     *args,
-    **kwargs,
+    **kwargs
 ):
     """
     Traces arguments and keyword-arguments.
@@ -197,7 +192,7 @@ def dbg(
             fr,
             False,
             *args,
-            **kwargs,
+            **kwargs
         )
 
 
@@ -208,7 +203,10 @@ def enable_tracing(*args):
     Parameters
     ----------
     *args
-        1 or 2 arguments: if 1, then is a `bool` determining whether should be enabled; if 2, then first is name(s) of environment variable(s) to be parsed and second is a `bool` specifying the default if not found in the environment
+        1 or 2 arguments: if 1, then is a `bool` determining whether
+        enabled; if 2, then first is name(s) of environment variable(s) to
+        be parsed and second is a `bool` specifying the default if not
+        found in the environment
 
     Returns
     -------
@@ -226,7 +224,7 @@ def enable_tracing(*args):
 
 
 def file(
-    **kwargs,
+    **kwargs
 ):
     """
     Obtains the file of the caller.
@@ -240,7 +238,7 @@ def file(
 
 
 def func(
-    **kwargs,
+    **kwargs
 ):
     """
     Obtains the function of the caller.
@@ -254,7 +252,7 @@ def func(
 
 
 def line(
-    **kwargs,
+    **kwargs
 ):
     """
     Obtains the line of the caller.
@@ -268,7 +266,7 @@ def line(
 
 
 def fileline(
-    **kwargs,
+    **kwargs
 ):
     """
     Obtains a string representing the file and line of the caller.
@@ -287,7 +285,7 @@ def fileline(
 
 
 def filelinefunc(
-    **kwargs,
+    **kwargs
 ):
     """
     Obtains a string representing the file, line, and function of the
@@ -382,10 +380,12 @@ if _is_python_3_9_or_later():
         file=None,
     ):
         """
-        Decorator function that equates to the receiver function calling `trace()`
+        Decorator function that equates to the receiver function calling
+        `trace()`.
 
         Returns
         -------
+        callable
             A wrapper function that calls the decorated function
         """
 
@@ -426,19 +426,19 @@ if _is_python_3_9_or_later():
                         if params_l[-1][1].kind == inspect.Parameter.VAR_KEYWORD:
 
                             paramK  =   params_l.pop()
-                            partK   =   f"{paramK[0]}(dict)={kwargs}"
+                            partK   =   "%s(dict)=%s" % (paramK[0], kwargs)
 
                     if len(params_l) != 0:
 
                         if params_l[-1][1].kind == inspect.Parameter.VAR_POSITIONAL:
 
                             paramA  =   params_l.pop()
-                            partA   =   f"{paramA[0]}(tuple)={args_n[len(params_l):]}"
+                            partA   =   "%s(tuple)=%s" % (paramA[0], args_n[len(params_l):])
 
                     if len(params_l) != 0:
 
                         namesN  =   [p[0] for p in params_l]
-                        partN   =   ', '.join([f"{k}({v.__class__.__name__})={v}" for (k, v) in dict(zip(namesN, args_n)).items()])
+                        partN   =   ', '.join(["%s(%s)=%s" % (k, v.__class__.__name__, v) for (k, v) in dict(zip(namesN, args_n)).items()])
 
 
                     fname   =   func.__name__
@@ -480,10 +480,12 @@ if _is_python_3_9_or_later():
         file=None,
     ):
         """
-        Async decorator function that equates to the receiver function calling `trace()`
+        Async decorator function that equates to the receiver function
+        calling `trace()`.
 
         Returns
         -------
+        callable
             A wrapper function that calls the decorated function
         """
 
