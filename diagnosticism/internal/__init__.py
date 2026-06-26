@@ -166,7 +166,7 @@ def _str2bool(s, default_value=None):
         return False
 
 
-    s = s.trim().lower()
+    s = s.strip().lower() if s is not None else None
 
 
     if s in TRUE_STRINGS_lower:
