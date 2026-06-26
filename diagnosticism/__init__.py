@@ -9,7 +9,7 @@ __email__       =   'matthew@synesis.com.au'
 __license__     =   'BSD-3-Clause'
 __maintainer__  =   'Matt Wilson'
 __status__      =   'Beta'
-__version__     =   '0.15.2'
+__version__     =   '0.15.3'
 
 import sys
 
@@ -44,8 +44,8 @@ from .tracing import (
 )
 if sys.version_info[:2] >= (3, 9):
     from .tracing import (
-        tracefunc,
         asynctracefunc,
+        tracefunc,
     )
 
 from .warning import warn

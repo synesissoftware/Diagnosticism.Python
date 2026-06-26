@@ -32,42 +32,60 @@ __all__ = [
     'severity_to_string',
 ]
 
-UNSPECIFIED     =   0
-VIOLATION       =   1
-"""Severity level suitable for use when logging that a design violation has occurred."""
-ALERT           =   2
-"""Severity level suitable for use when logging that a fatal program failure has occurred."""
-CRITICAL        =   3
-"""Severity level suitable for use when logging that a critical failure has occurred."""
-FAILURE         =   4
-"""Severity level suitable for use when logging that a failure has occurred."""
-WARNING         =   5
+UNSPECIFIED = 0
+VIOLATION = 1
+"""
+Severity level suitable for use when logging that a design violation has
+occurred.
+"""
+ALERT = 2
+"""
+Severity level suitable for use when logging that a fatal program failure
+has occurred.
+"""
+CRITICAL = 3
+"""
+Severity level suitable for use when logging that a critical failure has
+occurred.
+"""
+FAILURE = 4
+"""
+Severity level suitable for use when logging that a failure has occurred.
+"""
+WARNING = 5
 """Severity level suitable for use when issuing a warning."""
-NOTICE          =   6
-"""Severity level suitable for use when logging an important normative condition."""
-INFORMATIONAL   =   7
+NOTICE = 6
+"""
+Severity level suitable for use when logging an important normative
+condition.
+"""
+INFORMATIONAL = 7
 """Severity level suitable for use when logging a normative condition."""
-DEBUG0          =   8
+DEBUG0 = 8
 """The highest debug severity level."""
-DEBUG1          =   9
+DEBUG1 = 9
 """The second highest debug severity level."""
-DEBUG2          =   10
+DEBUG2 = 10
 """The third highest debug severity level."""
-DEBUG3          =   11
+DEBUG3 = 11
 """The fourth highest debug severity level."""
-DEBUG4          =   12
+DEBUG4 = 12
 """The fifth highest debug severity level."""
-DEBUG5          =   13
+DEBUG5 = 13
 """The sixth highest debug severity level."""
-TRACE           =   14
-"""Severity level suitable at which trace statements are issued."""
-BENCHMARK       =   15
-"""Severity level suitable at which benchmark statements are issued."""
+TRACE = 14
+"""
+Severity level suitable at which trace statements are issued.
+"""
+BENCHMARK = 15
+"""
+Severity level suitable at which benchmark statements are issued.
+"""
 
-DEBUG           =   DEBUG5
-FAIL            =   FAILURE
-WARN            =   WARNING
-INFO            =   INFORMATIONAL
+DEBUG = DEBUG5
+FAIL = FAILURE
+WARN = WARNING
+INFO = INFORMATIONAL
 
 _STOCK_SEVERITY_LEVELS = {
 
@@ -126,11 +144,9 @@ _STRINGS_RECOGNISABLE_AS_SEVERITY_LEVELS = {
 }
 
 if _is_python_3_0_or_later():
-
-    _INTEGER_TYPES = (int, )
+    _INTEGER_TYPES = (int,)
 else:
-
-    _INTEGER_TYPES = (int, long, ) # noqa: F821
+    _INTEGER_TYPES = (int, long,)  # noqa: F821
 
 
 def _parse_verbosity(
@@ -143,9 +159,12 @@ def _parse_verbosity(
     Parameters
     ----------
     v : str | int | *
-        The variable from which to parse the verbosity. If an integer, is taken as is; if not a string then converted to a string, and in either case is then subject to parsing
+        The variable from which to parse the verbosity. If an integer, is
+        taken as is; if not a string then converted to a string, and in
+        either case is then subject to parsing
     strict_case_comparison : bool
-        Specifies whether any string comparison should be strict or permissive
+        Specifies whether any string comparison should be strict or
+        permissive
 
     Returns
     -------
@@ -155,7 +174,8 @@ def _parse_verbosity(
     Raises
     ------
     ValueError
-        If the string form of `v` does not contain a recognisable severity level
+        If the string form of `v` does not contain a recognisable severity
+        level
     """
 
     if isinstance(v, _INTEGER_TYPES):
@@ -200,9 +220,13 @@ if _is_python_2_7_or_later():
         Parameters
         ----------
         v : str | int | *
-            The variable from which to parse the verbosity. If an integer, is taken as is; if not a string is converted to a string, and in either case is then subject to parsing
+            The variable from which to parse the verbosity. If an integer,
+            is taken as is; if not a string is converted to a string, and
+            in either case is then subject to parsing
         kwargs : dict
-            Keyword arguments. Currently only `strict_case_comparison` is recognised, which defaults to `False` if not specified by the caller
+            Keyword arguments. Currently only `strict_case_comparison` is
+            recognised, which defaults to `False` if not specified by the
+            caller
 
         Returns
         -------
@@ -212,7 +236,8 @@ if _is_python_2_7_or_later():
         Raises
         ------
         ValueError
-            If the string form of `v` does not contain a recognisable severity level
+            If the string form of `v` does not contain a recognisable
+            severity level
         """
 
         strict_case_comparison = kwargs.get('strict_case_comparison', False)
@@ -233,7 +258,9 @@ else:
         Parameters
         ----------
         v : str | int | *
-            The variable from which to parse the verbosity. If an integer, is taken as is; if not a string is converted to a string, and in either case is then subject to parsing
+            The variable from which to parse the verbosity. If an integer,
+            is taken as is; if not a string is converted to a string, and
+            in either case is then subject to parsing
 
         Returns
         -------
@@ -243,7 +270,8 @@ else:
         Raises
         ------
         ValueError
-            If the string form of `v` does not contain a recognisable severity level
+            If the string form of `v` does not contain a recognisable
+            severity level
         """
 
         return _parse_verbosity(

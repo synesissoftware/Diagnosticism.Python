@@ -1,5 +1,10 @@
 # **Diagnosticism.Python** Changes
 
+## 0.15.3 - 26th June 2026
+
+* tidying;
+
+
 ## 0.15.2 - 27th August 2025
 
 * project boilerplate;

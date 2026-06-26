@@ -25,8 +25,12 @@ def _supports_ansi_sequences():
 
 _OS_IS_POSIX = _supports_ansi_sequences()
 
-STOCK_TRAILING_PROMPT = 'use --help for usage'
-"""The trailing prompt used when trailing_prompt=True is passed to abort() (and family) and no default trailing prompt has been set (via set_default_trailing_prompt())"""
+STOCK_TRAILING_PROMPT = "use --help for usage"
+"""
+The trailing prompt used when trailing_prompt=True is passed to abort() (and
+family) and no default trailing prompt has been set (via
+set_default_trailing_prompt()).
+"""
 
 _trailing_prompt = None
 
@@ -47,7 +51,8 @@ def set_default_trailing_prompt(prompt):
 
     Notes
     -----
-        This method is NOT threadsafe, so in a multithreaded context the set prompt and/or the return value may not be as expected
+    This method is NOT threadsafe, so in a multithreaded context the set
+    prompt and/or the return value may not be as expected.
     """
 
     global _trailing_prompt
@@ -196,15 +201,18 @@ def report(
     file=None,
 ):
     """
-    Emits the given message (and optional prefix) on the contingent report stream.
+    Emits the given message (and optional prefix) on the contingent report
+    stream.
 
     Parameters
     ----------
     message : str
-        The (main body of the) message to be displayed, which is optionally prefixed by program-name + ': '
+        The (main body of the) message to be displayed, which is optionally
+        prefixed by program-name + ': '
 
     show_program_name : bool, optional
-        Prevents the default prefixing of the message with program-name + ': ' if `False`. Default is `True`
+        Prevents the default prefixing of the message with program-name +
+        ': ' if `False`. Default is `True`
     """
 
     trailing_prompt = False
@@ -227,21 +235,30 @@ def abort(
     file=None,
 ):
     """
-    Emits the given message (and optional prefix and suffix) on the contingent report stream, and then terminates the process
+    Emits the given message (and optional prefix and suffix) on the
+    contingent report stream, and then terminates the process.
 
     Parameters
     ----------
     message : str
-        The (main body of the) message to be displayed, which is optionally prefixed by program-name + ': ' and optionally suffixed by '; ' + trailing-prompt
+        The (main body of the) message to be displayed, which is optionally
+        prefixed by program-name + ': ' and optionally suffixed by '; ' +
+        trailing-prompt
 
     do_exit : bool, optional
-        Prevents default behaviour of a call to `sys.exit(1)` (after printing the abort message) if `False`. Default is `True`
+        Prevents default behaviour of a call to `sys.exit(1)` (after
+        printing the abort message) if `False`. Default is `True`
 
     show_program_name : bool, optional
-        Prevents the default prefixing of the message with program-name + ': ' if `False`. Default is `True`
+        Prevents the default prefixing of the message with program-name +
+        ': ' if `False`. Default is `True`
 
     trailing_prompt : str, bool, optional
-        Affects the use of the trailing prompt as follows: if `False`, no trailing prompt is shown; if a (non-empty) string, that is used; if `None`, the default trailing prompt, if any, is used; if `True`, the default trailing prompt is used if specified, otherwise `STOCK_TRAILING_PROMPT` is used
+        Affects the use of the trailing prompt as follows: if `False`, no
+        trailing prompt is shown; if a (non-empty) string, that is used; if
+        `None`, the default trailing prompt, if any, is used; if `True`, the
+        default trailing prompt is used if specified, otherwise
+        `STOCK_TRAILING_PROMPT` is used
     """
 
     file = _get_cr_file_or_default(file)

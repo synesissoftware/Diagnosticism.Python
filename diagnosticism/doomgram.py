@@ -312,15 +312,25 @@ class DOOMGram:
         === Signature
 
         * *Parameters:*
-          - +options+ (+Hash+, +Integer+) Combination of flags (with behaviour as described below for the +flags+ option), or an options hash;
+          - +options+ (+Hash+, +Integer+) Combination of flags (with
+            behaviour as described below for the +flags+ option), or an
+            options hash;
 
         * *Options:*
-          - +overflow_character+ (+String+) A string (of length 1) that specifies the symbol for counts outside the available range. Defaults to +'*'+;
-          - +range+ (+String+) A string whose characters specificy the symbols to use for counts in orders of magnitude. Defaults to +'abcdefghijklmnopqrstuvwxyz'+, which caters to the counts 1-9 => +'a', 10-99 => +'b'+, 100-999 => +'c'+, ... 10^25-(10^26-1) => +'z'+;
-          - +zero_character+ (+String+) A string (of length 1) that specifies the symbol for a count of 0. Defaults to +' '+;
+          - +overflow_character+ (+String+) A string (of length 1) that
+            specifies the symbol for counts outside the available range.
+            Defaults to +'*'+;
+          - +range+ (+String+) A string whose characters specificy the
+            symbols to use for counts in orders of magnitude. Defaults to
+            +'abcdefghijklmnopqrstuvwxyz'+, which caters to the counts 1-9
+            => +'a', 10-99 => +'b'+, 100-999 => +'c'+, ...
+            10^25-(10^26-1) => +'z'+;
+          - +zero_character+ (+String+) A string (of length 1) that
+            specifies the symbol for a count of 0. Defaults to +' '+;
 
         === Return
-        (+String+) A string (of length 12) containing symbols representing the counts in the ranges 1ns, 10ns, ..., 10s, 100+s.
+        (+String+) A string (of length 12) containing symbols representing
+        the counts in the ranges 1ns, 10ns, ..., 10s, 100+s.
         """
 
         ch_zero     =   kwargs.get('zero', '_')
