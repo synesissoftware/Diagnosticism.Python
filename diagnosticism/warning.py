@@ -45,9 +45,7 @@ def _warn(
 
 def warn(
     *message_lines,
-    file=None,
-    file_cr=None,
-    file_dl=None,
+    **kwargs
 ):
     """
     Analogue of Ruby's `Kernel#warn()`
@@ -76,6 +74,10 @@ def warn(
     -------
     None
     """
+
+    file = kwargs.get('file', None)
+    file_cr = kwargs.get('file_cr', None)
+    file_dl = kwargs.get('file_dl', None)
 
     if file_cr is None:
 
