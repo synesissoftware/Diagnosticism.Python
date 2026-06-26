@@ -1,5 +1,10 @@
 # **Diagnosticism.Python** Changes
 
+## 0.16.0 - 27th June 2026
+
+* added `nanoseconds_to_string()`;
+
+
 ## 0.15.3 - 27th June 2026
 
 * added top-level `__all__` documenting the public API;

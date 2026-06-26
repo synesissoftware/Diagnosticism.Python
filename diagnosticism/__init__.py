@@ -9,7 +9,7 @@ __email__       =   'matthew@synesis.com.au'
 __license__     =   'BSD-3-Clause'
 __maintainer__  =   'Matt Wilson'
 __status__      =   'Beta'
-__version__     =   '0.15.3'
+__version__     =   '0.16.0'
 
 import sys
 
@@ -55,6 +55,9 @@ from .severity import (
     WARNING,
     parse_verbosity,
     severity_to_string,
+)
+from .time_format import (
+    nanoseconds_to_string,
 )
 from .tracing import (
     dbg,
@@ -116,6 +119,7 @@ __all__ = [
     'is_tracing_enabled',
     'line',
     'log',
+    'nanoseconds_to_string',
     'parse_verbosity',
     'report',
     'set_default_trailing_prompt',

@@ -1,15 +1,14 @@
 # Diagnosticism.Python <!-- omit from toc -->
 
-<!--
-[![CircleCI](https://circleci.com/gh/google/diagnosticism.svg?style=svg)](https://circleci.com/gh/google/diagnosticism)
--->
-[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
-[![PyPI version](https://badge.fury.io/py/diagnosticism.svg)](https://badge.fury.io/py/diagnosticism)
-![versions](https://img.shields.io/pypi/pyversions/diagnosticism.svg)
-[![Python package](https://github.com/synesissoftware/Diagnosticism.Python/actions/workflows/python-package.yml/badge.svg)](https://github.com/synesissoftware/Diagnosticism.Python/actions/workflows/python-package.yml)
-[![Last Commit](https://img.shields.io/github/last-commit/synesissoftware/Diagnosticism.Python)](https://github.com/synesissoftware/Diagnosticism.Python/commits/master)
+Diagnosticism, for Python
 
-Diagnosticism library, for Python
+![Language](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
+[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+[![PyPI](https://img.shields.io/pypi/v/diagnosticism.svg)](https://pypi.org/project/diagnosticism/)
+[![GitHub release](https://img.shields.io/github/v/release/synesissoftware/Diagnosticism.Python.svg)](https://github.com/synesissoftware/Diagnosticism.Python/releases/latest)
+![Python](https://img.shields.io/badge/Python-2.7%20%7C%203.8+-lightgrey)
+[![CI](https://github.com/synesissoftware/Diagnosticism.Python/actions/workflows/python-package.yml/badge.svg)](https://github.com/synesissoftware/Diagnosticism.Python/actions/workflows/python-package.yml)
+[![PyPI project](https://img.shields.io/badge/documentation-PyPI-lightgrey)](https://pypi.org/project/diagnosticism/)
 
 
 ## Table of Contents <!-- omit from toc -->
@@ -33,11 +32,15 @@ Diagnosticism library, for Python
 		- [Debugging API](#debugging-api)
 		- [Diagnostic Logging API](#diagnostic-logging-api-1)
 		- [Tracing API](#tracing-api)
+		- [Time formatting API](#time-formatting-api)
 - [Examples](#examples)
 - [Project Information](#project-information)
 	- [Where to get help](#where-to-get-help)
 	- [Contribution guidelines](#contribution-guidelines)
 	- [Dependencies](#dependencies)
+		- [Efferent (fan-out)](#efferent-fan-out)
+			- [Development Dependencies](#development-dependencies)
+		- [Afferent (fan-in)](#afferent-fan-in)
 	- [Related projects](#related-projects)
 	- [License](#license)
 
@@ -97,6 +100,7 @@ The public API surface is listed in `diagnosticism.__all__`.
 
 * Contingent Reporting
 * Diagnostic Logging
+* Time formatting
 * Tracing
 
 **NOTE**: for the moment, the Diagnostic Logging facilities emit to the standard error stream, via the Contingent Reporting API. In the near future this will be changed to work with more sophisticated logging libraries, including the standard logging facilities and the (as yet to be release) **Pantheios.Python**.
@@ -123,9 +127,9 @@ def main():
 
     dg = DOOMGram()
 
-    for _ in range(1000):
+    for _ in range(1_000):
 
-        r = random.uniform(1, 1000)
+        r = random.uniform(1, 1_000)
 
         d = r / 1_000_000
 
@@ -285,6 +289,23 @@ The following functions are defined:
 | `trace()` | Traces the name and signature of the calling function, including the values of all its arguments. |
 
 
+#### Time formatting API
+
+| Function | Purpose |
+| -------- | ------- |
+| `nanoseconds_to_string()` | Formats a nanosecond count as a compact human-readable duration string, adapting the unit (`ns`, `µs`, `ms`, `s`) and decimal precision to keep roughly three significant digits in the numeric portion. Zero is always `"0s"`. An optional `format_spec` may include `'+'` to cause positive values to include an explicit leading sign. |
+
+For example:
+
+```Python
+from diagnosticism import nanoseconds_to_string
+
+nanoseconds_to_string(123_456_789)       # '123.4ms'
+nanoseconds_to_string(      6_789)       # '6.789µs'
+nanoseconds_to_string(999_772_000, '+')  # '+999.7ms'
+```
+
+
 ## Examples
 
 Examples are provided in the ```examples``` directory, along with a markdown description for each. A detailed list TOC of them is provided in [EXAMPLES.md](./EXAMPLES.md).
@@ -304,6 +325,28 @@ Defect reports, feature requests, and pull requests are welcome on https://githu
 
 
 ### Dependencies
+
+**Diagnosticism.Python** has no (non-development) runtime dependencies.
+
+
+#### Efferent (fan-out)
+
+Libraries upon which **Diagnosticism.Python** depends:
+
+None.
+
+
+##### Development Dependencies
+
+* [**mock**](https://pypi.org/project/mock/) — required for running the unit-test suite on **Python 2.7**;
+
+
+#### Afferent (fan-in)
+
+Projects that depend on **Diagnosticism.Python**:
+
+* [**asynkio**](https://github.com/synesissoftware/asynkio/);
+* [**libpath.Python**](https://github.com/synesissoftware/libpath.Python/);
 
 
 ### Related projects
