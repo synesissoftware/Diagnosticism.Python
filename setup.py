@@ -29,12 +29,10 @@ setuptools.setup(
     license='BSD-3-Clause',
     long_description=open('README.md').read(),
     long_description_content_type="text/markdown",
-    packages=[
-        'diagnosticism',
-        'diagnosticism.internal',
+    packages=setuptools.find_packages(exclude=[
         'examples',
         'tests',
-    ],
+    ]),
     url='https://github.com/synesissoftware/diagnosticism.Python',
 )
 
