@@ -165,7 +165,7 @@ def dbgfl(
             fr,
             True,
             *args,
-            **kwargs,
+            **kwargs
         )
 
 
@@ -192,7 +192,7 @@ def dbg(
             fr,
             False,
             *args,
-            **kwargs,
+            **kwargs
         )
 
 
