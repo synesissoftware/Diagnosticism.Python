@@ -58,4 +58,4 @@ jobs:
         python -m compileall diagnosticism
     - name: Test with unittest
       run: |
-        python -m unittest discover -s tests
+        python tests/run_unittest.py

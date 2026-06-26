@@ -13,7 +13,9 @@ if sys.version_info[0] < 3:
         sys.modules['unittest.mock'] = mock
     except ImportError:
 
-        pass
+        raise ImportError(
+            "the 'mock' package is required to run tests on Python 2.7",
+        )
 
     if not hasattr(unittest.TestCase, 'assertRegex'):
 
