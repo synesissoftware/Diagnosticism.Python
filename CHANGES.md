@@ -1,12 +1,13 @@
 # **Diagnosticism.Python** Changes
 
-## 0.15.3 - 26th June 2026
+## 0.15.3 - 27th June 2026
 
 * added top-level `__all__` documenting the public API;
 * replaced top-level star-imports with explicit imports;
 * restoring broken Python 2.7 compatibility;
 * removed `tests` and `examples` from installable package;
 * fixed `_str2bool()` defect;
+* added `python_requires` for Python 2.7 and Python 3.8+;
 * general tidying;
 
 

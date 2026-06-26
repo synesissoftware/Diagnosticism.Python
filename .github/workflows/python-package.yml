@@ -5,9 +5,17 @@ name: Python package
 
 on:
   push:
-    branches: [ "master", "dev", "gha", "tidying" ]
+    branches:
+      - master
+      - dev
+      - gha
+      - tidying
   pull_request:
-    branches: [ "master", "dev", "gha", "tidying" ]
+    branches:
+      - master
+      - dev
+      - gha
+      - tidying
 
 jobs:
   build:

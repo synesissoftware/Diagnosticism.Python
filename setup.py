@@ -5,6 +5,7 @@ setuptools.setup(
 
     name='diagnosticism',
     version='0.15.3',
+    python_requires='>=2.7,<3.0 || >=3.8',
 
     author='Matt Wilson',
     author_email='matthew@synesis.com.au',
@@ -15,7 +16,7 @@ setuptools.setup(
         'Natural Language :: English',
         "Operating System :: OS Independent",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 2",
+        "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
