@@ -28,8 +28,33 @@ from .logging import (
     log,
     set_log_filter,
 )
-from .program_name import *
-from .severity import *
+from .program_name import (
+    get_program_name,
+    set_program_name,
+)
+from .severity import (
+    ALERT,
+    BENCHMARK,
+    CRITICAL,
+    DEBUG0,
+    DEBUG1,
+    DEBUG2,
+    DEBUG3,
+    DEBUG4,
+    DEBUG5,
+    FAIL,
+    FAILURE,
+    INFO,
+    INFORMATIONAL,
+    NOTICE,
+    TRACE,
+    UNSPECIFIED,
+    VIOLATION,
+    WARN,
+    WARNING,
+    parse_verbosity,
+    severity_to_string,
+)
 from .tracing import (
     dbg,
     dbgfl,
