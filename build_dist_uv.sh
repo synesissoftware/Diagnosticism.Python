@@ -11,5 +11,5 @@ fi
 rm -rf build/ dist/ diagnosticism.egg-info/
 
 uv pip install build twine
-uv run python -m build
-uv run twine check dist/*
+.venv/bin/python -m build
+.venv/bin/twine check dist/*
