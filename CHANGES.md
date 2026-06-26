@@ -2,7 +2,9 @@
 
 ## 0.15.3 - 26th June 2026
 
-* tidying;
+* replaced top-level star-imports with explicit imports;
+* fixed `_str2bool()` defect;
+* general tidying;
 
 
 ## 0.15.2 - 27th August 2025
