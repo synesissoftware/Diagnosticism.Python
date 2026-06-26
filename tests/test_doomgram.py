@@ -115,7 +115,7 @@ class DOOMGram_tester(unittest.TestCase):
 
         self.assertEqual(789123456789, dg.total_event_time_ns())
         self.assertEqual(9, dg.min_event_time_ns())
-        self.assertEqual(700_000_000_000, dg.max_event_time_ns())
+        self.assertEqual(700000000000, dg.max_event_time_ns())  # 700,000,000,000
 
         self.assertEqual(1, dg.num_events_in_1ns())
         self.assertEqual(1, dg.num_events_in_10ns())
@@ -154,7 +154,7 @@ class DOOMGram_tester(unittest.TestCase):
 
         self.assertEqual(789123456789, dg.total_event_time_ns())
         self.assertEqual(9, dg.min_event_time_ns())
-        self.assertEqual(700_000_000_000, dg.max_event_time_ns())
+        self.assertEqual(700000000000, dg.max_event_time_ns())  # 700,000,000,000
 
         self.assertEqual(1, dg.num_events_in_1ns())
         self.assertEqual(1, dg.num_events_in_10ns())
@@ -193,7 +193,7 @@ class DOOMGram_tester(unittest.TestCase):
 
         self.assertEqual(789123456789, dg.total_event_time_ns())
         self.assertEqual(9, dg.min_event_time_ns())
-        self.assertEqual(700_000_000_000, dg.max_event_time_ns())
+        self.assertEqual(700000000000, dg.max_event_time_ns())  # 700,000,000,000
 
         self.assertEqual(1, dg.num_events_in_1ns())
         self.assertEqual(1, dg.num_events_in_10ns())
@@ -228,8 +228,8 @@ class DOOMGram_tester(unittest.TestCase):
         self.assertEqual(9, dg.event_count())
 
         self.assertEqual(789123456000, dg.total_event_time_ns())
-        self.assertEqual(6_000, dg.min_event_time_ns())
-        self.assertEqual(700_000_000_000, dg.max_event_time_ns())
+        self.assertEqual(6000, dg.min_event_time_ns())  # 6,000
+        self.assertEqual(700000000000, dg.max_event_time_ns())  # 700,000,000,000
 
         self.assertEqual(0, dg.num_events_in_1ns())
         self.assertEqual(0, dg.num_events_in_10ns())
@@ -264,7 +264,7 @@ class DOOMGram_tester(unittest.TestCase):
 
         self.assertEqual(314248103033, dg.total_event_time_ns())
         self.assertEqual(10, dg.min_event_time_ns())
-        self.assertEqual(309_000_000_000, dg.max_event_time_ns())
+        self.assertEqual(309000000000, dg.max_event_time_ns())  # 309,000,000,000
 
         self.assertEqual(0, dg.num_events_in_1ns())
         self.assertEqual(2, dg.num_events_in_10ns())
@@ -286,22 +286,22 @@ class DOOMGram_tester(unittest.TestCase):
 
         dg = DOOMGram()
 
-        dg.push_event_time_ns(   11)
-        dg.push_event_time_ns(   19)
-        dg.push_event_time_ns(   19)
-        dg.push_event_time_us(    7)
-        dg.push_event_time_us(    7)
-        dg.push_event_time_us(   89)
-        dg.push_event_time_ms(  248)
-        dg.push_event_time_ms(4_321)
-        dg.push_event_time_s(     5)
-        dg.push_event_time_s(   309)
+        dg.push_event_time_ns(  11)
+        dg.push_event_time_ns(  19)
+        dg.push_event_time_ns(  19)
+        dg.push_event_time_us(   7)
+        dg.push_event_time_us(   7)
+        dg.push_event_time_us(  89)
+        dg.push_event_time_ms( 248)
+        dg.push_event_time_ms(4321)  # 4,321
+        dg.push_event_time_s(    5)
+        dg.push_event_time_s(  309)
 
         self.assertEqual(10, dg.event_count())
 
         self.assertEqual(318569103049, dg.total_event_time_ns())
         self.assertEqual(11, dg.min_event_time_ns())
-        self.assertEqual(309_000_000_000, dg.max_event_time_ns())
+        self.assertEqual(309000000000, dg.max_event_time_ns())  # 309,000,000,000
 
         self.assertEqual(0, dg.num_events_in_1ns())
         self.assertEqual(3, dg.num_events_in_10ns())
@@ -335,12 +335,12 @@ class DOOMGram_tester(unittest.TestCase):
 
         self.assertEqual(10101010000, dg.total_event_time_ns())
         self.assertEqual(1, dg.min_event_time_ns())
-        self.assertEqual(1_000_000_000, dg.max_event_time_ns())
+        self.assertEqual(1000000000, dg.max_event_time_ns())  # 1,000,000,000
 
-        self.assertEqual(10_000, dg.num_events_in_1ns())
+        self.assertEqual(10000, dg.num_events_in_1ns())  # 10,000
         self.assertEqual(0, dg.num_events_in_10ns())
         self.assertEqual(0, dg.num_events_in_100ns())
-        self.assertEqual(1_000, dg.num_events_in_1us())
+        self.assertEqual(1000, dg.num_events_in_1us())  # 1,000
         self.assertEqual(0, dg.num_events_in_10us())
         self.assertEqual(0, dg.num_events_in_100us())
         self.assertEqual(100, dg.num_events_in_1ms())

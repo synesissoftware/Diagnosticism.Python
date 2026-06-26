@@ -4,7 +4,8 @@ import setuptools
 setuptools.setup(
 
     name='diagnosticism',
-    version='0.15.2',
+    version='0.15.3',
+    python_requires='>=2.7,<3.0 || >=3.8',
 
     author='Matt Wilson',
     author_email='matthew@synesis.com.au',
@@ -15,7 +16,7 @@ setuptools.setup(
         'Natural Language :: English',
         "Operating System :: OS Independent",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 2",
+        "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
@@ -29,12 +30,10 @@ setuptools.setup(
     license='BSD-3-Clause',
     long_description=open('README.md').read(),
     long_description_content_type="text/markdown",
-    packages=[
-        'diagnosticism',
-        'diagnosticism.internal',
+    packages=setuptools.find_packages(exclude=[
         'examples',
         'tests',
-    ],
+    ]),
     url='https://github.com/synesissoftware/diagnosticism.Python',
 )
 

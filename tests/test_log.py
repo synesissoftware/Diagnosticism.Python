@@ -34,9 +34,9 @@ class Logp_tester(unittest.TestCase):
 
                 set_program_name('myprog1')
 
-                log(INFORMATIONAL, 'msg-1')
+                log(INFORMATIONAL, "msg-1")
 
-                self.assertEqual('', fake_stderr.getvalue())
+                self.assertEqual("", fake_stderr.getvalue())
             finally:
 
                 enable_logging(logging_enabled)
@@ -52,7 +52,7 @@ class Logp_tester(unittest.TestCase):
 
                 set_program_name('myprog1')
 
-                log(INFORMATIONAL, 'msg-1')
+                log(INFORMATIONAL, "msg-1")
 
                 self.assertRegex(fake_stderr.getvalue(), r'^\[myprog1, \d+, \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6}, .*INFORMATIONAL.*\]: msg-1')
             finally:
@@ -70,7 +70,7 @@ class Logp_tester(unittest.TestCase):
 
             set_program_name('myprog3')
 
-            log(INFORMATIONAL, 'msg-3', file=file)
+            log(INFORMATIONAL, "msg-3", file=file)
         finally:
 
             enable_logging(logging_enabled)
@@ -90,7 +90,7 @@ class Logp_tester(unittest.TestCase):
 
                 set_program_name('myprog1')
 
-                log(INFORMATIONAL, lambda: 'msg-1')
+                log(INFORMATIONAL, lambda: "msg-1")
 
                 self.assertRegex(fake_stderr.getvalue(), r'^\[myprog1, \d+, \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6}, .*INFORMATIONAL.*\]: msg-1')
             finally:
@@ -110,17 +110,17 @@ class Logp_tester(unittest.TestCase):
 
                 set_program_name('myprog1')
 
-                log(DEBUG0, 'msg-debug0')
-                log(INFORMATIONAL, 'msg-informational')
-                log(NOTICE, 'msg-notice')
-                log(WARNING, 'msg-warning')
-                log(FAILURE, 'msg-failure')
-                log(CRITICAL, 'msg-critical')
-                log(ALERT, 'msg-alert')
+                log(DEBUG0, "msg-debug0")
+                log(INFORMATIONAL, "msg-informational")
+                log(NOTICE, "msg-notice")
+                log(WARNING, "msg-warning")
+                log(FAILURE, "msg-failure")
+                log(CRITICAL, "msg-critical")
+                log(ALERT, "msg-alert")
 
                 r = fake_stderr.getvalue().rstrip()
 
-                lines = re.split('[\r\n]', r)
+                lines = re.split("[\r\n]", r)
 
                 self.assertEqual(4, len(lines))
                 self.assertRegex(lines[0], r'^\[myprog1, \d+, \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6}, .*WARNING.*\]: msg-warning')
@@ -153,17 +153,17 @@ class Logp_tester(unittest.TestCase):
 
                 set_program_name('myprog1')
 
-                log(DEBUG0, 'msg-debug0')
-                log(INFORMATIONAL, 'msg-informational')
-                log(NOTICE, 'msg-notice')
-                log(WARNING, 'msg-warning')
-                log(FAILURE, 'msg-failure')
-                log(CRITICAL, 'msg-critical')
-                log(ALERT, 'msg-alert')
+                log(DEBUG0, "msg-debug0")
+                log(INFORMATIONAL, "msg-informational")
+                log(NOTICE, "msg-notice")
+                log(WARNING, "msg-warning")
+                log(FAILURE, "msg-failure")
+                log(CRITICAL, "msg-critical")
+                log(ALERT, "msg-alert")
 
                 r = fake_stderr.getvalue().rstrip()
 
-                lines = re.split('[\r\n]', r)
+                lines = re.split("[\r\n]", r)
 
                 self.assertEqual(3, len(lines))
                 self.assertRegex(lines[0], r'^\[myprog1, \d+, \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6}, .*WARNING.*\]: msg-warning')
@@ -195,17 +195,17 @@ class Logp_tester(unittest.TestCase):
 
                 set_program_name('myprog1')
 
-                log(DEBUG0, 'msg-debug0')
-                log(INFORMATIONAL, 'msg-informational')
-                log(NOTICE, 'msg-notice')
-                log(WARNING, 'msg-warning')
-                log(FAILURE, 'msg-failure')
-                log(CRITICAL, 'msg-critical')
-                log(ALERT, 'msg-alert')
+                log(DEBUG0, "msg-debug0")
+                log(INFORMATIONAL, "msg-informational")
+                log(NOTICE, "msg-notice")
+                log(WARNING, "msg-warning")
+                log(FAILURE, "msg-failure")
+                log(CRITICAL, "msg-critical")
+                log(ALERT, "msg-alert")
 
                 r = fake_stderr.getvalue().rstrip()
 
-                lines = re.split('[\r\n]', r)
+                lines = re.split("[\r\n]", r)
 
                 self.assertEqual(6, len(lines))
                 self.assertRegex(lines[0], r'^\[myprog1, \d+, \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6}, .*DEBUG0.*\]: msg-debug0')
