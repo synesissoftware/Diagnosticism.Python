@@ -3,6 +3,7 @@
 ## 0.15.3 - 26th June 2026
 
 * replaced top-level star-imports with explicit imports;
+* added top-level `__all__` documenting the public API;
 * fixed `_str2bool()` defect;
 * general tidying;
 
