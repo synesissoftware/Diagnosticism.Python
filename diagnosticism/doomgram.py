@@ -36,8 +36,11 @@
 # ######################################################################## #
 
 
+from .internal import (
+    _perf_counter_ns,
+)
+
 import math
-import time
 
 
 class DOOMGram:
@@ -224,33 +227,31 @@ class DOOMGram:
 
 
 
-        if time_in_ns >= 100_000_000:
+        if time_in_ns >= 100000000:  # 100,000,000
 
-            if time_in_ns >= 10_000_000_000:
+            if time_in_ns >= 10000000000:  # 10,000,000,000
 
-                if time_in_ns >= 100_000_000_000:
+                if time_in_ns >= 100000000000:  # 100,000,000,000
 
                     self._num_events_ge_100s += 1
                 else:
 
                     self._num_events_in_10s += 1
-
             else:
 
-                if time_in_ns >= 1_000_000_000:
+                if time_in_ns >= 1000000000:  # 1,000,000,000
 
                     self._num_events_in_1s += 1
                 else:
 
                     self._num_events_in_100ms += 1
-
         else:
 
-            if time_in_ns >= 10_000:
+            if time_in_ns >= 10000:  # 10,000
 
-                if time_in_ns >= 1_000_000:
+                if time_in_ns >= 1000000:  # 1,000,000
 
-                    if time_in_ns >= 10_000_000:
+                    if time_in_ns >= 10000000:  # 10,000,000
 
                         self._num_events_in_10ms += 1
                     else:
@@ -259,7 +260,7 @@ class DOOMGram:
 
                 else:
 
-                    if time_in_ns >= 100_000:
+                    if time_in_ns >= 100000:  # 100,000
 
                         self._num_events_in_100us += 1
                     else:
@@ -269,7 +270,7 @@ class DOOMGram:
 
                 if time_in_ns >= 100:
 
-                    if time_in_ns >= 1_000:
+                    if time_in_ns >= 1000:  # 1,000
 
                         self._num_events_in_1us += 1
                     else:
@@ -289,21 +290,21 @@ class DOOMGram:
         Pushes an event with the given number of microseconds.
         """
 
-        self.push_event_time_ns(time_in_us * 1_000)
+        self.push_event_time_ns(time_in_us * 1000)  # 1,000
 
     def push_event_time_ms(self, time_in_ms):
         """
         Pushes an event with the given number of milliseconds.
         """
 
-        self.push_event_time_ns(time_in_ms * 1_000_000)
+        self.push_event_time_ns(time_in_ms * 1000000)  # 1,000,000
 
     def push_event_time_s(self, time_in_s):
         """
         Pushes an event with the given number of seconds.
         """
 
-        self.push_event_time_ns(time_in_s * 1_000_000_000)
+        self.push_event_time_ns(time_in_s * 1000000000)  # 1,000,000,000
 
     def to_strip(self, **kwargs):
         """
@@ -426,13 +427,13 @@ class DOOMScope:
 
     def __enter__(self):
 
-        self._before = time.perf_counter_ns()
+        self._before = _perf_counter_ns()
 
         return self._dg
 
     def __exit__(self, x_type, x_val, x_tb):
 
-        after = time.perf_counter_ns()
+        after = _perf_counter_ns()
 
         self._dg.push_event_time_ns(after - self._before)
 

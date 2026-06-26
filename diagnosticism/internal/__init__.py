@@ -2,6 +2,7 @@
 import os
 import platform
 import sys
+import time
 
 
 TRUE_STRINGS    =   [
@@ -235,6 +236,25 @@ def _is_python_3_0_or_later():
 def _is_python_3_9_or_later():
 
     return sys.version_info[:2] >= (3, 9)
+
+
+if hasattr(time, 'perf_counter_ns'):
+
+    def _perf_counter_ns():
+        """
+        Return a performance counter in nanoseconds.
+        """
+
+        return time.perf_counter_ns()
+
+else:
+
+    def _perf_counter_ns():
+        """
+        Return a performance counter in nanoseconds.
+        """
+
+        return int(time.time() * 1000000000)  # 1,000,000,000
 
 
 # ############################## end of file ############################# #

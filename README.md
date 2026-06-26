@@ -16,6 +16,7 @@ Diagnosticism library, for Python
 
 - [Introduction](#introduction)
 - [Installation \& usage](#installation--usage)
+	- [Python version compatibility](#python-version-compatibility)
 - [Components](#components)
 	- [Classes](#classes)
 		- [`DOOMGram`](#doomgram)
@@ -76,6 +77,18 @@ that may then be used as:
 d.log(sev.INFO, "hello")
 ```
 
+
+### Python version compatibility
+
+**Diagnosticism.Python** is intended to run on **Python 2.7** and **Python
+3.8+**. GitHub Actions currently exercises **Python 3.8–3.13** only.
+
+| Requirement | Applies to |
+| ----------- | ---------- |
+| Python **2.7** or **3.8+** | Core contingent reporting, logging, tracing, and severity APIs |
+| Python **3.9+** | `@tracefunc` and `@asynctracefunc` decorators |
+
+The public API surface is listed in `diagnosticism.__all__`.
 
 
 ## Components

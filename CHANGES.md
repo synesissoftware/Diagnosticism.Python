@@ -4,6 +4,7 @@
 
 * added top-level `__all__` documenting the public API;
 * replaced top-level star-imports with explicit imports;
+* restoring broken Python 2.7 compatibility;
 * removed `tests` and `examples` from installable package;
 * fixed `_str2bool()` defect;
 * general tidying;

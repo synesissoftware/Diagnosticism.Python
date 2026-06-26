@@ -426,19 +426,19 @@ if _is_python_3_9_or_later():
                         if params_l[-1][1].kind == inspect.Parameter.VAR_KEYWORD:
 
                             paramK  =   params_l.pop()
-                            partK   =   f"{paramK[0]}(dict)={kwargs}"
+                            partK   =   "%s(dict)=%s" % (paramK[0], kwargs)
 
                     if len(params_l) != 0:
 
                         if params_l[-1][1].kind == inspect.Parameter.VAR_POSITIONAL:
 
                             paramA  =   params_l.pop()
-                            partA   =   f"{paramA[0]}(tuple)={args_n[len(params_l):]}"
+                            partA   =   "%s(tuple)=%s" % (paramA[0], args_n[len(params_l):])
 
                     if len(params_l) != 0:
 
                         namesN  =   [p[0] for p in params_l]
-                        partN   =   ', '.join([f"{k}({v.__class__.__name__})={v}" for (k, v) in dict(zip(namesN, args_n)).items()])
+                        partN   =   ', '.join(["%s(%s)=%s" % (k, v.__class__.__name__, v) for (k, v) in dict(zip(namesN, args_n)).items()])
 
 
                     fname   =   func.__name__
