@@ -212,7 +212,7 @@ if _is_python_2_7_or_later():
 
     def parse_verbosity(
         v,
-        **kwargs,
+        **kwargs
     ):
         """
         Attempts to parse the verbosity from `v`.

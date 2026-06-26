@@ -181,7 +181,7 @@ if _is_python_2_7_or_later():
 
     def conrep(
         message,
-        **kwargs,
+        **kwargs
     ):
         """
         DEPRECATED: use `report()`.

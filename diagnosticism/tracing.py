@@ -42,7 +42,7 @@ def _dbg(
     fr,
     show_fileline,
     *args,
-    **kwargs,
+    **kwargs
 ):
 
     try:
@@ -95,7 +95,7 @@ def _dbg(
 
 def _flf(
     depth=1,
-    **kwargs,
+    **kwargs
 ):
 
     assert 1 == depth
@@ -144,7 +144,7 @@ def _log_s(
 
 def dbgfl(
     *args,
-    **kwargs,
+    **kwargs
 ):
     """
     Traces arguments and keyword-arguments with file + line.
@@ -171,7 +171,7 @@ def dbgfl(
 
 def dbg(
     *args,
-    **kwargs,
+    **kwargs
 ):
     """
     Traces arguments and keyword-arguments.
@@ -224,7 +224,7 @@ def enable_tracing(*args):
 
 
 def file(
-    **kwargs,
+    **kwargs
 ):
     """
     Obtains the file of the caller.
@@ -238,7 +238,7 @@ def file(
 
 
 def func(
-    **kwargs,
+    **kwargs
 ):
     """
     Obtains the function of the caller.
@@ -252,7 +252,7 @@ def func(
 
 
 def line(
-    **kwargs,
+    **kwargs
 ):
     """
     Obtains the line of the caller.
@@ -266,7 +266,7 @@ def line(
 
 
 def fileline(
-    **kwargs,
+    **kwargs
 ):
     """
     Obtains a string representing the file and line of the caller.
@@ -285,7 +285,7 @@ def fileline(
 
 
 def filelinefunc(
-    **kwargs,
+    **kwargs
 ):
     """
     Obtains a string representing the file, line, and function of the
