@@ -9,13 +9,13 @@ on:
       - master
       - dev
       - gha
-      - tidying
+      - time_str
   pull_request:
     branches:
       - master
       - dev
       - gha
-      - tidying
+      - time_str
 
 jobs:
   build:
@@ -24,7 +24,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
+        python-version:
+          - "3.8"
+          - "3.9"
+          - "3.10"
+          - "3.11"
+          - "3.12"
+          - "3.13"
+          - "3.14"
 
     steps:
     - uses: actions/checkout@v4
@@ -62,7 +69,7 @@ jobs:
         python -m pip install --upgrade "pip<21" setuptools mock
     - name: Compile library modules
       run: |
-        python -m compileall diagnosticism
+        python -m compileall -x '_fmt_py3' diagnosticism
     - name: Test with unittest
       run: |
         python tests/run_unittest.py
