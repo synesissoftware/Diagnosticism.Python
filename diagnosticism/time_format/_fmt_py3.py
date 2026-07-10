@@ -6,7 +6,7 @@
 # Purpose:  Python 3 implementation of `_fmt()`.
 #
 # Created:  24th August 2025
-# Updated:  27th June 2026
+# Updated:  10th July 2026
 #
 # Copyright (c) 2025-2026, Matthew Wilson and Synesis Information Systems
 # All rights reserved.
@@ -37,6 +37,31 @@ def _fmt(
         return f"{sign}{whole}.{frac:02d}{suffix}"
 
     return f"{sign}{whole}.{frac}{suffix}"
+
+
+def _to_mmm(
+    min,
+    mean,
+    max,
+):
+    """
+    Formats min+mean+max.
+    """
+
+    return f"{min}-{mean}-{max}"
+
+
+def _to_nmmm(
+    count,
+    min,
+    mean,
+    max,
+):
+    """
+    Formats count+min+mean+max.
+    """
+
+    return f"{count}:{min}-{mean}-{max}"
 
 
 # ############################## end of file ############################# #

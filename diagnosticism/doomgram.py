@@ -39,6 +39,10 @@
 from .internal import (
     _perf_counter_ns,
 )
+from .time_format import (
+    _to_mmm,
+    _to_nmmm,
+)
 from .time_format.nanoseconds import nanoseconds_to_string
 
 import math
@@ -330,7 +334,11 @@ class DOOMGram:
         else:
             mean_ns = int(self._total_event_time_ns / count)
 
-            return f"{nanoseconds_to_string(min_ns)}-{nanoseconds_to_string(mean_ns)}-{nanoseconds_to_string(max_ns)}"
+            return _to_mmm(
+                nanoseconds_to_string(min_ns),
+                nanoseconds_to_string(mean_ns),
+                nanoseconds_to_string(max_ns),
+            )
 
     def to_nmmm(self, *kwargs):
 
@@ -355,7 +363,12 @@ class DOOMGram:
         else:
             mean_ns = int(self._total_event_time_ns / count)
 
-            return f"{count}:{nanoseconds_to_string(min_ns)}-{nanoseconds_to_string(mean_ns)}-{nanoseconds_to_string(max_ns)}"
+            return _to_nmmm(
+                count,
+                nanoseconds_to_string(min_ns),
+                nanoseconds_to_string(mean_ns),
+                nanoseconds_to_string(max_ns),
+            )
 
     def to_strip(self, **kwargs):
         """
