@@ -7,7 +7,7 @@ import unittest
 
 class DOOMGram_tester(unittest.TestCase):
 
-    def test_empty(self):
+    def test_EMPTY(self):
 
         dg = DOOMGram()
 
@@ -34,7 +34,7 @@ class DOOMGram_tester(unittest.TestCase):
         self.assertEqual("____________", str(dg))
         self.assertEqual("DOOMGram(event_count=0, total_event_time_ns=0, min_event_time_ns=None, max_event_time_ns=None, num_events_in_1ns=0, num_events_in_10ns=0, num_events_in_100ns=0, num_events_in_1us=0, num_events_in_10us=0, num_events_in_100us=0, num_events_in_1ms=0, num_events_in_10ms=0, num_events_in_100ms=0, num_events_in_1s=0, num_events_in_10s=0, num_events_ge_100s=0)", repr(dg))
 
-    def test_single_timing_event(self):
+    def test_SINGLE_TIMING_EVENT(self):
 
         dg = DOOMGram()
 
@@ -62,7 +62,7 @@ class DOOMGram_tester(unittest.TestCase):
         self.assertEqual("_______a____", dg.to_strip())
         self.assertEqual("_______a____", str(dg))
 
-    def test_zero_time_events(self):
+    def test_ZERO_TIME_EVENTS(self):
 
         dg = DOOMGram()
 
@@ -93,7 +93,7 @@ class DOOMGram_tester(unittest.TestCase):
         self.assertEqual("____________", dg.to_strip())
         self.assertEqual("____________", str(dg))
 
-    def test_uniform_spread_timings_1(self):
+    def test_UNIFORM_SPREAD_TIMINGS_1(self):
 
         dg = DOOMGram()
 
@@ -133,7 +133,7 @@ class DOOMGram_tester(unittest.TestCase):
         self.assertEqual("aaaaaaaaaaaa", dg.to_strip())
         self.assertEqual("aaaaaaaaaaaa", str(dg))
 
-    def test_uniform_spread_timings_2(self):
+    def test_UNIFORM_SPREAD_TIMINGS_2(self):
 
         dg = DOOMGram()
 
@@ -172,7 +172,7 @@ class DOOMGram_tester(unittest.TestCase):
         self.assertEqual("aaaaaaaaaaaa", dg.to_strip())
         self.assertEqual("aaaaaaaaaaaa", str(dg))
 
-    def test_uniform_spread_timings_3(self):
+    def test_UNIFORM_SPREAD_TIMINGS_3(self):
 
         dg = DOOMGram()
 
@@ -211,7 +211,7 @@ class DOOMGram_tester(unittest.TestCase):
         self.assertEqual("aaaaaaaaaaaa", dg.to_strip())
         self.assertEqual("aaaaaaaaaaaa", str(dg))
 
-    def test_uniform_spread_timings_4(self):
+    def test_UNIFORM_SPREAD_TIMINGS_4(self):
 
         dg = DOOMGram()
 
@@ -247,7 +247,7 @@ class DOOMGram_tester(unittest.TestCase):
         self.assertEqual("___aaaaaaaaa", dg.to_strip())
         self.assertEqual("___aaaaaaaaa", str(dg))
 
-    def test_several_distinct_timings(self):
+    def test_SEVERAL_DISTINCT_TIMINGS(self):
 
         dg = DOOMGram()
 
@@ -282,7 +282,7 @@ class DOOMGram_tester(unittest.TestCase):
         self.assertEqual("_a_aa___aa_a", dg.to_strip())
         self.assertEqual("_a_aa___aa_a", str(dg))
 
-    def test_several_intersecting_timings(self):
+    def test_SEVERAL_INTERSECTING_TIMINGS(self):
 
         dg = DOOMGram()
 
@@ -319,7 +319,7 @@ class DOOMGram_tester(unittest.TestCase):
         self.assertEqual("_a_aa___aa_a", dg.to_strip())
         self.assertEqual("_a_aa___aa_a", str(dg))
 
-    def test_many_cumulative_timings(self):
+    def test_MANY_CUMULATIVE_TIMINGS(self):
 
         dg = DOOMGram()
 
