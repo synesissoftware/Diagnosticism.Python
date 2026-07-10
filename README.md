@@ -84,7 +84,7 @@ d.log(sev.INFO, "hello")
 ### Python version compatibility
 
 **Diagnosticism.Python** is intended to run on **Python 2.7** and **Python
-3.8+**. GitHub Actions exercises **Python 2.7** and **Python 3.8–3.13**.
+3.8+**. GitHub Actions exercises **Python 2.7** and **Python 3.8–3.14**.
 
 | Requirement | Applies to |
 | ----------- | ---------- |
