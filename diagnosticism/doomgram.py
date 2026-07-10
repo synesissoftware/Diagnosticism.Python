@@ -4,11 +4,11 @@
 # Purpose:  Definition of the `DOOMGram` class.
 #
 # Created:  19th July 2025
-# Updated:  27th August 2025
+# Updated:  10th July 2026
 #
 # Author:   Matthew Wilson
 #
-# Copyright (c) 2025, Matthew Wilson and Synesis Information Systems
+# Copyright (c) 2025-2026, Matthew Wilson and Synesis Information Systems
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -39,6 +39,11 @@
 from .internal import (
     _perf_counter_ns,
 )
+from .time_format import (
+    _to_mmm,
+    _to_nmmm,
+)
+from .time_format.nanoseconds import nanoseconds_to_string
 
 import math
 
@@ -305,6 +310,65 @@ class DOOMGram:
         """
 
         self.push_event_time_ns(time_in_s * 1000000000)  # 1,000,000,000
+
+    def to_mmm(self, *kwargs):
+
+        # _OVERFLOW = "OVERFLOW"
+
+        count = self._event_count
+
+        if count == 0:
+
+            return ''
+
+        # if self._has_overflowed {
+        #     return _OVERFLOW;
+        # }
+
+        min_ns = self._min_event_time_ns
+        max_ns = self._max_event_time_ns
+
+        if count == 1 or min_ns == max_ns:
+
+            return nanoseconds_to_string(min_ns)
+        else:
+            mean_ns = int(self._total_event_time_ns / count)
+
+            return _to_mmm(
+                nanoseconds_to_string(min_ns),
+                nanoseconds_to_string(mean_ns),
+                nanoseconds_to_string(max_ns),
+            )
+
+    def to_nmmm(self, *kwargs):
+
+        # _OVERFLOW = "OVERFLOW"
+
+        count = self._event_count
+
+        if count == 0:
+
+            return '0:'
+
+        # if self._has_overflowed {
+        #     return str(count) + ':' + _OVERFLOW;
+        # }
+
+        min_ns = self._min_event_time_ns
+        max_ns = self._max_event_time_ns
+
+        if count == 1 or min_ns == max_ns:
+
+            return str(count) + ':' + nanoseconds_to_string(min_ns)
+        else:
+            mean_ns = int(self._total_event_time_ns / count)
+
+            return _to_nmmm(
+                count,
+                nanoseconds_to_string(min_ns),
+                nanoseconds_to_string(mean_ns),
+                nanoseconds_to_string(max_ns),
+            )
 
     def to_strip(self, **kwargs):
         """

@@ -5,7 +5,7 @@ setuptools.setup(
 
     name='diagnosticism',
     python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*, !=3.6.*, !=3.7.*',
-    version='0.16.0',
+    version='0.17.0',
 
     author='Matt Wilson',
     author_email='matthew@synesis.com.au',
@@ -24,6 +24,7 @@ setuptools.setup(
         "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: 3.12",
         "Programming Language :: Python :: 3.13",
+        "Programming Language :: Python :: 3.14",
     ],
     description='Basic diagnostic facilities, for Python',
     keywords='Diagnostic Diagnostics Logging Trace Tracing Stopwatch',

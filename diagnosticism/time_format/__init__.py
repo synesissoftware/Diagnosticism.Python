@@ -41,9 +41,17 @@
 import sys
 
 if sys.version_info[0] >= 3:
-    from ._fmt_py3 import _fmt
+    from ._fmt_py3 import (
+        _fmt,
+        _to_mmm,
+        _to_nmmm,
+    )
 else:
-    from ._fmt_py2 import _fmt
+    from ._fmt_py2 import (
+        _fmt,
+        _to_mmm,
+        _to_nmmm,
+    )
 
 
 _SCALES = (
