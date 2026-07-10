@@ -8,7 +8,7 @@
 # Created:  24th August 2025
 # Updated:  27th June 2026
 #
-# Copyright (c) 2026-2027, Matthew Wilson and Synesis Information Systems
+# Copyright (c) 2025-2026, Matthew Wilson and Synesis Information Systems
 # All rights reserved.
 #
 # ######################################################################## #
