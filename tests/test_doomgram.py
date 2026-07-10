@@ -30,6 +30,8 @@ class DOOMGram_tester(unittest.TestCase):
         self.assertEqual(0, dg.num_events_in_10s())
         self.assertEqual(0, dg.num_events_ge_100s())
 
+        self.assertEqual("", dg.to_mmm())
+        self.assertEqual("0:", dg.to_nmmm())
         self.assertEqual("____________", dg.to_strip())
         self.assertEqual("____________", str(dg))
         self.assertEqual("DOOMGram(event_count=0, total_event_time_ns=0, min_event_time_ns=None, max_event_time_ns=None, num_events_in_1ns=0, num_events_in_10ns=0, num_events_in_100ns=0, num_events_in_1us=0, num_events_in_10us=0, num_events_in_100us=0, num_events_in_1ms=0, num_events_in_10ms=0, num_events_in_100ms=0, num_events_in_1s=0, num_events_in_10s=0, num_events_ge_100s=0)", repr(dg))
@@ -59,6 +61,8 @@ class DOOMGram_tester(unittest.TestCase):
         self.assertEqual(0, dg.num_events_in_10s())
         self.assertEqual(0, dg.num_events_ge_100s())
 
+        self.assertEqual("13ms", dg.to_mmm())
+        self.assertEqual("1:13ms", dg.to_nmmm())
         self.assertEqual("_______a____", dg.to_strip())
         self.assertEqual("_______a____", str(dg))
 
@@ -90,6 +94,8 @@ class DOOMGram_tester(unittest.TestCase):
         self.assertEqual(0, dg.num_events_in_10s())
         self.assertEqual(0, dg.num_events_ge_100s())
 
+        self.assertEqual("0s", dg.to_mmm())
+        self.assertEqual("4:0s", dg.to_nmmm())
         self.assertEqual("____________", dg.to_strip())
         self.assertEqual("____________", str(dg))
 
@@ -130,6 +136,8 @@ class DOOMGram_tester(unittest.TestCase):
         self.assertEqual(1, dg.num_events_in_10s())
         self.assertEqual(1, dg.num_events_ge_100s())
 
+        self.assertEqual("9ns-65.76s-700s", dg.to_mmm())
+        self.assertEqual("12:9ns-65.76s-700s", dg.to_nmmm())
         self.assertEqual("aaaaaaaaaaaa", dg.to_strip())
         self.assertEqual("aaaaaaaaaaaa", str(dg))
 
@@ -169,6 +177,8 @@ class DOOMGram_tester(unittest.TestCase):
         self.assertEqual(1, dg.num_events_in_10s())
         self.assertEqual(1, dg.num_events_ge_100s())
 
+        self.assertEqual("9ns-65.76s-700s", dg.to_mmm())
+        self.assertEqual("12:9ns-65.76s-700s", dg.to_nmmm())
         self.assertEqual("aaaaaaaaaaaa", dg.to_strip())
         self.assertEqual("aaaaaaaaaaaa", str(dg))
 
@@ -208,6 +218,8 @@ class DOOMGram_tester(unittest.TestCase):
         self.assertEqual(1, dg.num_events_in_10s())
         self.assertEqual(1, dg.num_events_ge_100s())
 
+        self.assertEqual("9ns-65.76s-700s", dg.to_mmm())
+        self.assertEqual("12:9ns-65.76s-700s", dg.to_nmmm())
         self.assertEqual("aaaaaaaaaaaa", dg.to_strip())
         self.assertEqual("aaaaaaaaaaaa", str(dg))
 
@@ -244,6 +256,8 @@ class DOOMGram_tester(unittest.TestCase):
         self.assertEqual(1, dg.num_events_in_10s())
         self.assertEqual(1, dg.num_events_ge_100s())
 
+        self.assertEqual("6µs-87.68s-700s", dg.to_mmm())
+        self.assertEqual("9:6µs-87.68s-700s", dg.to_nmmm())
         self.assertEqual("___aaaaaaaaa", dg.to_strip())
         self.assertEqual("___aaaaaaaaa", str(dg))
 
@@ -279,6 +293,8 @@ class DOOMGram_tester(unittest.TestCase):
         self.assertEqual(0, dg.num_events_in_10s())
         self.assertEqual(1, dg.num_events_ge_100s())
 
+        self.assertEqual("10ns-39.28s-309s", dg.to_mmm())
+        self.assertEqual("8:10ns-39.28s-309s", dg.to_nmmm())
         self.assertEqual("_a_aa___aa_a", dg.to_strip())
         self.assertEqual("_a_aa___aa_a", str(dg))
 
@@ -316,6 +332,8 @@ class DOOMGram_tester(unittest.TestCase):
         self.assertEqual(0, dg.num_events_in_10s())
         self.assertEqual(1, dg.num_events_ge_100s())
 
+        self.assertEqual("11ns-31.85s-309s", dg.to_mmm())
+        self.assertEqual("10:11ns-31.85s-309s", dg.to_nmmm())
         self.assertEqual("_a_aa___aa_a", dg.to_strip())
         self.assertEqual("_a_aa___aa_a", str(dg))
 
@@ -350,6 +368,8 @@ class DOOMGram_tester(unittest.TestCase):
         self.assertEqual(0, dg.num_events_in_10s())
         self.assertEqual(0, dg.num_events_ge_100s())
 
+        self.assertEqual("1ns-909.1µs-1s", dg.to_mmm())
+        self.assertEqual("11110:1ns-909.1µs-1s", dg.to_nmmm())
         self.assertEqual("e__d__c__b__", dg.to_strip())
         self.assertEqual("e__d__c__b__", str(dg))
         self.assertEqual("*--d--c--b--", dg.to_strip(range='abcd', zero='-'))

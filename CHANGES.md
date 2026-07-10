@@ -1,5 +1,10 @@
 # **Diagnosticism.Python** Changes
 
+## 0.17.0 - 10th July 2026
+
+* added `DOOMGram::to_mmm()` and `DOOMGram::to_nmmm()` — compact min/mean/max duration summaries using `nanoseconds_to_string()`;
+
+
 ## 0.16.0 - 27th June 2026
 
 * added `nanoseconds_to_string()`;
