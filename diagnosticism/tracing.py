@@ -253,6 +253,9 @@ def func(
     return _flf(depth=1)[2]
 
 
+function = func
+
+
 def line(
     **kwargs,
 ):

@@ -38,6 +38,7 @@ from .tracing import (
     fileline,
     filelinefunc,
     func,
+    function,
     is_tracing_enabled,
     line,
     trace,
