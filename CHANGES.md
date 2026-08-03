@@ -1,5 +1,10 @@
 # **Diagnosticism.Python** Changes
 
+## 0.16.0 - 3rd August 2026
+
+* + added `function()` alias for `func()`;
+
+
 ## 0.15.2 - 27th August 2025
 
 * project boilerplate;
