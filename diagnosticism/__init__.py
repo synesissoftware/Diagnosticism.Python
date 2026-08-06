@@ -9,7 +9,7 @@ __email__       =   'matthew@synesis.com.au'
 __license__     =   'BSD-3-Clause'
 __maintainer__  =   'Matt Wilson'
 __status__      =   'Beta'
-__version__     =   '0.17.0'
+__version__     =   '0.18.0'
 
 import sys
 
@@ -67,6 +67,7 @@ from .tracing import (
     fileline,
     filelinefunc,
     func,
+    function,
     is_tracing_enabled,
     line,
     trace,

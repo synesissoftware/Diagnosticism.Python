@@ -1,5 +1,9 @@
 # **Diagnosticism.Python** Changes
 
+## 0.18.0 - 6th August 2026
+
+* + added `function()` alias for `func()`;
+
 ## 0.17.0 - 10th July 2026
 
 * added `DOOMGram::to_mmm()` and `DOOMGram::to_nmmm()` — compact min/mean/max duration summaries using `nanoseconds_to_string()`;

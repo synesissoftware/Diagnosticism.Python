@@ -264,6 +264,7 @@ The following functions are defined:
 | `fileline()` | Obtains the file+line in which the calling function is defined. |
 | `filelinefunc()` | Obtains the file+line+function in which the calling function is defined. |
 | `func()` | Obtains the function in which the calling function is defined. |
+| `function()` | Alias for `func()`. |
 | `line()` | Obtains the line on which the calling function is defined. |
 
 
