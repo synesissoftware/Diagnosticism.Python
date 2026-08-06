@@ -4,11 +4,11 @@
 # Purpose:  Definition of the `DOOMGram` class.
 #
 # Created:  19th July 2025
-# Updated:  27th August 2025
+# Updated:  10th July 2026
 #
 # Author:   Matthew Wilson
 #
-# Copyright (c) 2025, Matthew Wilson and Synesis Information Systems
+# Copyright (c) 2025-2026, Matthew Wilson and Synesis Information Systems
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -36,8 +36,16 @@
 # ######################################################################## #
 
 
+from .internal import (
+    _perf_counter_ns,
+)
+from .time_format import (
+    _to_mmm,
+    _to_nmmm,
+)
+from .time_format.nanoseconds import nanoseconds_to_string
+
 import math
-import time
 
 
 class DOOMGram:
@@ -224,33 +232,31 @@ class DOOMGram:
 
 
 
-        if time_in_ns >= 100_000_000:
+        if time_in_ns >= 100000000:  # 100,000,000
 
-            if time_in_ns >= 10_000_000_000:
+            if time_in_ns >= 10000000000:  # 10,000,000,000
 
-                if time_in_ns >= 100_000_000_000:
+                if time_in_ns >= 100000000000:  # 100,000,000,000
 
                     self._num_events_ge_100s += 1
                 else:
 
                     self._num_events_in_10s += 1
-
             else:
 
-                if time_in_ns >= 1_000_000_000:
+                if time_in_ns >= 1000000000:  # 1,000,000,000
 
                     self._num_events_in_1s += 1
                 else:
 
                     self._num_events_in_100ms += 1
-
         else:
 
-            if time_in_ns >= 10_000:
+            if time_in_ns >= 10000:  # 10,000
 
-                if time_in_ns >= 1_000_000:
+                if time_in_ns >= 1000000:  # 1,000,000
 
-                    if time_in_ns >= 10_000_000:
+                    if time_in_ns >= 10000000:  # 10,000,000
 
                         self._num_events_in_10ms += 1
                     else:
@@ -259,7 +265,7 @@ class DOOMGram:
 
                 else:
 
-                    if time_in_ns >= 100_000:
+                    if time_in_ns >= 100000:  # 100,000
 
                         self._num_events_in_100us += 1
                     else:
@@ -269,7 +275,7 @@ class DOOMGram:
 
                 if time_in_ns >= 100:
 
-                    if time_in_ns >= 1_000:
+                    if time_in_ns >= 1000:  # 1,000
 
                         self._num_events_in_1us += 1
                     else:
@@ -289,21 +295,80 @@ class DOOMGram:
         Pushes an event with the given number of microseconds.
         """
 
-        self.push_event_time_ns(time_in_us * 1_000)
+        self.push_event_time_ns(time_in_us * 1000)  # 1,000
 
     def push_event_time_ms(self, time_in_ms):
         """
         Pushes an event with the given number of milliseconds.
         """
 
-        self.push_event_time_ns(time_in_ms * 1_000_000)
+        self.push_event_time_ns(time_in_ms * 1000000)  # 1,000,000
 
     def push_event_time_s(self, time_in_s):
         """
         Pushes an event with the given number of seconds.
         """
 
-        self.push_event_time_ns(time_in_s * 1_000_000_000)
+        self.push_event_time_ns(time_in_s * 1000000000)  # 1,000,000,000
+
+    def to_mmm(self, *kwargs):
+
+        # _OVERFLOW = "OVERFLOW"
+
+        count = self._event_count
+
+        if count == 0:
+
+            return ''
+
+        # if self._has_overflowed {
+        #     return _OVERFLOW;
+        # }
+
+        min_ns = self._min_event_time_ns
+        max_ns = self._max_event_time_ns
+
+        if count == 1 or min_ns == max_ns:
+
+            return nanoseconds_to_string(min_ns)
+        else:
+            mean_ns = int(self._total_event_time_ns / count)
+
+            return _to_mmm(
+                nanoseconds_to_string(min_ns),
+                nanoseconds_to_string(mean_ns),
+                nanoseconds_to_string(max_ns),
+            )
+
+    def to_nmmm(self, *kwargs):
+
+        # _OVERFLOW = "OVERFLOW"
+
+        count = self._event_count
+
+        if count == 0:
+
+            return '0:'
+
+        # if self._has_overflowed {
+        #     return str(count) + ':' + _OVERFLOW;
+        # }
+
+        min_ns = self._min_event_time_ns
+        max_ns = self._max_event_time_ns
+
+        if count == 1 or min_ns == max_ns:
+
+            return str(count) + ':' + nanoseconds_to_string(min_ns)
+        else:
+            mean_ns = int(self._total_event_time_ns / count)
+
+            return _to_nmmm(
+                count,
+                nanoseconds_to_string(min_ns),
+                nanoseconds_to_string(mean_ns),
+                nanoseconds_to_string(max_ns),
+            )
 
     def to_strip(self, **kwargs):
         """
@@ -312,15 +377,25 @@ class DOOMGram:
         === Signature
 
         * *Parameters:*
-          - +options+ (+Hash+, +Integer+) Combination of flags (with behaviour as described below for the +flags+ option), or an options hash;
+          - +options+ (+Hash+, +Integer+) Combination of flags (with
+            behaviour as described below for the +flags+ option), or an
+            options hash;
 
         * *Options:*
-          - +overflow_character+ (+String+) A string (of length 1) that specifies the symbol for counts outside the available range. Defaults to +'*'+;
-          - +range+ (+String+) A string whose characters specificy the symbols to use for counts in orders of magnitude. Defaults to +'abcdefghijklmnopqrstuvwxyz'+, which caters to the counts 1-9 => +'a', 10-99 => +'b'+, 100-999 => +'c'+, ... 10^25-(10^26-1) => +'z'+;
-          - +zero_character+ (+String+) A string (of length 1) that specifies the symbol for a count of 0. Defaults to +' '+;
+          - +overflow_character+ (+String+) A string (of length 1) that
+            specifies the symbol for counts outside the available range.
+            Defaults to +'*'+;
+          - +range+ (+String+) A string whose characters specificy the
+            symbols to use for counts in orders of magnitude. Defaults to
+            +'abcdefghijklmnopqrstuvwxyz'+, which caters to the counts 1-9
+            => +'a', 10-99 => +'b'+, 100-999 => +'c'+, ...
+            10^25-(10^26-1) => +'z'+;
+          - +zero_character+ (+String+) A string (of length 1) that
+            specifies the symbol for a count of 0. Defaults to +' '+;
 
         === Return
-        (+String+) A string (of length 12) containing symbols representing the counts in the ranges 1ns, 10ns, ..., 10s, 100+s.
+        (+String+) A string (of length 12) containing symbols representing
+        the counts in the ranges 1ns, 10ns, ..., 10s, 100+s.
         """
 
         ch_zero     =   kwargs.get('zero', '_')
@@ -416,13 +491,13 @@ class DOOMScope:
 
     def __enter__(self):
 
-        self._before = time.perf_counter_ns()
+        self._before = _perf_counter_ns()
 
         return self._dg
 
     def __exit__(self, x_type, x_val, x_tb):
 
-        after = time.perf_counter_ns()
+        after = _perf_counter_ns()
 
         self._dg.push_event_time_ns(after - self._before)
 

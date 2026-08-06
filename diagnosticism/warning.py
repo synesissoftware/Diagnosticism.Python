@@ -45,9 +45,7 @@ def _warn(
 
 def warn(
     *message_lines,
-    file=None,
-    file_cr=None,
-    file_dl=None,
+    **kwargs
 ):
     """
     Analogue of Ruby's `Kernel#warn()`
@@ -55,21 +53,31 @@ def warn(
     Parameters
     ----------
     message_lines : list[str]
-        The message line(s) to be emitted to the standard error stream (along with a new-line sequence). If `None`, nothing is emitted
+        The message line(s) to be emitted to the standard error stream
+        (along with a new-line sequence). If `None`, nothing is emitted
 
     file : file-object, optional
-        An object with a `write(str)` method, or `None` (or not present), in which case the default of `sys.stderr` will be used
+        An object with a `write(str)` method, or `None` (or not present), in
+        which case the default of `sys.stderr` will be used
 
     file_cr : file-object, optional
-        An object with a `write(str)` method, or `None` (or not present), in which case the default given in `file` will be used. Used for contingent report output
+        An object with a `write(str)` method, or `None` (or not present), in
+        which case the default given in `file` will be used. Used for
+        contingent report output
 
     file_dl : file-object, optional
-        An object with a `write(str)` method, or `None` (or not present), in which case the default given in `file` will be used. Used for diagnostic logging output
+        An object with a `write(str)` method, or `None` (or not present), in
+        which case the default given in `file` will be used. Used for
+        diagnostic logging output
 
     Returns
     -------
     None
     """
+
+    file = kwargs.get('file', None)
+    file_cr = kwargs.get('file_cr', None)
+    file_dl = kwargs.get('file_dl', None)
 
     if file_cr is None:
 

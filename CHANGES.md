@@ -1,8 +1,29 @@
 # **Diagnosticism.Python** Changes
 
-## 0.16.0 - 3rd August 2026
+## 0.18.0 - 6th August 2026
 
 * + added `function()` alias for `func()`;
+
+## 0.17.0 - 10th July 2026
+
+* added `DOOMGram::to_mmm()` and `DOOMGram::to_nmmm()` — compact min/mean/max duration summaries using `nanoseconds_to_string()`;
+* updated compatibility to Python 3.18;
+
+
+## 0.16.0 - 27th June 2026
+
+* added `nanoseconds_to_string()`;
+
+
+## 0.15.3 - 27th June 2026
+
+* added top-level `__all__` documenting the public API;
+* replaced top-level star-imports with explicit imports;
+* restoring broken Python 2.7 compatibility;
+* removed `tests` and `examples` from installable package;
+* fixed `_str2bool()` defect;
+* added `python_requires` for Python 2.7 and Python 3.8+;
+* general tidying;
 
 
 ## 0.15.2 - 27th August 2025

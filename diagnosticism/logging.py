@@ -18,9 +18,11 @@ import threading
 
 _REAL_STDERR = sys.stderr
 
+
 def _get_stderr_dynamic():
 
     return sys.stderr
+
 
 def _get_stderr_static():
 
@@ -81,7 +83,10 @@ def enable_logging(*args):
     Parameters
     ----------
     *args
-        1 or 2 arguments: if 1, then is a `bool` determining whether should be enabled; if 2, then first is name(s) of environment variable(s) to be parsed and second is a `bool` specifying the default if not found in the environment
+        1 or 2 arguments: if 1, then is a `bool` determining whether
+        enabled; if 2, then first is name(s) of environment variable(s) to
+        be parsed and second is a `bool` specifying the default if not
+        found in the environment
 
     Returns
     -------
@@ -91,7 +96,8 @@ def enable_logging(*args):
     Raises
     ------
     ValueError
-        If the string form of `v` does not contain a recognisable severity level
+        If the string form of `v` does not contain a recognisable severity
+        level
     """
 
     is_enabled = _bool_from_env(args, 'enable_logging')
@@ -129,8 +135,7 @@ def is_severity_logged(severity):
 
     if _log_filter:
 
-        if isinstance(_log_filter, (dict, )):
-
+        if isinstance(_log_filter, (dict,)):
             r = _log_filter.get(severity, _others_action)
 
             if not r:
@@ -150,15 +155,20 @@ def set_log_filter(
     others_action=None,
 ):
     """
-    Sets a logging filter, which may either specify a threshold severity or a mapping of levels to actions
+    Sets a logging filter, which may either specify a threshold severity or
+    a mapping of levels to actions
 
     Parameters
     ----------
     log_filter : int, dict
-        If a dictionary, it is interpreted as a mapping from severity-level to `True`/`False` that controls each level's output; otherwise, treated as a severity-level threshold (and must be convertible to `int`)
+        If a dictionary, it is interpreted as a mapping from
+        severity-level to `True`/`False` that controls each level's output;
+        otherwise, treated as a severity-level threshold (and must be
+        convertible to `int`)
 
     others_action : obj, optional
-        An object to be passed to be used in the case that the log_filter is a dictionary and the severity is not recognised
+        An object to be passed to be used in the case that the log_filter is
+        a dictionary and the severity is not recognised
 
     Returns
     -------
@@ -205,7 +215,7 @@ def _do_log(
         message = message()
 
     # TODO: perf test this
-    full = prefix + ': ' + message
+    full = prefix + ": " + message
 
     show_program_name = False
     trailing_prompt = False
@@ -234,7 +244,8 @@ def log(
         The severity associated with the message
 
     message : str, callable
-        A message string to be emitted, or a callable object that will yield an emittable string when called
+        A message string to be emitted, or a callable object that will yield
+        an emittable string when called
 
     Returns
     -------

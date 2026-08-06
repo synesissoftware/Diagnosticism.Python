@@ -1,5 +1,8 @@
 #! /usr/bin/env python3
 
+# NOTE: This example requires Python 3+ (uses DOOMScope / perf_counter_ns and
+# PEP 515 numeric literals).
+
 from diagnosticism import (
     DOOMGram,
     DOOMScope,

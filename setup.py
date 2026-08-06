@@ -4,7 +4,8 @@ import setuptools
 setuptools.setup(
 
     name='diagnosticism',
-    version='0.16.0',
+    python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*, !=3.6.*, !=3.7.*',
+    version='0.18.0',
 
     author='Matt Wilson',
     author_email='matthew@synesis.com.au',
@@ -15,7 +16,7 @@ setuptools.setup(
         'Natural Language :: English',
         "Operating System :: OS Independent",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 2",
+        "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
@@ -23,18 +24,17 @@ setuptools.setup(
         "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: 3.12",
         "Programming Language :: Python :: 3.13",
+        "Programming Language :: Python :: 3.14",
     ],
     description='Basic diagnostic facilities, for Python',
     keywords='Diagnostic Diagnostics Logging Trace Tracing Stopwatch',
     license='BSD-3-Clause',
     long_description=open('README.md').read(),
     long_description_content_type="text/markdown",
-    packages=[
-        'diagnosticism',
-        'diagnosticism.internal',
+    packages=setuptools.find_packages(exclude=[
         'examples',
         'tests',
-    ],
+    ]),
     url='https://github.com/synesissoftware/diagnosticism.Python',
 )
 

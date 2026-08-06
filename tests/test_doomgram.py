@@ -1,4 +1,5 @@
 #! /usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 from diagnosticism import DOOMGram
 
@@ -7,7 +8,7 @@ import unittest
 
 class DOOMGram_tester(unittest.TestCase):
 
-    def test_empty(self):
+    def test_EMPTY(self):
 
         dg = DOOMGram()
 
@@ -30,11 +31,13 @@ class DOOMGram_tester(unittest.TestCase):
         self.assertEqual(0, dg.num_events_in_10s())
         self.assertEqual(0, dg.num_events_ge_100s())
 
+        self.assertEqual("", dg.to_mmm())
+        self.assertEqual("0:", dg.to_nmmm())
         self.assertEqual("____________", dg.to_strip())
         self.assertEqual("____________", str(dg))
         self.assertEqual("DOOMGram(event_count=0, total_event_time_ns=0, min_event_time_ns=None, max_event_time_ns=None, num_events_in_1ns=0, num_events_in_10ns=0, num_events_in_100ns=0, num_events_in_1us=0, num_events_in_10us=0, num_events_in_100us=0, num_events_in_1ms=0, num_events_in_10ms=0, num_events_in_100ms=0, num_events_in_1s=0, num_events_in_10s=0, num_events_ge_100s=0)", repr(dg))
 
-    def test_single_timing_event(self):
+    def test_SINGLE_TIMING_EVENT(self):
 
         dg = DOOMGram()
 
@@ -59,10 +62,12 @@ class DOOMGram_tester(unittest.TestCase):
         self.assertEqual(0, dg.num_events_in_10s())
         self.assertEqual(0, dg.num_events_ge_100s())
 
+        self.assertEqual("13ms", dg.to_mmm())
+        self.assertEqual("1:13ms", dg.to_nmmm())
         self.assertEqual("_______a____", dg.to_strip())
         self.assertEqual("_______a____", str(dg))
 
-    def test_zero_time_events(self):
+    def test_ZERO_TIME_EVENTS(self):
 
         dg = DOOMGram()
 
@@ -90,10 +95,12 @@ class DOOMGram_tester(unittest.TestCase):
         self.assertEqual(0, dg.num_events_in_10s())
         self.assertEqual(0, dg.num_events_ge_100s())
 
+        self.assertEqual("0s", dg.to_mmm())
+        self.assertEqual("4:0s", dg.to_nmmm())
         self.assertEqual("____________", dg.to_strip())
         self.assertEqual("____________", str(dg))
 
-    def test_uniform_spread_timings_1(self):
+    def test_UNIFORM_SPREAD_TIMINGS_1(self):
 
         dg = DOOMGram()
 
@@ -115,7 +122,7 @@ class DOOMGram_tester(unittest.TestCase):
 
         self.assertEqual(789123456789, dg.total_event_time_ns())
         self.assertEqual(9, dg.min_event_time_ns())
-        self.assertEqual(700_000_000_000, dg.max_event_time_ns())
+        self.assertEqual(700000000000, dg.max_event_time_ns())  # 700,000,000,000
 
         self.assertEqual(1, dg.num_events_in_1ns())
         self.assertEqual(1, dg.num_events_in_10ns())
@@ -130,10 +137,12 @@ class DOOMGram_tester(unittest.TestCase):
         self.assertEqual(1, dg.num_events_in_10s())
         self.assertEqual(1, dg.num_events_ge_100s())
 
+        self.assertEqual("9ns-65.76s-700s", dg.to_mmm())
+        self.assertEqual("12:9ns-65.76s-700s", dg.to_nmmm())
         self.assertEqual("aaaaaaaaaaaa", dg.to_strip())
         self.assertEqual("aaaaaaaaaaaa", str(dg))
 
-    def test_uniform_spread_timings_2(self):
+    def test_UNIFORM_SPREAD_TIMINGS_2(self):
 
         dg = DOOMGram()
 
@@ -154,7 +163,7 @@ class DOOMGram_tester(unittest.TestCase):
 
         self.assertEqual(789123456789, dg.total_event_time_ns())
         self.assertEqual(9, dg.min_event_time_ns())
-        self.assertEqual(700_000_000_000, dg.max_event_time_ns())
+        self.assertEqual(700000000000, dg.max_event_time_ns())  # 700,000,000,000
 
         self.assertEqual(1, dg.num_events_in_1ns())
         self.assertEqual(1, dg.num_events_in_10ns())
@@ -169,10 +178,12 @@ class DOOMGram_tester(unittest.TestCase):
         self.assertEqual(1, dg.num_events_in_10s())
         self.assertEqual(1, dg.num_events_ge_100s())
 
+        self.assertEqual("9ns-65.76s-700s", dg.to_mmm())
+        self.assertEqual("12:9ns-65.76s-700s", dg.to_nmmm())
         self.assertEqual("aaaaaaaaaaaa", dg.to_strip())
         self.assertEqual("aaaaaaaaaaaa", str(dg))
 
-    def test_uniform_spread_timings_3(self):
+    def test_UNIFORM_SPREAD_TIMINGS_3(self):
 
         dg = DOOMGram()
 
@@ -193,7 +204,7 @@ class DOOMGram_tester(unittest.TestCase):
 
         self.assertEqual(789123456789, dg.total_event_time_ns())
         self.assertEqual(9, dg.min_event_time_ns())
-        self.assertEqual(700_000_000_000, dg.max_event_time_ns())
+        self.assertEqual(700000000000, dg.max_event_time_ns())  # 700,000,000,000
 
         self.assertEqual(1, dg.num_events_in_1ns())
         self.assertEqual(1, dg.num_events_in_10ns())
@@ -208,10 +219,12 @@ class DOOMGram_tester(unittest.TestCase):
         self.assertEqual(1, dg.num_events_in_10s())
         self.assertEqual(1, dg.num_events_ge_100s())
 
+        self.assertEqual("9ns-65.76s-700s", dg.to_mmm())
+        self.assertEqual("12:9ns-65.76s-700s", dg.to_nmmm())
         self.assertEqual("aaaaaaaaaaaa", dg.to_strip())
         self.assertEqual("aaaaaaaaaaaa", str(dg))
 
-    def test_uniform_spread_timings_4(self):
+    def test_UNIFORM_SPREAD_TIMINGS_4(self):
 
         dg = DOOMGram()
 
@@ -228,8 +241,8 @@ class DOOMGram_tester(unittest.TestCase):
         self.assertEqual(9, dg.event_count())
 
         self.assertEqual(789123456000, dg.total_event_time_ns())
-        self.assertEqual(6_000, dg.min_event_time_ns())
-        self.assertEqual(700_000_000_000, dg.max_event_time_ns())
+        self.assertEqual(6000, dg.min_event_time_ns())  # 6,000
+        self.assertEqual(700000000000, dg.max_event_time_ns())  # 700,000,000,000
 
         self.assertEqual(0, dg.num_events_in_1ns())
         self.assertEqual(0, dg.num_events_in_10ns())
@@ -244,10 +257,12 @@ class DOOMGram_tester(unittest.TestCase):
         self.assertEqual(1, dg.num_events_in_10s())
         self.assertEqual(1, dg.num_events_ge_100s())
 
+        self.assertEqual("6µs-87.68s-700s", dg.to_mmm())
+        self.assertEqual("9:6µs-87.68s-700s", dg.to_nmmm())
         self.assertEqual("___aaaaaaaaa", dg.to_strip())
         self.assertEqual("___aaaaaaaaa", str(dg))
 
-    def test_several_distinct_timings(self):
+    def test_SEVERAL_DISTINCT_TIMINGS(self):
 
         dg = DOOMGram()
 
@@ -264,7 +279,7 @@ class DOOMGram_tester(unittest.TestCase):
 
         self.assertEqual(314248103033, dg.total_event_time_ns())
         self.assertEqual(10, dg.min_event_time_ns())
-        self.assertEqual(309_000_000_000, dg.max_event_time_ns())
+        self.assertEqual(309000000000, dg.max_event_time_ns())  # 309,000,000,000
 
         self.assertEqual(0, dg.num_events_in_1ns())
         self.assertEqual(2, dg.num_events_in_10ns())
@@ -279,29 +294,31 @@ class DOOMGram_tester(unittest.TestCase):
         self.assertEqual(0, dg.num_events_in_10s())
         self.assertEqual(1, dg.num_events_ge_100s())
 
+        self.assertEqual("10ns-39.28s-309s", dg.to_mmm())
+        self.assertEqual("8:10ns-39.28s-309s", dg.to_nmmm())
         self.assertEqual("_a_aa___aa_a", dg.to_strip())
         self.assertEqual("_a_aa___aa_a", str(dg))
 
-    def test_several_intersecting_timings(self):
+    def test_SEVERAL_INTERSECTING_TIMINGS(self):
 
         dg = DOOMGram()
 
-        dg.push_event_time_ns(   11)
-        dg.push_event_time_ns(   19)
-        dg.push_event_time_ns(   19)
-        dg.push_event_time_us(    7)
-        dg.push_event_time_us(    7)
-        dg.push_event_time_us(   89)
-        dg.push_event_time_ms(  248)
-        dg.push_event_time_ms(4_321)
-        dg.push_event_time_s(     5)
-        dg.push_event_time_s(   309)
+        dg.push_event_time_ns(  11)
+        dg.push_event_time_ns(  19)
+        dg.push_event_time_ns(  19)
+        dg.push_event_time_us(   7)
+        dg.push_event_time_us(   7)
+        dg.push_event_time_us(  89)
+        dg.push_event_time_ms( 248)
+        dg.push_event_time_ms(4321)  # 4,321
+        dg.push_event_time_s(    5)
+        dg.push_event_time_s(  309)
 
         self.assertEqual(10, dg.event_count())
 
         self.assertEqual(318569103049, dg.total_event_time_ns())
         self.assertEqual(11, dg.min_event_time_ns())
-        self.assertEqual(309_000_000_000, dg.max_event_time_ns())
+        self.assertEqual(309000000000, dg.max_event_time_ns())  # 309,000,000,000
 
         self.assertEqual(0, dg.num_events_in_1ns())
         self.assertEqual(3, dg.num_events_in_10ns())
@@ -316,10 +333,12 @@ class DOOMGram_tester(unittest.TestCase):
         self.assertEqual(0, dg.num_events_in_10s())
         self.assertEqual(1, dg.num_events_ge_100s())
 
+        self.assertEqual("11ns-31.85s-309s", dg.to_mmm())
+        self.assertEqual("10:11ns-31.85s-309s", dg.to_nmmm())
         self.assertEqual("_a_aa___aa_a", dg.to_strip())
         self.assertEqual("_a_aa___aa_a", str(dg))
 
-    def test_many_cumulative_timings(self):
+    def test_MANY_CUMULATIVE_TIMINGS(self):
 
         dg = DOOMGram()
 
@@ -335,12 +354,12 @@ class DOOMGram_tester(unittest.TestCase):
 
         self.assertEqual(10101010000, dg.total_event_time_ns())
         self.assertEqual(1, dg.min_event_time_ns())
-        self.assertEqual(1_000_000_000, dg.max_event_time_ns())
+        self.assertEqual(1000000000, dg.max_event_time_ns())  # 1,000,000,000
 
-        self.assertEqual(10_000, dg.num_events_in_1ns())
+        self.assertEqual(10000, dg.num_events_in_1ns())  # 10,000
         self.assertEqual(0, dg.num_events_in_10ns())
         self.assertEqual(0, dg.num_events_in_100ns())
-        self.assertEqual(1_000, dg.num_events_in_1us())
+        self.assertEqual(1000, dg.num_events_in_1us())  # 1,000
         self.assertEqual(0, dg.num_events_in_10us())
         self.assertEqual(0, dg.num_events_in_100us())
         self.assertEqual(100, dg.num_events_in_1ms())
@@ -350,6 +369,8 @@ class DOOMGram_tester(unittest.TestCase):
         self.assertEqual(0, dg.num_events_in_10s())
         self.assertEqual(0, dg.num_events_ge_100s())
 
+        self.assertEqual("1ns-909.1µs-1s", dg.to_mmm())
+        self.assertEqual("11110:1ns-909.1µs-1s", dg.to_nmmm())
         self.assertEqual("e__d__c__b__", dg.to_strip())
         self.assertEqual("e__d__c__b__", str(dg))
         self.assertEqual("*--d--c--b--", dg.to_strip(range='abcd', zero='-'))
