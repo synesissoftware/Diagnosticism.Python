@@ -2,6 +2,9 @@
 # directories (by name)
 
 /.bin/
+/.pytest_cache/
+/.ruff_cache/
+/.venv/
 
 build/
 dist/
@@ -12,6 +15,8 @@ scratch/
 
 
 # directories (by pattern)
+
+**/__pycache__/
 
 
 # files (by name)
@@ -30,4 +35,3 @@ notes.txt
 *.swp
 *.tmp
 *.zip
-
