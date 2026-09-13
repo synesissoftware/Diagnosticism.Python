@@ -8,14 +8,12 @@ on:
     branches:
       - master
       - dev
-      - gha
-      - time_str
+      - boilerplate
+      - idiomatic
+      - rc1
+      - rc2
+      - rc3
   pull_request:
-    branches:
-      - master
-      - dev
-      - gha
-      - time_str
 
 jobs:
   build:
