@@ -1,4 +1,4 @@
-# **Diagnosticism.Python** Changes
+# Diagnosticism.Python - Changes <!-- omit in toc -->
 
 ## 0.18.0 - 6th August 2026
 
@@ -199,11 +199,6 @@
 ## 0.0.1 - 12th February 2019
 
 * + project boilerplate
-
-
-## previous versions
-
-None specified.
 
 
 <!-- ########################### end of file ########################### -->

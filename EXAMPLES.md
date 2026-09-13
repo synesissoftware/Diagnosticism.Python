@@ -1,4 +1,4 @@
-# Diagnosticism.Python Examples
+# Diagnosticism.Python - Examples <!-- omit in toc -->
 
 | Name | Source | Summary |
 | ---- | ------ | ------- |

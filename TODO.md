@@ -1,4 +1,4 @@
-# TODO <!-- omit from toc -->
+# Diagnosticism.Python - TODO <!-- omit in toc -->
 
 
 * [x] `DOOMGram` and `DOOMScope`;
