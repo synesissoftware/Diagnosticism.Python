@@ -1,8 +1,9 @@
 # Diagnosticism.Python - News <!-- omit in toc -->
 
-| Date               | News Item                                                                                                      | Details                                              |
-| ------------------ | -------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
-| 6th August 2026    | [**Diagnosticism.Python** 0.18.0](https://github.com/synesissoftware/Diagnosticism.Python/releases/tag/0.18.0) | `function()` alias for `func()`                      |
+| Date                | News Item                                                                                                      | Details                                              |
+| ------------------- | -------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| 14th September 2026 | [**Diagnosticism.Python** 0.18.1](https://github.com/synesissoftware/Diagnosticism.Python/releases/tag/0.18.1) | Packaging / CI modernisation                         |
+| 6th August 2026     | [**Diagnosticism.Python** 0.18.0](https://github.com/synesissoftware/Diagnosticism.Python/releases/tag/0.18.0) | `function()` alias for `func()`                      |
 | 10th July 2026     | [**Diagnosticism.Python** 0.17.0](https://github.com/synesissoftware/Diagnosticism.Python/releases/tag/0.17.0) | `DOOMGram` `to_mmm` / `to_nmmm` summaries            |
 | 27th June 2026     | [**Diagnosticism.Python** 0.16.0](https://github.com/synesissoftware/Diagnosticism.Python/releases/tag/0.16.0) | Added `nanoseconds_to_string()`                      |
 | 27th June 2026     | [**Diagnosticism.Python** 0.15.3](https://github.com/synesissoftware/Diagnosticism.Python/releases/tag/0.15.3) | Public API, packaging, Python 2.7 restore            |

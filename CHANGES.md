@@ -1,5 +1,11 @@
 # Diagnosticism.Python - Changes <!-- omit in toc -->
 
+
+## 0.18.1 - 14th September 2026
+
+* packaging, documentation, and CI modernisation (PEP 621 hybrid, canonical CI, **ruff**, helper scripts);
+
+
 ## 0.18.0 - 6th August 2026
 
 * + added `function()` alias for `func()`;

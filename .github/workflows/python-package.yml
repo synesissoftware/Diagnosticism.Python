@@ -88,7 +88,7 @@ jobs:
         python -m pip install build
         python -m build
         python -m pip install dist/diagnosticism-*.whl
-        python -c "import diagnosticism; assert diagnosticism.__version__ == '0.18.0'; print(diagnosticism.__version__)"
+        python -c "import diagnosticism; assert diagnosticism.__version__ == '0.18.1'; print(diagnosticism.__version__)"
 
   build-py27:
 
