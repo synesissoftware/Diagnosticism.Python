@@ -6,7 +6,6 @@ from diagnosticism import (
     enable_tracing,
 )
 
-import sys
 
 
 def f():

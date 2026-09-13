@@ -49,6 +49,37 @@ Changelog = "https://github.com/synesissoftware/Diagnosticism.Python/blob/master
 Homepage = "https://github.com/synesissoftware/Diagnosticism.Python"
 Repository = "https://github.com/synesissoftware/Diagnosticism.Python"
 
+[project.optional-dependencies]
+dev = [
+	"pytest",
+	"ruff>=0.4.0",
+]
+
+
+[tool.ruff]
+line-length = 76
+target-version = "py38"
+
+[tool.ruff.lint]
+ignore = [
+	"E501",
+]
+select = [
+	"E",
+	"F",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"diagnosticism/contingent_reporting.py" = [
+	"E711",
+	"E712",
+]
+"diagnosticism/logging.py" = [
+	"E712",
+]
+"diagnosticism/tracing.py" = [
+	"E712",
+]
 
 [tool.setuptools.packages.find]
 exclude = [

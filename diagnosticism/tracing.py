@@ -12,7 +12,6 @@ from .internal import (
 )
 
 import inspect
-import sys
 
 
 _tracingEnabled =   False
@@ -54,10 +53,8 @@ def _dbg(
         file_name   =   code.co_filename
         line_number =   fr.f_lineno
 
-        vnames = code.co_varnames
-        params = fr.f_locals
 
-        kwnames = list(kwargs)
+        list(kwargs)
 
         if 0 != len(args):
             s0 = ", ".join(["(%s)=%s" % (type(arg).__name__, arg) for arg in args])

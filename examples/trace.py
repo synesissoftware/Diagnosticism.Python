@@ -2,7 +2,6 @@
 
 import diagnosticism as d
 
-import sys
 
 
 def func1():

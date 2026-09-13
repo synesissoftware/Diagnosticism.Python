@@ -67,15 +67,15 @@ from .tracing import (
     fileline,
     filelinefunc,
     func,
-    function,
+    function as function,
     is_tracing_enabled,
     line,
     trace,
 )
 if sys.version_info[:2] >= (3, 9):
     from .tracing import (
-        asynctracefunc,
-        tracefunc,
+        asynctracefunc as asynctracefunc,
+        tracefunc as tracefunc,
     )
 
 from .warning import warn
@@ -114,6 +114,7 @@ __all__ = [
     'fileline',
     'filelinefunc',
     'func',
+    'function',
     'get_program_name',
     'is_logging_enabled',
     'is_severity_logged',

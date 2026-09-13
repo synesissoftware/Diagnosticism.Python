@@ -1,19 +1,11 @@
 #! /usr/bin/env python3
 
-from diagnosticism.severity import *
+from diagnosticism.severity import (
+    WARNING,
+    parse_verbosity,
+)
 
 import unittest
-from unittest.mock import patch
-
-import re
-import sys
-
-try:
-
-    from StringIO import StringIO
-except ImportError:
-
-    from io import StringIO
 
 
 INTEGER_LEVELS = [ -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, ]
@@ -63,9 +55,9 @@ class ParseSeverity_tester(unittest.TestCase):
 
     def test_named_levels(self):
 
-        for (s, l) in NAMED_LEVELS.items():
+        for (s, level) in NAMED_LEVELS.items():
 
-            expected = l
+            expected = level
             actual = parse_verbosity(s)
 
             self.assertEqual(expected, actual)
@@ -73,9 +65,9 @@ class ParseSeverity_tester(unittest.TestCase):
 
     def test_named_levels_with_padding(self):
 
-        for (s, l) in NAMED_LEVELS.items():
+        for (s, level) in NAMED_LEVELS.items():
 
-            expected = l
+            expected = level
             actual = parse_verbosity("\t%s " % (s))
 
             self.assertEqual(expected, actual)
