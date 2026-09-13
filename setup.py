@@ -16,6 +16,7 @@ setuptools.setup(
         'Natural Language :: English',
         "Operating System :: OS Independent",
         "Programming Language :: Python",
+        "Programming Language :: Python :: 2",
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.8",
@@ -35,6 +36,5 @@ setuptools.setup(
         'examples',
         'tests',
     ]),
-    url='https://github.com/synesissoftware/diagnosticism.Python',
+    url='https://github.com/synesissoftware/Diagnosticism.Python',
 )
-
