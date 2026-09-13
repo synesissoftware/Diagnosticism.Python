@@ -1,6 +1,6 @@
 
 __author__      =   'Matt Wilson'
-__copyright__   =   'Copyright 2019-2025, Synesis Information Systems, Copyright 2019, Synesis Software'
+__copyright__   =   'Copyright 2019-2026, Synesis Information Systems, Copyright 2019, Synesis Software'
 __credits__     =   [
     'Garth Lancaster',
     'Matt Wilson',
