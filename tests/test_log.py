@@ -6,7 +6,16 @@ from diagnosticism.logging import (
     set_log_filter,
 )
 from diagnosticism.program_name import set_program_name
-from diagnosticism.severity import *
+from diagnosticism.severity import (
+    ALERT,
+    CRITICAL,
+    DEBUG0,
+    FAILURE,
+    INFORMATIONAL,
+    NOTICE,
+    VIOLATION,
+    WARNING,
+)
 
 import unittest
 from unittest.mock import patch
@@ -102,7 +111,7 @@ class Logp_tester(unittest.TestCase):
 
         with patch('sys.stderr', new=StringIO()) as fake_stderr:
 
-            logging = enable_logging(True)
+            enable_logging(True)
 
             log_filter = set_log_filter(WARNING)
 
@@ -136,7 +145,7 @@ class Logp_tester(unittest.TestCase):
 
         with patch('sys.stderr', new=StringIO()) as fake_stderr:
 
-            logging = enable_logging(True)
+            enable_logging(True)
 
             filter_dict = {
 
@@ -178,7 +187,7 @@ class Logp_tester(unittest.TestCase):
 
         with patch('sys.stderr', new=StringIO()) as fake_stderr:
 
-            logging = enable_logging(True)
+            enable_logging(True)
 
             filter_dict = {
 

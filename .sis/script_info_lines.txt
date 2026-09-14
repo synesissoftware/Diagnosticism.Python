@@ -1,0 +1,3 @@
+Diagnosticism.Python provides basic diagnostic facilities for Python
+Copyright (c) 2019-2026, Matthew Wilson and Synesis Information Systems
+Copyright (c) 2019, Matthew Wilson and Synesis Software

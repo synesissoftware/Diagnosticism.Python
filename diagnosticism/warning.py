@@ -10,7 +10,6 @@ from .logging import (
 )
 from . import severity
 
-import sys
 
 
 def _warn(

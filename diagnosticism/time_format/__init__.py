@@ -6,7 +6,7 @@
 # Purpose:  Time formatting utilities.
 #
 # Created:  24th August 2025
-# Updated:  27th June 2026
+# Updated:  14th September 2026
 #
 # Author:   Matthew Wilson
 #
@@ -47,7 +47,7 @@ if sys.version_info[0] >= 3:
         _to_nmmm,
     )
 else:
-    from ._fmt_py2 import (
+    from ._fmt_py2 import (  # noqa: F401
         _fmt,
         _to_mmm,
         _to_nmmm,
@@ -90,17 +90,17 @@ def _scale_index(n):
 
         return (11, _SCALES[11])
 
-    l = 0
-    h = 11
+    lo = 0
+    hi = 11
 
     count = 0
 
-    while l <= h:
+    while lo <= hi:
         count += 1
 
         assert count < 5, "too many loops while trying to scale %s" % n
 
-        m = (h + l) // 2
+        m = (hi + lo) // 2
 
         b = _SCALES[m]
 
@@ -108,7 +108,7 @@ def _scale_index(n):
             return (m, b)
 
         if n < b:
-            h = m
+            hi = m
 
             continue
 
@@ -117,12 +117,16 @@ def _scale_index(n):
         if n < b * 10:
             return (m, b)
 
-        l = m
+        lo = m
 
     return (11, _SCALES[11])
 
 
-from .nanoseconds import nanoseconds_to_string
+# Import after `_fmt` / `_scale_index` / `_SUFFIXES` are bound:
+# nanoseconds.py does `from . import (_fmt, _scale_index, _SUFFIXES)`, so a
+# top-of-file import here would circular-import while this module is still
+# partially initialised.
+from .nanoseconds import nanoseconds_to_string as nanoseconds_to_string  # noqa: E402
 
 
 # ############################## end of file ############################# #

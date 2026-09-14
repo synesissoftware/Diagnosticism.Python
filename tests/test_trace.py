@@ -14,7 +14,6 @@ if sys.version_info[:2] >= (3, 9):
 import unittest
 from unittest.mock import patch
 
-import re
 
 try:
 

@@ -1,4 +1,4 @@
-# Diagnosticism.Python <!-- omit from toc -->
+# Diagnosticism.Python <!-- omit in toc -->
 
 Diagnosticism, for Python
 
@@ -39,7 +39,7 @@ Diagnosticism, for Python
 	- [Contribution guidelines](#contribution-guidelines)
 	- [Dependencies](#dependencies)
 		- [Efferent (fan-out)](#efferent-fan-out)
-			- [Development Dependencies](#development-dependencies)
+		- [Development Dependencies](#development-dependencies)
 		- [Afferent (fan-in)](#afferent-fan-in)
 	- [Related projects](#related-projects)
 	- [License](#license)
@@ -327,26 +327,21 @@ Defect reports, feature requests, and pull requests are welcome on https://githu
 
 ### Dependencies
 
-**Diagnosticism.Python** has no (non-development) runtime dependencies.
-
 
 #### Efferent (fan-out)
-
-Libraries upon which **Diagnosticism.Python** depends:
 
 None.
 
 
-##### Development Dependencies
+#### Development Dependencies
 
 * [**mock**](https://pypi.org/project/mock/) — required for running the unit-test suite on **Python 2.7**;
 
 
 #### Afferent (fan-in)
 
-Projects that depend on **Diagnosticism.Python**:
-
 * [**asynkio**](https://github.com/synesissoftware/asynkio/);
+* [**libCLImate.Python**](https://github.com/synesissoftware/libCLImate.Python/);
 * [**libpath.Python**](https://github.com/synesissoftware/libpath.Python/);
 
 

@@ -1,4 +1,10 @@
-# **Diagnosticism.Python** Changes
+# Diagnosticism.Python - Changes <!-- omit in toc -->
+
+
+## 0.18.1 - 14th September 2026
+
+* packaging, documentation, and CI modernisation (PEP 621 hybrid, canonical CI, **ruff**, helper scripts);
+
 
 ## 0.18.0 - 6th August 2026
 
@@ -199,11 +205,6 @@
 ## 0.0.1 - 12th February 2019
 
 * + project boilerplate
-
-
-## previous versions
-
-None specified.
 
 
 <!-- ########################### end of file ########################### -->

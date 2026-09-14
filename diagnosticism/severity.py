@@ -190,20 +190,20 @@ def _parse_verbosity(
         s = str(v)
 
     severity = _STRINGS_RECOGNISABLE_AS_SEVERITY_LEVELS.get(s, None)
-    if severity == None and not strict_case_comparison:
+    if severity is None and not strict_case_comparison:
 
         s_upper = s.upper()
 
         severity = _STRINGS_RECOGNISABLE_AS_SEVERITY_LEVELS.get(s_upper, None)
 
-    if severity != None:
+    if severity is not None:
 
         return severity
 
     try:
 
         return int(s)
-    except ValueError as x:
+    except ValueError:
 
         raise ValueError("could not recognise value '%s' as a severity" % (v))
 

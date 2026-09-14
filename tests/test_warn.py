@@ -24,7 +24,6 @@ from diagnosticism.program_name import (
     set_program_name,
 )
 
-import re
 import unittest
 from unittest.mock import patch
 
