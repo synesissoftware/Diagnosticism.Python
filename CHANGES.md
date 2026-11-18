@@ -1,6 +1,12 @@
 # Diagnosticism.Python - Changes <!-- omit in toc -->
 
 
+## 0.18.2 - 29th November 2026
+
+* documentation and boilerplate:
+  * canonicalising NEWS.md;
+
+
 ## 0.18.1 - 14th September 2026
 
 * packaging, documentation, and CI modernisation (PEP 621 hybrid, canonical CI, **ruff**, helper scripts);
