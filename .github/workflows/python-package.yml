@@ -2,7 +2,7 @@
 # the sdist/wheel on a range of Python versions.
 #
 # Created: 14th September 2026
-# Updated: 14th September 2026
+# Updated: 20th November 2026
 #
 
 name: Python package
@@ -51,10 +51,14 @@ jobs:
 
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
+        os:
+          - macos-latest
+          - ubuntu-latest
+          - windows-latest
         python-version:
           - "3.8"
           - "3.9"
@@ -63,6 +67,13 @@ jobs:
           - "3.12"
           - "3.13"
           - "3.14"
+        # macOS runners are arm64. CPython 3.8 and 3.9 have no arm64
+        # macOS build, so those versions stay on the other systems.
+        exclude:
+          - os: macos-latest
+            python-version: "3.8"
+          - os: macos-latest
+            python-version: "3.9"
 
     steps:
     - name: Checking out code

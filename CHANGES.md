@@ -3,6 +3,8 @@
 
 ## 0.18.2 - 20th November 2026
 
+* continuous integration:
+  * tests run on macOS, Ubuntu, and Windows;
 * fixes:
   * `enable_tracing()` now returns the previous enable value;
   * `set_program_name()` now returns the previous program name;
