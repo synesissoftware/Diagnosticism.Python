@@ -17,6 +17,7 @@ from diagnosticism.severity import (
     WARNING,
 )
 
+import threading
 import unittest
 from unittest.mock import patch
 
@@ -273,6 +274,61 @@ class Logp_tester(unittest.TestCase):
             finally:
 
                 set_log_filter(log_filter[0], log_filter[1])
+
+
+    def test__set_log_filter__NONE_CLEARS_THRESHOLD(self):
+
+        sink = StringIO()
+
+        enable_logging(True)
+
+        original = set_log_filter(WARNING)
+
+        try:
+
+            set_program_name('myprog1')
+
+            log(DEBUG0, "hidden", file=sink)
+            set_log_filter(None)
+            log(DEBUG0, "shown", file=sink)
+
+            text = sink.getvalue()
+
+            self.assertNotIn("hidden", text)
+            self.assertIn("shown", text)
+        finally:
+
+            set_log_filter(original[0], original[1])
+
+
+    def test__log__FROM_TWO_THREADS(self):
+
+        sink = StringIO()
+
+        enable_logging(True)
+
+        set_program_name('myprog1')
+
+        def from_a():
+
+            log(INFORMATIONAL, "from-a", file=sink)
+
+        def from_b():
+
+            log(INFORMATIONAL, "from-b", file=sink)
+
+        thread_a = threading.Thread(target=from_a)
+        thread_b = threading.Thread(target=from_b)
+
+        thread_a.start()
+        thread_b.start()
+        thread_a.join()
+        thread_b.join()
+
+        text = sink.getvalue()
+
+        self.assertIn("from-a", text)
+        self.assertIn("from-b", text)
 
 
 if '__main__' == __name__:

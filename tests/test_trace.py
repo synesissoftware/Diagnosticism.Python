@@ -11,8 +11,11 @@ from diagnosticism.tracing import (
 import sys
 if sys.version_info[:2] >= (3, 9):
     from diagnosticism.tracing import (
+        asynctracefunc,
         tracefunc,
     )
+
+from diagnosticism.internal import _basename
 
 import unittest
 from unittest.mock import patch
@@ -40,6 +43,11 @@ if sys.version_info[:2] >= (3, 9):
     def f2():
 
         return "f2-result"
+
+    @asynctracefunc
+    async def f3():
+
+        return "f3-result"
 else:
 
     def f2():
@@ -47,6 +55,17 @@ else:
         pass
 
 class Trace_tester(unittest.TestCase):
+
+
+    def test__basename__WITH_WINDOWS_SEPARATOR_WHEN_WINDOWS(self):
+
+        with patch('diagnosticism.internal._is_windows', return_value=True):
+
+            self.assertEqual('file.py', _basename('C:\\dir\\file.py'))
+
+        with patch('diagnosticism.internal._is_windows', return_value=False):
+
+            self.assertEqual('C:\\dir\\file.py', _basename('C:\\dir\\file.py'))
 
 
     def test__trace__WITH_TRACING_DISABLED(self):
@@ -171,3 +190,17 @@ class Trace_tester(unittest.TestCase):
                 finally:
 
                     enable_tracing(tracing_enabled)
+
+        def test__asynctracefunc__RETURNS_COROUTINE(self):
+
+            tracing_enabled = True if enable_tracing(False) else False
+
+            try:
+
+                result = f3()
+
+                self.assertTrue(hasattr(result, '__await__'))
+                result.close()
+            finally:
+
+                enable_tracing(tracing_enabled)
