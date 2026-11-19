@@ -215,7 +215,7 @@ def _do_log(
         message = message()
 
     # TODO: perf test this
-    full = prefix + ": " + message
+    full = prefix + ": " + str(message)
 
     show_program_name = False
     trailing_prompt = False

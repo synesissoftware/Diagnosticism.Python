@@ -69,6 +69,24 @@ class Logp_tester(unittest.TestCase):
                 enable_logging(logging_enabled)
 
 
+    def test__log__WITH_NON_STRING_MESSAGE(self):
+
+        with patch('sys.stderr', new=StringIO()) as fake_stderr:
+
+            logging_enabled = True if enable_logging(True) else False
+
+            try:
+
+                set_program_name('myprog1')
+
+                log(INFORMATIONAL, ValueError("boom"))
+
+                self.assertRegex(fake_stderr.getvalue(), r'\]: boom')
+            finally:
+
+                enable_logging(logging_enabled)
+
+
     def test__log__WITH_str_AND_file_PARAM(self):
 
         file = StringIO()
