@@ -13,6 +13,7 @@
   * `dbg()` and `dbgfl()` no longer trace the consumed `file` argument;
   * `set_log_filter()` now accepts a callable;
   * `warn()` now honours the log filter and accepts a callable message;
+  * `@tracefunc` and `@asynctracefunc` are available on Python 2.7 and 3.8+;
 * tests:
   * removed the empty **tests/stub.py**;
   * covered `abort()` process exit, Windows basename, a cleared log filter, two logging threads, and `@asynctracefunc`;

@@ -8,7 +8,7 @@ from . import severity
 from .internal import (
     _basename,
     _bool_from_env,
-    _is_python_3_9_or_later,
+    _is_python_2_7_or_later,
 )
 
 import inspect
@@ -375,7 +375,51 @@ def trace(
             del fr
 
 
-if _is_python_3_9_or_later():
+def _log_traced_py2(
+    file,
+    func,
+    args,
+    kwargs,
+):
+
+    spec = inspect.getargspec(func)
+    names = list(spec.args)
+    args_n = args
+    type_name = None
+
+    if len(names) != 0 and 'self' == names[0]:
+
+        type_name = args[0].__class__.__name__
+        names = names[1:]
+        args_n = args[1:]
+
+    parts = []
+
+    if len(names) != 0:
+
+        pairs = ["%s(%s)=%s" % (name, value.__class__.__name__, value) for name, value in zip(names, args_n)]
+
+        parts.append(', '.join(pairs))
+
+    if spec.varargs:
+
+        parts.append("%s(tuple)=%s" % (spec.varargs, args_n[len(names):]))
+
+    if spec.keywords:
+
+        parts.append("%s(dict)=%s" % (spec.keywords, kwargs))
+
+    plist = ', '.join(parts)
+
+    if type_name:
+
+        _log_s(file, severity.TRACE, "%s.%s(%s)" % (type_name, func.__name__, plist))
+    else:
+
+        _log_s(file, severity.TRACE, "%s(%s)" % (func.__name__, plist))
+
+
+if _is_python_2_7_or_later():
 
     def tracefunc(
         func,
@@ -398,6 +442,12 @@ if _is_python_3_9_or_later():
                 sig =   None
 
                 try:
+
+                    if not hasattr(inspect, 'signature'):
+
+                        _log_traced_py2(file, func, args, kwargs)
+
+                        return func(*args, **kwargs)
 
                     sig         =   inspect.signature(func) # py 3.3
 

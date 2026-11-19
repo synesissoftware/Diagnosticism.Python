@@ -91,7 +91,7 @@ on Ubuntu 22.04 and Windows.
 | Requirement | Applies to |
 | ----------- | ---------- |
 | Python **2.7** or **3.8+** | Core contingent reporting, logging, tracing, and severity APIs |
-| Python **3.9+** | `@tracefunc` and `@asynctracefunc` decorators |
+| Python **2.7** or **3.8+** | `@tracefunc` and `@asynctracefunc` decorators |
 
 The public API surface is listed in `diagnosticism.__all__`.
 
