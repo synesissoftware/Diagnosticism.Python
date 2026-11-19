@@ -9,6 +9,7 @@
   * module-level `trace()` now reports the call line;
   * `func()` and `line()` now forward keyword arguments to the caller-location lookup;
   * `log()` now stringifies a non-string message;
+  * `DEBUG` is now part of the public API, as an alias of `DEBUG5`;
 * documentation and boilerplate:
   * canonicalising **CHANGES.md**;
   * canonicalising **NEWS.md**;
