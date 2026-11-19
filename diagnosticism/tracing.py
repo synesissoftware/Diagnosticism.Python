@@ -54,7 +54,7 @@ def _dbg(
         line_number =   fr.f_lineno
 
 
-        list(kwargs)
+        kwargs.pop('file', None)
 
         if 0 != len(args):
             s0 = ", ".join(["(%s)=%s" % (type(arg).__name__, arg) for arg in args])
@@ -155,7 +155,7 @@ def dbgfl(
 
         fr = inspect.currentframe()
 
-        file = kwargs.get('file', None)
+        file = kwargs.pop('file', None)
 
         _dbg(
             file,
@@ -182,7 +182,7 @@ def dbg(
 
         fr = inspect.currentframe()
 
-        file = kwargs.get('file', None)
+        file = kwargs.pop('file', None)
 
         _dbg(
             file,

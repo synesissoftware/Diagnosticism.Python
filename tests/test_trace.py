@@ -2,6 +2,7 @@
 
 from diagnosticism.program_name import set_program_name
 from diagnosticism.tracing import (
+    dbg,
     enable_tracing,
     func,
     line,
@@ -128,6 +129,28 @@ class Trace_tester(unittest.TestCase):
 
         self.assertTrue(flf.call_args_list[0].kwargs.get('basename'))
         self.assertTrue(flf.call_args_list[1].kwargs.get('basename'))
+
+
+    def test__dbg__DOES_NOT_TRACE_file_KWARG(self):
+
+        tracing_enabled = True if enable_tracing(True) else False
+
+        try:
+
+            set_program_name('myprog1')
+
+            sink = StringIO()
+
+            dbg(1, name='n', file=sink)
+
+            text = sink.getvalue()
+
+            self.assertIn('(int)=1', text)
+            self.assertIn('name(str)=n', text)
+            self.assertNotIn('file(', text)
+        finally:
+
+            enable_tracing(tracing_enabled)
 
 
     if sys.version_info[:2] >= (3, 9):
