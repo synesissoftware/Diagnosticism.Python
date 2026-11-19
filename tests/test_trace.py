@@ -98,6 +98,25 @@ class Trace_tester(unittest.TestCase):
             enable_tracing(tracing_enabled)
 
 
+    def test__trace__AT_MODULE_LEVEL_REPORTS_CALL_LINE(self):
+
+        tracing_enabled = True if enable_tracing(True) else False
+
+        try:
+
+            set_program_name('myprog1')
+
+            sink = StringIO()
+
+            # The call is line 2, so this fails if trace() still uses co_firstlineno.
+            exec("\ntrace(file=sink)\n", {"trace": trace, "sink": sink})
+
+            self.assertRegex(sink.getvalue(), r'<string>:2')
+        finally:
+
+            enable_tracing(tracing_enabled)
+
+
     if sys.version_info[:2] >= (3, 9):
         def test__tracefunc__WITH_TRACING_ENABLED(self):
 

@@ -341,7 +341,7 @@ def trace(
 
             if '<module>' == code.co_name:
 
-                _log_s(file, severity.TRACE, "%s:%d" % (code.co_filename, code.co_firstlineno))
+                _log_s(file, severity.TRACE, "%s:%d" % (code.co_filename, fr.f_lineno))
             else:
 
                 fname   =   code.co_name
