@@ -2,6 +2,7 @@
 
 | Date                | News Item                                                                                                      | Details |
 | ------------------- | -------------------------------------------------------------------------------------------------------------- | ------- |
+| 19th November 2026  | [**Diagnosticism.Python** 0.18.2](https://github.com/synesissoftware/Diagnosticism.Python/releases/tag/0.18.2) | Canonical changelogs; previous-value returns; corrected `parse_verbosity()` and Python 3.14 notes |
 | 14th September 2026 | [**Diagnosticism.Python** 0.18.1](https://github.com/synesissoftware/Diagnosticism.Python/releases/tag/0.18.1) | Packaging / CI modernisation |
 | 6th August 2026     | [**Diagnosticism.Python** 0.18.0](https://github.com/synesissoftware/Diagnosticism.Python/releases/tag/0.18.0) | `function()` alias for `func()` |
 | 10th July 2026      | [**Diagnosticism.Python** 0.17.0](https://github.com/synesissoftware/Diagnosticism.Python/releases/tag/0.17.0) | `DOOMGram` `to_mmm` / `to_nmmm` summaries |
@@ -20,7 +21,7 @@
 | 17th July 2025      | [**Diagnosticism.Python** 0.10.1](https://github.com/synesissoftware/Diagnosticism.Python/releases/tag/0.10.1) | Fixed package error |
 | 14th July 2025      | [**Diagnosticism.Python** 0.10.0](https://github.com/synesissoftware/Diagnosticism.Python/releases/tag/0.10.0) | Added `file`/`line`/`func` helpers and `dbg()` |
 | 6th July 2025       | [**Diagnosticism.Python** 0.9.1](https://github.com/synesissoftware/Diagnosticism.Python/releases/tag/0.9.1)   | Fixed `trace()` in module context |
-| 20th August 2024    | [**Diagnosticism.Python** 0.9.0](https://github.com/synesissoftware/Diagnosticism.Python/releases/tag/0.9.0)   | Added `parse_severity()` |
+| 20th August 2024    | [**Diagnosticism.Python** 0.9.0](https://github.com/synesissoftware/Diagnosticism.Python/releases/tag/0.9.0)   | Added `parse_verbosity()` |
 | 17th August 2024    | [**Diagnosticism.Python** 0.8.0](https://github.com/synesissoftware/Diagnosticism.Python/releases/tag/0.8.0)   | Added `is_severity_logged()` |
 | 16th August 2024    | [**Diagnosticism.Python** 0.7.3](https://github.com/synesissoftware/Diagnosticism.Python/releases/tag/0.7.3)   | Fixed filter logic |
 | 16th August 2024    | [**Diagnosticism.Python** 0.7.2](https://github.com/synesissoftware/Diagnosticism.Python/releases/tag/0.7.2)   | ANSI sequences on Windows 11+ |

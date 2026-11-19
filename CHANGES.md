@@ -1,11 +1,15 @@
 # Diagnosticism.Python - Changes <!-- omit in toc -->
 
 
-## 0.18.2 - 29th November 2026
+## 0.18.2 - 20th November 2026
 
+* fixes:
+  * `enable_tracing()` now returns the previous enable value;
+  * `set_program_name()` now returns the previous program name;
 * documentation and boilerplate:
-  * canonicalising CHANGES.md;
-  * canonicalising NEWS.md;
+  * canonicalising **CHANGES.md**;
+  * canonicalising **NEWS.md**;
+  * corrected historical notes: `parse_verbosity()` in 0.9.0, and Python 3.14 compatibility in 0.17.0;
 
 
 ## 0.18.1 - 14th September 2026
@@ -20,7 +24,7 @@
 ## 0.17.0 - 10th July 2026
 
 * added `DOOMGram::to_mmm()` and `DOOMGram::to_nmmm()` — compact min/mean/max duration summaries using `nanoseconds_to_string()`;
-* updated compatibility to Python 3.18;
+* updated compatibility to Python 3.14;
 
 
 ## 0.16.0 - 27th June 2026
@@ -114,7 +118,7 @@
 
 ## 0.9.0 - 20th August 2024
 
-* added `parse_severity()`
+* added `parse_verbosity()`;
 
 
 ## 0.8.0 - 17th August 2024
