@@ -85,8 +85,8 @@ d.log(sev.INFO, "hello")
 
 **Diagnosticism.Python** is intended to run on **Python 2.7** and **Python
 3.8+**. GitHub Actions exercises **Python 2.7** on Ubuntu and **Python
-3.8–3.14** on macOS, Ubuntu, and Windows. **Python 3.8** and **3.9** are
-not run on macOS.
+3.10–3.14** on macOS, Ubuntu, and Windows. **Python 3.8** and **3.9** run
+on Ubuntu 22.04 and Windows.
 
 | Requirement | Applies to |
 | ----------- | ---------- |

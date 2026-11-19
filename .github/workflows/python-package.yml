@@ -67,12 +67,22 @@ jobs:
           - "3.12"
           - "3.13"
           - "3.14"
-        # macOS runners are arm64. CPython 3.8 and 3.9 have no arm64
-        # macOS build, so those versions stay on the other systems.
+        # CPython 3.8 and 3.9 are absent from Ubuntu 26.04 and from
+        # arm64 macOS. Those versions run on Ubuntu 22.04 and on
+        # Windows.
         exclude:
           - os: macos-latest
             python-version: "3.8"
           - os: macos-latest
+            python-version: "3.9"
+          - os: ubuntu-latest
+            python-version: "3.8"
+          - os: ubuntu-latest
+            python-version: "3.9"
+        include:
+          - os: ubuntu-22.04
+            python-version: "3.8"
+          - os: ubuntu-22.04
             python-version: "3.9"
 
     steps:
