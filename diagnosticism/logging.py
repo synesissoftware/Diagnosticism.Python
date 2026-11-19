@@ -141,6 +141,11 @@ def is_severity_logged(severity):
             if not r:
 
                 return False
+        elif callable(_log_filter):
+
+            if not _log_filter(severity):
+
+                return False
         else:
 
             if int(severity) > int(_log_filter):
@@ -155,16 +160,17 @@ def set_log_filter(
     others_action=None,
 ):
     """
-    Sets a logging filter, which may either specify a threshold severity or
-    a mapping of levels to actions
+    Sets a logging filter, which may specify a threshold severity, a
+    mapping of levels to actions, or a callable
 
     Parameters
     ----------
-    log_filter : int, dict
+    log_filter : int, dict, callable
         If a dictionary, it is interpreted as a mapping from
-        severity-level to `True`/`False` that controls each level's output;
-        otherwise, treated as a severity-level threshold (and must be
-        convertible to `int`)
+        severity-level to `True`/`False` that controls each level's output.
+        If a callable, it is called with the severity and its result
+        decides whether that severity is logged. Otherwise, treated as a
+        severity-level threshold (and must be convertible to `int`)
 
     others_action : obj, optional
         An object to be passed to be used in the case that the log_filter is
@@ -176,7 +182,7 @@ def set_log_filter(
         Tuple of the previous (log_filter, others_action) value(s)
     """
 
-    assert log_filter is None or isinstance(log_filter, (dict, )) or isinstance(int(log_filter), int)
+    assert log_filter is None or isinstance(log_filter, (dict, )) or callable(log_filter) or isinstance(int(log_filter), int)
 
     global _log_filter, _others_action
 

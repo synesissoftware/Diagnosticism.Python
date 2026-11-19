@@ -246,6 +246,35 @@ class Logp_tester(unittest.TestCase):
                 set_log_filter(log_filter[0], log_filter[1])
 
 
+    def test__set_log_filter__WITH_callable(self):
+
+        with patch('sys.stderr', new=StringIO()) as fake_stderr:
+
+            enable_logging(True)
+
+            invoked = []
+
+            def allow_warning(severity):
+
+                return severity == WARNING
+
+            log_filter = set_log_filter(allow_warning)
+
+            try:
+
+                set_program_name('myprog1')
+
+                log(DEBUG0, lambda: invoked.append('debug') or 'msg-debug0')
+                log(WARNING, "msg-warning")
+
+                self.assertEqual([], invoked)
+                self.assertRegex(fake_stderr.getvalue(), r'.*WARNING.*\]: msg-warning')
+                self.assertNotIn('msg-debug0', fake_stderr.getvalue())
+            finally:
+
+                set_log_filter(log_filter[0], log_filter[1])
+
+
 if '__main__' == __name__:
 
     unittest.main()

@@ -11,6 +11,7 @@
   * `log()` now stringifies a non-string message;
   * `DEBUG` is now part of the public API, as an alias of `DEBUG5`;
   * `dbg()` and `dbgfl()` no longer trace the consumed `file` argument;
+  * `set_log_filter()` now accepts a callable;
 * documentation and boilerplate:
   * canonicalising **CHANGES.md**;
   * canonicalising **NEWS.md**;
