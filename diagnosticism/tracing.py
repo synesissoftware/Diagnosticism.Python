@@ -217,7 +217,9 @@ def enable_tracing(*args):
 
     global _tracingEnabled
 
-    _tracingEnabled = is_enabled
+    _tracingEnabled, is_enabled = is_enabled, _tracingEnabled
+
+    return is_enabled
 
 
 def file(
