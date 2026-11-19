@@ -7,6 +7,7 @@
   * `enable_tracing()` now returns the previous enable value;
   * `set_program_name()` now returns the previous program name;
   * module-level `trace()` now reports the call line;
+  * `func()` and `line()` now forward keyword arguments to the caller-location lookup;
 * documentation and boilerplate:
   * canonicalising **CHANGES.md**;
   * canonicalising **NEWS.md**;

@@ -247,7 +247,7 @@ def func(
     str
     """
 
-    return _flf(depth=1)[2]
+    return _flf(depth=1, **kwargs)[2]
 
 
 function = func
@@ -264,7 +264,7 @@ def line(
     int
     """
 
-    return _flf(depth=1)[1]
+    return _flf(depth=1, **kwargs)[1]
 
 
 def fileline(

@@ -3,6 +3,8 @@
 from diagnosticism.program_name import set_program_name
 from diagnosticism.tracing import (
     enable_tracing,
+    func,
+    line,
     trace,
 )
 import sys
@@ -115,6 +117,17 @@ class Trace_tester(unittest.TestCase):
         finally:
 
             enable_tracing(tracing_enabled)
+
+
+    def test__func_AND_line_FORWARD_kwargs(self):
+
+        with patch('diagnosticism.tracing._flf', return_value=['a.py', 3, 'g']) as flf:
+
+            func(basename=True)
+            line(basename=True)
+
+        self.assertTrue(flf.call_args_list[0].kwargs.get('basename'))
+        self.assertTrue(flf.call_args_list[1].kwargs.get('basename'))
 
 
     if sys.version_info[:2] >= (3, 9):
