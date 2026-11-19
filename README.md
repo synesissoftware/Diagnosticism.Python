@@ -162,7 +162,7 @@ which indicates the following breakdown of operation - in this case a random `sl
 
 ### Constants
 
-#### Diagnostic Logging API
+#### Contingent Reporting API
 
 The following constants are defined:
 
@@ -170,7 +170,7 @@ The following constants are defined:
 | -------- | --- | ------- |
 | STOCK_TRAILING_PROMPT | **Contingent Reporting** | The stock trailing prompt, which is defined as `"use --help for usage"`. |
 
-#### Contingent Reporting API
+#### Diagnostic Logging API
 
 The following constants are defined:
 
@@ -191,10 +191,10 @@ The following constants are defined:
 | DEBUG5          | **Diagnostic Logging** | The sixth highest debug severity level. |
 | TRACE           | **Diagnostic Logging** | Severity level suitable at which trace statements are issued. |
 | BENCHMARK       | **Diagnostic Logging** | Severity level suitable at which benchmark statements are issued. |
-| DEBUG           | **Diagnostics Logging** | Alias for `DEBUG5` |
-| FAIL            | **Diagnostics Logging** | Alias for `FAILURE` |
-| WARN            | **Diagnostics Logging** | Alias for `WARNING` |
-| INFO            | **Diagnostics Logging** | Alias for `INFORMATIONAL` |
+| DEBUG           | **Diagnostic Logging** | Alias for `DEBUG5` |
+| FAIL            | **Diagnostic Logging** | Alias for `FAILURE` |
+| WARN            | **Diagnostic Logging** | Alias for `WARNING` |
+| INFO            | **Diagnostic Logging** | Alias for `INFORMATIONAL` |
 
 > **NOTE**: all the severity level constants are for use with the `log()` function (as well as for setting/getting with `set_log_filter()` and `is_severity_logged()`).
 
