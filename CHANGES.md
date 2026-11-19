@@ -12,6 +12,7 @@
   * `DEBUG` is now part of the public API, as an alias of `DEBUG5`;
   * `dbg()` and `dbgfl()` no longer trace the consumed `file` argument;
   * `set_log_filter()` now accepts a callable;
+  * `warn()` now honours the log filter and accepts a callable message;
 * continuous integration:
   * tests run on macOS, Ubuntu, and Windows;
   * Python 3.8 and 3.9 run on Ubuntu 22.04;
