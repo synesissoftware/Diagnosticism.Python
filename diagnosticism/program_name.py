@@ -25,12 +25,12 @@ def set_program_name(name):
 
     if name:
 
-        _program_name = name
+        _program_name, name = name, _program_name
     else:
 
-        _program_name = os.path.basename(sys.argv[0])
+        _program_name, name = os.path.basename(sys.argv[0]), _program_name
 
-    return _program_name
+    return name
 
 
 def get_program_name():

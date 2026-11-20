@@ -3,6 +3,7 @@ from .contingent_reporting import (
     _do_report,
     _get_cr_file_or_default,
     _isatty,
+    _output_lock,
 )
 from .program_name import get_program_name
 from . import severity as _severity
@@ -106,9 +107,11 @@ def enable_logging(*args):
 
     global _logging_is_enabled
 
-    _logging_is_enabled, is_enabled = is_enabled, _logging_is_enabled
+    with _output_lock:
 
-    return is_enabled
+        _logging_is_enabled, is_enabled = is_enabled, _logging_is_enabled
+
+        return is_enabled
 
 
 def is_logging_enabled():
@@ -116,7 +119,9 @@ def is_logging_enabled():
     Indicate whether logging is enabled
     """
 
-    return _logging_is_enabled
+    with _output_lock:
+
+        return _logging_is_enabled
 
 
 def is_severity_logged(severity):
@@ -129,6 +134,13 @@ def is_severity_logged(severity):
         `True` if the severity is to be logged; `False` otherwise
     """
 
+    with _output_lock:
+
+        return _severity_is_logged(severity)
+
+
+def _severity_is_logged(severity):
+
     if not _logging_is_enabled:
 
         return False
@@ -139,6 +151,11 @@ def is_severity_logged(severity):
             r = _log_filter.get(severity, _others_action)
 
             if not r:
+
+                return False
+        elif callable(_log_filter):
+
+            if not _log_filter(severity):
 
                 return False
         else:
@@ -155,16 +172,17 @@ def set_log_filter(
     others_action=None,
 ):
     """
-    Sets a logging filter, which may either specify a threshold severity or
-    a mapping of levels to actions
+    Sets a logging filter, which may specify a threshold severity, a
+    mapping of levels to actions, or a callable
 
     Parameters
     ----------
-    log_filter : int, dict
+    log_filter : int, dict, callable
         If a dictionary, it is interpreted as a mapping from
-        severity-level to `True`/`False` that controls each level's output;
-        otherwise, treated as a severity-level threshold (and must be
-        convertible to `int`)
+        severity-level to `True`/`False` that controls each level's output.
+        If a callable, it is called with the severity and its result
+        decides whether that severity is logged. Otherwise, treated as a
+        severity-level threshold (and must be convertible to `int`)
 
     others_action : obj, optional
         An object to be passed to be used in the case that the log_filter is
@@ -176,13 +194,15 @@ def set_log_filter(
         Tuple of the previous (log_filter, others_action) value(s)
     """
 
-    assert log_filter is None or isinstance(log_filter, (dict, )) or isinstance(int(log_filter), int)
+    assert log_filter is None or isinstance(log_filter, (dict, )) or callable(log_filter) or isinstance(int(log_filter), int)
 
     global _log_filter, _others_action
 
-    _log_filter, log_filter, _others_action, others_action = log_filter, _log_filter, others_action, _others_action
+    with _output_lock:
 
-    return (log_filter, others_action)
+        _log_filter, log_filter, _others_action, others_action = log_filter, _log_filter, others_action, _others_action
+
+        return (log_filter, others_action)
 
 
 def _do_log(
@@ -211,11 +231,11 @@ def _do_log(
     # TODO: perf test this
     prefix = "[%s, %s, %s, %s]" % (get_program_name(), threading.current_thread().ident, str(now), ss)
 
-    if hasattr(message, '__call__'):
+    if callable(message):
         message = message()
 
     # TODO: perf test this
-    full = prefix + ": " + message
+    full = prefix + ": " + str(message)
 
     show_program_name = False
     trailing_prompt = False
@@ -252,17 +272,19 @@ def log(
     None
     """
 
-    if not is_severity_logged(severity):
+    with _output_lock:
 
-        return
+        if not _severity_is_logged(severity):
 
-    file = _get_log_file_or_default(file)
+            return
 
-    return _do_log(
-        file,
-        severity,
-        message,
-    )
+        file = _get_log_file_or_default(file)
+
+        return _do_log(
+            file,
+            severity,
+            message,
+        )
 
 
 # ############################## end of file ############################# #

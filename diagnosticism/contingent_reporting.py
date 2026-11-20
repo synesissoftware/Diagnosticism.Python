@@ -8,6 +8,10 @@ from .internal import (
 
 import os
 import sys
+import threading
+
+
+_output_lock = threading.RLock()
 
 
 def _supports_ansi_sequences():
@@ -68,7 +72,9 @@ def _emit_to_cr_stm(
 ):
     assert file
 
-    file.write(message)
+    with _output_lock:
+
+        file.write(message)
 
 
 def _get_cr_file_or_default(file):

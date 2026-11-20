@@ -1,4 +1,5 @@
 
+from .contingent_reporting import _output_lock
 from .logging import (
     _do_log,
     _get_log_file_or_default,
@@ -8,10 +9,12 @@ from . import severity
 from .internal import (
     _basename,
     _bool_from_env,
-    _is_python_3_9_or_later,
+    _is_python_2_7_or_later,
 )
 
+import functools
 import inspect
+import sys
 
 
 _tracingEnabled =   False
@@ -54,7 +57,7 @@ def _dbg(
         line_number =   fr.f_lineno
 
 
-        list(kwargs)
+        kwargs.pop('file', None)
 
         if 0 != len(args):
             s0 = ", ".join(["(%s)=%s" % (type(arg).__name__, arg) for arg in args])
@@ -155,7 +158,7 @@ def dbgfl(
 
         fr = inspect.currentframe()
 
-        file = kwargs.get('file', None)
+        file = kwargs.pop('file', None)
 
         _dbg(
             file,
@@ -182,7 +185,7 @@ def dbg(
 
         fr = inspect.currentframe()
 
-        file = kwargs.get('file', None)
+        file = kwargs.pop('file', None)
 
         _dbg(
             file,
@@ -217,7 +220,11 @@ def enable_tracing(*args):
 
     global _tracingEnabled
 
-    _tracingEnabled = is_enabled
+    with _output_lock:
+
+        _tracingEnabled, is_enabled = is_enabled, _tracingEnabled
+
+        return is_enabled
 
 
 def file(
@@ -245,7 +252,7 @@ def func(
     str
     """
 
-    return _flf(depth=1)[2]
+    return _flf(depth=1, **kwargs)[2]
 
 
 function = func
@@ -262,7 +269,7 @@ def line(
     int
     """
 
-    return _flf(depth=1)[1]
+    return _flf(depth=1, **kwargs)[1]
 
 
 def fileline(
@@ -313,7 +320,9 @@ def is_tracing_enabled():
     bool
     """
 
-    return _tracingEnabled
+    with _output_lock:
+
+        return _tracingEnabled
 
 
 def trace(
@@ -339,7 +348,7 @@ def trace(
 
             if '<module>' == code.co_name:
 
-                _log_s(file, severity.TRACE, "%s:%d" % (code.co_filename, code.co_firstlineno))
+                _log_s(file, severity.TRACE, "%s:%d" % (code.co_filename, fr.f_lineno))
             else:
 
                 fname   =   code.co_name
@@ -373,110 +382,250 @@ def trace(
             del fr
 
 
-if _is_python_3_9_or_later():
+def _log_traced_py2(
+    file,
+    func,
+    is_instance_method,
+    args,
+    kwargs,
+):
+
+    spec = inspect.getargspec(func)
+    names = list(spec.args)
+    args_n = args
+    type_name = None
+
+    if is_instance_method and len(names) != 0 and 'self' == names[0]:
+
+        type_name = args[0].__class__.__name__
+        names = names[1:]
+        args_n = args[1:]
+
+    parts = []
+
+    if len(names) != 0:
+
+        pairs = ["%s(%s)=%s" % (name, value.__class__.__name__, value) for name, value in zip(names, args_n)]
+
+        parts.append(', '.join(pairs))
+
+    if spec.varargs:
+
+        parts.append("%s(tuple)=%s" % (spec.varargs, args_n[len(names):]))
+
+    if spec.keywords:
+
+        parts.append("%s(dict)=%s" % (spec.keywords, kwargs))
+
+    plist = ', '.join(parts)
+
+    if type_name:
+
+        _log_s(file, severity.TRACE, "%s.%s(%s)" % (type_name, func.__name__, plist))
+    else:
+
+        _log_s(file, severity.TRACE, "%s(%s)" % (func.__name__, plist))
+
+
+if _is_python_2_7_or_later():
+
+    def _emit_trace(
+        file,
+        func,
+        is_instance_method,
+        args,
+        kwargs,
+    ):
+
+        if not is_tracing_enabled():
+
+            return
+
+        sig = None
+
+        try:
+
+            if not hasattr(inspect, 'signature'):
+
+                _log_traced_py2(file, func, is_instance_method, args, kwargs)
+
+                return
+
+            sig         =   inspect.signature(func) # py 3.3
+
+            params      =   sig.parameters
+            params_l    =   list([(k, v) for (k, v) in params.items()])
+            args_n      =   args
+
+            # S=self, N=normal, A=*args, K=**kwargs
+
+            paramA      =   None
+            paramK      =   None
+
+            partN       =   None
+            partA       =   None
+            partK       =   None
+
+            typeS       =   None
+
+            if is_instance_method and len(params_l) != 0:
+
+                if 'self' == params_l[0][0]:
+
+                    typeS   =   args[0].__class__.__name__
+                    args_n  =   args[1:]
+
+            if len(params_l) != 0:
+
+                if params_l[-1][1].kind == inspect.Parameter.VAR_KEYWORD:
+
+                    paramK  =   params_l.pop()
+                    partK   =   "%s(dict)=%s" % (paramK[0], kwargs)
+
+            if len(params_l) != 0:
+
+                if params_l[-1][1].kind == inspect.Parameter.VAR_POSITIONAL:
+
+                    paramA  =   params_l.pop()
+                    partA   =   "%s(tuple)=%s" % (paramA[0], args_n[len(params_l):])
+
+            if len(params_l) != 0:
+
+                namesN  =   [p[0] for p in params_l]
+                partN   =   ', '.join(["%s(%s)=%s" % (k, v.__class__.__name__, v) for (k, v) in dict(zip(namesN, args_n)).items()])
+
+
+            fname   =   func.__name__
+
+
+            args_list = []
+
+            if partN and len(partN) != 0:
+
+                args_list.append(partN)
+
+            if partA and len(partA) != 0:
+
+                args_list.append(partA)
+
+            if partK and len(partK) != 0:
+
+                args_list.append(partK)
+
+            plist = ', '.join(args_list)
+
+
+            if typeS:
+
+                _log_s(file, severity.TRACE, "%s.%s(%s)" % (typeS, fname, plist))
+            else:
+
+                _log_s(file, severity.TRACE, "%s(%s)" % (fname, plist))
+        finally:
+
+            del sig
+
+
+    def _async_wrapper(
+        func,
+        file,
+        is_instance_method,
+    ):
+
+        namespace = {
+            '_emit_trace': _emit_trace,
+            'file': file,
+            'func': func,
+            'functools': functools,
+            'is_instance_method': is_instance_method,
+        }
+
+        exec(
+            "@functools.wraps(func)\n"
+            "async def wrapper(*args, **kwargs):\n"
+            "    _emit_trace(file, func, is_instance_method, args, kwargs)\n"
+            "    return await func(*args, **kwargs)\n",
+            namespace,
+        )
+
+        return namespace['wrapper']
+
+
+    def _apply_tracefunc(
+        func,
+        file,
+    ):
+
+        kind = None
+        is_instance_method = True
+
+        if isinstance(func, staticmethod):
+
+            kind = staticmethod
+            func = func.__func__
+            is_instance_method = False
+        elif isinstance(func, classmethod):
+
+            kind = classmethod
+            func = func.__func__
+            is_instance_method = False
+
+        is_coroutine = sys.version_info[0] >= 3 and inspect.iscoroutinefunction(func)
+
+        if is_coroutine:
+
+            wrapper = _async_wrapper(func, file, is_instance_method)
+        else:
+
+            @functools.wraps(func)
+            def wrapper(*args, **kwargs):
+
+                _emit_trace(file, func, is_instance_method, args, kwargs)
+
+                return func(*args, **kwargs)
+
+        if kind is None:
+
+            return wrapper
+
+        return kind(wrapper)
+
 
     def tracefunc(
-        func,
+        func=None,
         file=None,
     ):
         """
         Decorator function that equates to the receiver function calling
         `trace()`.
 
+        Parameters
+        ----------
+        func : callable, optional
+            The function to decorate. Omit it to pass `file`.
+
+        file : file-object, optional
+            The log stream. `None` selects the default stream
+
         Returns
         -------
         callable
-            A wrapper function that calls the decorated function
+            The wrapped function, or a decorator when `func` is omitted
         """
 
-        def wrapper(*args, **kwargs):
+        if func is None:
 
-            if is_tracing_enabled():
+            def decorator(fn):
 
-                sig =   None
+                return _apply_tracefunc(fn, file)
 
-                try:
+            return decorator
 
-                    sig         =   inspect.signature(func) # py 3.3
+        return _apply_tracefunc(func, file)
 
-                    params      =   sig.parameters
-                    params_l    =   list([(k, v) for (k, v) in params.items()])
-                    args_n      =   args
-
-                    # S=self, N=normal, A=*args, K=**kwargs
-
-                    paramA      =   None
-                    paramK      =   None
-
-                    partN       =   None
-                    partA       =   None
-                    partK       =   None
-
-                    typeS       =   None
-
-                    if len(params_l) != 0:
-
-                        if 'self' == params_l[0][0]:
-
-                            typeS   =   args[0].__class__.__name__
-                            args_n  =   args[1:]
-
-                    if len(params_l) != 0:
-
-                        if params_l[-1][1].kind == inspect.Parameter.VAR_KEYWORD:
-
-                            paramK  =   params_l.pop()
-                            partK   =   "%s(dict)=%s" % (paramK[0], kwargs)
-
-                    if len(params_l) != 0:
-
-                        if params_l[-1][1].kind == inspect.Parameter.VAR_POSITIONAL:
-
-                            paramA  =   params_l.pop()
-                            partA   =   "%s(tuple)=%s" % (paramA[0], args_n[len(params_l):])
-
-                    if len(params_l) != 0:
-
-                        namesN  =   [p[0] for p in params_l]
-                        partN   =   ', '.join(["%s(%s)=%s" % (k, v.__class__.__name__, v) for (k, v) in dict(zip(namesN, args_n)).items()])
-
-
-                    fname   =   func.__name__
-
-
-                    args_list = []
-
-                    if partN and len(partN) != 0:
-
-                        args_list.append(partN)
-
-                    if partA and len(partA) != 0:
-
-                        args_list.append(partA)
-
-                    if partK and len(partK) != 0:
-
-                        args_list.append(partK)
-
-                    plist = ', '.join(args_list)
-
-
-                    if typeS:
-
-                        _log_s(file, severity.TRACE, "%s.%s(%s)" % (typeS, fname, plist))
-                    else:
-
-                        _log_s(file, severity.TRACE, "%s(%s)" % (fname, plist))
-                finally:
-
-                    del sig
-
-            return func(*args, **kwargs)
-
-        return wrapper
 
     def asynctracefunc(
-        func,
+        func=None,
         file=None,
     ):
         """

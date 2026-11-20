@@ -2,11 +2,13 @@
 from .contingent_reporting import (
     _add_eol_and_emit_to_cr_stm,
     _get_cr_file_or_default,
+    _output_lock,
 )
 from .logging import (
     _do_log,
     _get_log_file_or_default,
     is_logging_enabled,
+    is_severity_logged,
 )
 from . import severity
 
@@ -26,15 +28,21 @@ def _warn(
 
     for message in message_lines:
 
+        if callable(message):
+
+            message = message()
+
         if message:
 
-            if is_logging_enabled():
+            with _output_lock:
 
-                _do_log(
-                    file_dl,
-                    severity.WARN,
-                    message,
-                )
+                if is_severity_logged(severity.WARN):
+
+                    _do_log(
+                        file_dl,
+                        severity.WARN,
+                        message,
+                    )
 
             _add_eol_and_emit_to_cr_stm(
                 file_cr,
@@ -51,9 +59,10 @@ def warn(
 
     Parameters
     ----------
-    message_lines : list[str]
+    message_lines : list[str, callable]
         The message line(s) to be emitted to the standard error stream
-        (along with a new-line sequence). If `None`, nothing is emitted
+        (along with a new-line sequence). A callable is invoked to obtain
+        the line. If `None`, nothing is emitted
 
     file : file-object, optional
         An object with a `write(str)` method, or `None` (or not present), in

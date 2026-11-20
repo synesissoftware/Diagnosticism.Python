@@ -24,6 +24,7 @@ __all__ = [
     'TRACE',
     'BENCHMARK',
 
+    'DEBUG',
     'FAIL',
     'WARN',
     'INFO',
