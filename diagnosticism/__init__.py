@@ -9,9 +9,7 @@ __email__       =   'matthew@synesis.com.au'
 __license__     =   'BSD-3-Clause'
 __maintainer__  =   'Matt Wilson'
 __status__      =   'Beta'
-__version__     =   '0.18.1'
-
-import sys
+__version__     =   '0.18.2'
 
 from .contingent_reporting import (
     abort,
@@ -37,6 +35,7 @@ from .severity import (
     ALERT,
     BENCHMARK,
     CRITICAL,
+    DEBUG,
     DEBUG0,
     DEBUG1,
     DEBUG2,
@@ -60,6 +59,7 @@ from .time_format import (
     nanoseconds_to_string,
 )
 from .tracing import (
+    asynctracefunc,
     dbg,
     dbgfl,
     enable_tracing,
@@ -71,12 +71,8 @@ from .tracing import (
     is_tracing_enabled,
     line,
     trace,
+    tracefunc,
 )
-if sys.version_info[:2] >= (3, 9):
-    from .tracing import (
-        asynctracefunc as asynctracefunc,
-        tracefunc as tracefunc,
-    )
 
 from .warning import warn
 
@@ -87,6 +83,7 @@ __all__ = [
     'ALERT',
     'BENCHMARK',
     'CRITICAL',
+    'DEBUG',
     'DEBUG0',
     'DEBUG1',
     'DEBUG2',
@@ -106,6 +103,7 @@ __all__ = [
     'WARN',
     'WARNING',
     'abort',
+    'asynctracefunc',
     'dbg',
     'dbgfl',
     'enable_logging',
@@ -129,14 +127,9 @@ __all__ = [
     'set_program_name',
     'severity_to_string',
     'trace',
+    'tracefunc',
     'warn',
 ]
-
-if sys.version_info[:2] >= (3, 9):
-    __all__.extend([
-        'asynctracefunc',
-        'tracefunc',
-    ])
 
 
 # ############################## end of file ############################# #

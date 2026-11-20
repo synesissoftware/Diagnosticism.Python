@@ -52,7 +52,7 @@ Diagnosticism, for Python
 
 ## Installation & usage
 
-Install via **pip** or **pip3**, as in:
+Install via **pip** or **pip3**, as in the following. [INSTALL.md](./INSTALL.md) has the same steps plus a source checkout:
 
 ```
 $ pip3 install diagnosticism
@@ -84,12 +84,14 @@ d.log(sev.INFO, "hello")
 ### Python version compatibility
 
 **Diagnosticism.Python** is intended to run on **Python 2.7** and **Python
-3.8+**. GitHub Actions exercises **Python 2.7** and **Python 3.8–3.14**.
+3.8+**. GitHub Actions exercises **Python 2.7** on Ubuntu and **Python
+3.10–3.14** on macOS, Ubuntu, and Windows. **Python 3.8** and **3.9** run
+on Ubuntu 22.04 and Windows.
 
 | Requirement | Applies to |
 | ----------- | ---------- |
 | Python **2.7** or **3.8+** | Core contingent reporting, logging, tracing, and severity APIs |
-| Python **3.9+** | `@tracefunc` and `@asynctracefunc` decorators |
+| Python **2.7** or **3.8+** | `@tracefunc` and `@asynctracefunc` decorators |
 
 The public API surface is listed in `diagnosticism.__all__`.
 
@@ -160,7 +162,7 @@ which indicates the following breakdown of operation - in this case a random `sl
 
 ### Constants
 
-#### Diagnostic Logging API
+#### Contingent Reporting API
 
 The following constants are defined:
 
@@ -168,7 +170,7 @@ The following constants are defined:
 | -------- | --- | ------- |
 | STOCK_TRAILING_PROMPT | **Contingent Reporting** | The stock trailing prompt, which is defined as `"use --help for usage"`. |
 
-#### Contingent Reporting API
+#### Diagnostic Logging API
 
 The following constants are defined:
 
@@ -189,10 +191,10 @@ The following constants are defined:
 | DEBUG5          | **Diagnostic Logging** | The sixth highest debug severity level. |
 | TRACE           | **Diagnostic Logging** | Severity level suitable at which trace statements are issued. |
 | BENCHMARK       | **Diagnostic Logging** | Severity level suitable at which benchmark statements are issued. |
-| DEBUG           | **Diagnostics Logging** | Alias for `DEBUG5` |
-| FAIL            | **Diagnostics Logging** | Alias for `FAILURE` |
-| WARN            | **Diagnostics Logging** | Alias for `WARNING` |
-| INFO            | **Diagnostics Logging** | Alias for `INFORMATIONAL` |
+| DEBUG           | **Diagnostic Logging** | Alias for `DEBUG5` |
+| FAIL            | **Diagnostic Logging** | Alias for `FAILURE` |
+| WARN            | **Diagnostic Logging** | Alias for `WARNING` |
+| INFO            | **Diagnostic Logging** | Alias for `INFORMATIONAL` |
 
 > **NOTE**: all the severity level constants are for use with the `log()` function (as well as for setting/getting with `set_log_filter()` and `is_severity_logged()`).
 
@@ -317,7 +319,7 @@ Examples are provided in the ```examples``` directory, along with a markdown des
 
 ### Where to get help
 
-[GitHub Page](https://github.com/synesissoftware/Diagnosticism.Python "GitHub Page")
+[GitHub Page](https://github.com/synesissoftware/Diagnosticism.Python "GitHub Page"). Common questions are in [FAQ.md](./FAQ.md).
 
 
 ### Contribution guidelines

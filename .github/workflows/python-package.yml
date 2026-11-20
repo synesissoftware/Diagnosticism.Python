@@ -2,7 +2,7 @@
 # the sdist/wheel on a range of Python versions.
 #
 # Created: 14th September 2026
-# Updated: 14th September 2026
+# Updated: 20th November 2026
 #
 
 name: Python package
@@ -51,10 +51,14 @@ jobs:
 
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
+        os:
+          - macos-latest
+          - ubuntu-latest
+          - windows-latest
         python-version:
           - "3.8"
           - "3.9"
@@ -63,6 +67,23 @@ jobs:
           - "3.12"
           - "3.13"
           - "3.14"
+        # CPython 3.8 and 3.9 are absent from Ubuntu 26.04 and from
+        # arm64 macOS. Those versions run on Ubuntu 22.04 and on
+        # Windows.
+        exclude:
+          - os: macos-latest
+            python-version: "3.8"
+          - os: macos-latest
+            python-version: "3.9"
+          - os: ubuntu-latest
+            python-version: "3.8"
+          - os: ubuntu-latest
+            python-version: "3.9"
+        include:
+          - os: ubuntu-22.04
+            python-version: "3.8"
+          - os: ubuntu-22.04
+            python-version: "3.9"
 
     steps:
     - name: Checking out code
@@ -88,7 +109,7 @@ jobs:
         python -m pip install build
         python -m build
         python -m pip install dist/diagnosticism-*.whl
-        python -c "import diagnosticism; assert diagnosticism.__version__ == '0.18.1'; print(diagnosticism.__version__)"
+        python -c "import diagnosticism; from importlib.metadata import version; got = version('diagnosticism'); assert got == diagnosticism.__version__, got; print(got)"
 
   build-py27:
 

@@ -6,7 +6,7 @@
 # Purpose:  Unit-testing of `warn()`.
 #
 # Created:  25th July 2025
-# Updated:  25th July 2025
+# Updated:  19th November 2026
 #
 # Copyright (c) Matthew Wilson, Synesis Information Systems Pty Ltd
 # All rights reserved
@@ -16,6 +16,7 @@
 
 from diagnosticism.logging import (
     enable_logging,
+    set_log_filter,
 )
 from diagnosticism.warning import (
     warn,
@@ -187,4 +188,46 @@ class Warn_tester(unittest.TestCase):
             result = fake_stderr.getvalue()
 
             self.assertEqual("warning-5a\nwarning-5b\n", result)
+
+
+    def test__warn__WITH_LOG_FILTER_SUPPRESSES_LOG_LINE(self):
+
+        with patch('sys.stderr', new=StringIO()) as fake_stderr:
+
+            set_program_name('myprog6')
+
+            logging_enabled = True if enable_logging(True) else False
+
+            previous = set_log_filter(lambda severity: False)
+
+            try:
+
+                warn("warning-6")
+            finally:
+
+                set_log_filter(previous[0], previous[1])
+                enable_logging(logging_enabled)
+
+            self.assertEqual("warning-6\n", fake_stderr.getvalue())
+
+
+    def test__warn__WITH_callable_MESSAGE_AND_LOGGING_ENABLED(self):
+
+        with patch('sys.stderr', new=StringIO()) as fake_stderr:
+
+            set_program_name('myprog7')
+
+            logging_enabled = True if enable_logging(True) else False
+
+            try:
+
+                warn(lambda: "warning-7")
+            finally:
+
+                enable_logging(logging_enabled)
+
+            result = fake_stderr.getvalue()
+
+            self.assertIn("warning-7\n", result)
+            self.assertRegex(result, r"WARNING]: warning-7")
 

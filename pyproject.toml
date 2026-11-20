@@ -40,8 +40,8 @@ keywords = [
 license = { text = "BSD-3-Clause" }
 name = "diagnosticism"
 readme = "README.md"
+dynamic = ["version"]
 requires-python = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*, !=3.6.*, !=3.7.*"
-version = "0.18.1"
 
 [project.urls]
 "Bug Tracker" = "https://github.com/synesissoftware/Diagnosticism.Python/issues"
@@ -62,9 +62,13 @@ target-version = "py38"
 
 [tool.ruff.lint]
 ignore = [
+	# `raise ... from` is a syntax error on Python 2.7.
+	"B904",
+	# Existing lines are not being reflowed to the 76-column target.
 	"E501",
 ]
 select = [
+	"B",
 	"E",
 	"F",
 ]
@@ -80,6 +84,9 @@ select = [
 "diagnosticism/tracing.py" = [
 	"E712",
 ]
+
+[tool.setuptools.dynamic]
+version = { attr = "diagnosticism.__version__" }
 
 [tool.setuptools.packages.find]
 exclude = [

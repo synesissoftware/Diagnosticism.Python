@@ -8,7 +8,7 @@
 * [x] Separate out the file/line/function facilities from `#trace()`;
 * [x] ~~~Use **pyproject.toml**~~~ - ✅;
 * [x] `warn()` can take multiple strings (a la **Ruby**'s `warn()`);
-* [ ] `set_log_filter()` to allow filter to be callable;
+* [x] ~~~`set_log_filter()` to allow filter to be callable~~~ - ✅;
 * [ ] `log()` to work with standard logger;
 
 

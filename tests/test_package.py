@@ -10,3 +10,6 @@ class Package_tester(unittest.TestCase):
 
         for name in diagnosticism.__all__:
             self.assertTrue(hasattr(diagnosticism, name), name)
+
+        self.assertIn('DEBUG', diagnosticism.__all__)
+        self.assertEqual(diagnosticism.DEBUG5, diagnosticism.DEBUG)
