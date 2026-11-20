@@ -1,6 +1,10 @@
 # Diagnosticism.Python - Changes <!-- omit in toc -->
 
 
+## 0.19.0-alpha1 - 22nd November 2026
+
+
+
 ## 0.18.3 - 21st November 2026
 
 * fixes:
