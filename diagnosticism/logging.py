@@ -3,6 +3,7 @@ from .contingent_reporting import (
     _do_report,
     _get_cr_file_or_default,
     _isatty,
+    _output_lock,
 )
 from .program_name import get_program_name
 from . import severity as _severity
@@ -106,9 +107,11 @@ def enable_logging(*args):
 
     global _logging_is_enabled
 
-    _logging_is_enabled, is_enabled = is_enabled, _logging_is_enabled
+    with _output_lock:
 
-    return is_enabled
+        _logging_is_enabled, is_enabled = is_enabled, _logging_is_enabled
+
+        return is_enabled
 
 
 def is_logging_enabled():
@@ -116,7 +119,9 @@ def is_logging_enabled():
     Indicate whether logging is enabled
     """
 
-    return _logging_is_enabled
+    with _output_lock:
+
+        return _logging_is_enabled
 
 
 def is_severity_logged(severity):
@@ -128,6 +133,13 @@ def is_severity_logged(severity):
     bool
         `True` if the severity is to be logged; `False` otherwise
     """
+
+    with _output_lock:
+
+        return _severity_is_logged(severity)
+
+
+def _severity_is_logged(severity):
 
     if not _logging_is_enabled:
 
@@ -186,9 +198,11 @@ def set_log_filter(
 
     global _log_filter, _others_action
 
-    _log_filter, log_filter, _others_action, others_action = log_filter, _log_filter, others_action, _others_action
+    with _output_lock:
 
-    return (log_filter, others_action)
+        _log_filter, log_filter, _others_action, others_action = log_filter, _log_filter, others_action, _others_action
+
+        return (log_filter, others_action)
 
 
 def _do_log(
@@ -258,17 +272,19 @@ def log(
     None
     """
 
-    if not is_severity_logged(severity):
+    with _output_lock:
 
-        return
+        if not _severity_is_logged(severity):
 
-    file = _get_log_file_or_default(file)
+            return
 
-    return _do_log(
-        file,
-        severity,
-        message,
-    )
+        file = _get_log_file_or_default(file)
+
+        return _do_log(
+            file,
+            severity,
+            message,
+        )
 
 
 # ############################## end of file ############################# #

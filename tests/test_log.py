@@ -18,6 +18,7 @@ from diagnosticism.severity import (
 )
 
 import threading
+import time
 import unittest
 from unittest.mock import patch
 
@@ -329,6 +330,56 @@ class Logp_tester(unittest.TestCase):
 
         self.assertIn("from-a", text)
         self.assertIn("from-b", text)
+
+
+    def test__log__FROM_TWO_THREADS_DOES_NOT_INTERLEAVE(self):
+
+        class _SlowSink(object):
+
+            def __init__(self):
+
+                self.parts = []
+
+            def isatty(self):
+
+                return False
+
+            def write(self, text):
+
+                self.parts.append(text[:1])
+                time.sleep(0.01)
+                self.parts.append(text[1:])
+
+        sink = _SlowSink()
+        line_a = "A" * 40
+        line_b = "B" * 40
+
+        enable_logging(True)
+        set_program_name('myprog1')
+
+        def from_a():
+
+            log(INFORMATIONAL, line_a, file=sink)
+
+        def from_b():
+
+            log(INFORMATIONAL, line_b, file=sink)
+
+        thread_a = threading.Thread(target=from_a)
+        thread_b = threading.Thread(target=from_b)
+
+        thread_a.start()
+        thread_b.start()
+        thread_a.join()
+        thread_b.join()
+
+        lines = ''.join(sink.parts).splitlines()
+
+        self.assertEqual(2, len(lines))
+        self.assertTrue(line_a in lines[0] or line_a in lines[1])
+        self.assertTrue(line_b in lines[0] or line_b in lines[1])
+        self.assertFalse(line_a in lines[0] and line_b in lines[0])
+        self.assertFalse(line_a in lines[1] and line_b in lines[1])
 
 
 if '__main__' == __name__:

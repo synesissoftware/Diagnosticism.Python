@@ -1,4 +1,5 @@
 
+from .contingent_reporting import _output_lock
 from .logging import (
     _do_log,
     _get_log_file_or_default,
@@ -219,9 +220,11 @@ def enable_tracing(*args):
 
     global _tracingEnabled
 
-    _tracingEnabled, is_enabled = is_enabled, _tracingEnabled
+    with _output_lock:
 
-    return is_enabled
+        _tracingEnabled, is_enabled = is_enabled, _tracingEnabled
+
+        return is_enabled
 
 
 def file(
@@ -317,7 +320,9 @@ def is_tracing_enabled():
     bool
     """
 
-    return _tracingEnabled
+    with _output_lock:
+
+        return _tracingEnabled
 
 
 def trace(

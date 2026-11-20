@@ -3,6 +3,8 @@
 
 ## 0.18.3 - 21st November 2026
 
+* fixes:
+  * logging and tracing hold one lock across the enable flag, the log filter, and the line write;
 
 
 ## 0.18.2 - 20th November 2026
