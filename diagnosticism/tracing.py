@@ -9,6 +9,7 @@ from . import severity
 from .internal import (
     _basename,
     _bool_from_env,
+    _bool_from_named_env,
     _is_python_2_7_or_later,
 )
 
@@ -18,6 +19,24 @@ import sys
 
 
 _tracingEnabled =   False
+
+_ENABLE_TRACING_NAMES = (
+    'DIAGNOSTICISM_ENABLE_TRACING',
+    'SIS_ENABLE_TRACING',
+    'ENABLE_TRACING',
+)
+
+
+def _apply_tracing_environment():
+    """
+    Apply the first recognised tracing environment variable.
+    """
+
+    enabled = _bool_from_named_env(_ENABLE_TRACING_NAMES)
+
+    if enabled is not None:
+
+        enable_tracing(enabled)
 
 
 def _derive_param(
@@ -639,6 +658,12 @@ if _is_python_2_7_or_later():
         """
 
         return tracefunc(func, file)
+
+
+# ##########################################################
+# initialisation
+
+_apply_tracing_environment()
 
 
 # ############################## end of file ############################# #

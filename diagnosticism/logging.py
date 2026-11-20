@@ -10,14 +10,41 @@ from . import severity as _severity
 
 from .internal import (
     _bool_from_env,
+    _bool_from_named_env,
 )
 
 from datetime import datetime as dt
+import os
 import sys
 import threading
 
 
 _REAL_STDERR = sys.stderr
+
+
+# ##########################################################
+# helper functions
+
+def _apply_logging_environment():
+    """
+    Apply the first recognised logging environment variables.
+    """
+
+    global _flush_threshold
+
+    enabled = _bool_from_named_env(_ENABLE_LOGGING_NAMES)
+
+    if enabled is not None:
+
+        enable_logging(enabled)
+
+    threshold = _threshold_from_env(_LOGGING_THRESHOLD_NAMES)
+
+    if threshold is not None:
+
+        set_log_filter(threshold)
+
+    _flush_threshold = _threshold_from_env(_FLUSH_THRESHOLD_NAMES)
 
 
 def _get_stderr_dynamic():
@@ -37,6 +64,52 @@ def _get_log_file_or_default(file):
         return file
 
     return _get_stderr_dynamic()
+
+
+def _severity_is_logged(severity):
+
+    if not _logging_is_enabled:
+
+        return False
+
+    if _log_filter:
+
+        if isinstance(_log_filter, (dict,)):
+            r = _log_filter.get(severity, _others_action)
+
+            if not r:
+
+                return False
+        elif callable(_log_filter):
+
+            if not _log_filter(severity):
+
+                return False
+        else:
+
+            if int(severity) > int(_log_filter):
+
+                return False
+
+    return True
+
+
+def _threshold_from_env(names):
+
+    for name in names:
+
+        if name not in os.environ:
+
+            continue
+
+        try:
+
+            return _severity.parse_verbosity(os.environ[name])
+        except ValueError:
+
+            continue
+
+    return None
 
 
 class _clrs:
@@ -69,13 +142,37 @@ class _clrs:
     }
 
 
-# ######################################
-# Runtime shared state
+# ##########################################################
+# runtime shared state
 
 _logging_is_enabled =   None
 _log_filter         =   None
 _others_action      =   None
+_flush_threshold    =   None
 
+_ENABLE_LOGGING_NAMES = (
+    'DIAGNOSTICISM_ENABLE_LOGGING',
+    'SIS_ENABLE_LOGGING',
+    'ENABLE_LOGGING',
+)
+
+_LOGGING_THRESHOLD_NAMES = (
+    'DIAGNOSTICISM_LOGGING_THRESHOLD',
+    'SIS_LOGGING_THRESHOLD',
+    'LOGGING_THRESHOLD',
+    'SIS_SEVERITY_CEILING',
+)
+
+_FLUSH_THRESHOLD_NAMES = (
+    'DIAGNOSTICISM_FLUSH_THRESHOLD',
+    'SIS_FLUSH_THRESHOLD',
+    'FLUSH_THRESHOLD',
+    'SIS_FLUSH_CEILING',
+)
+
+
+# ##########################################################
+# API functions
 
 def enable_logging(*args):
     """
@@ -137,34 +234,6 @@ def is_severity_logged(severity):
     with _output_lock:
 
         return _severity_is_logged(severity)
-
-
-def _severity_is_logged(severity):
-
-    if not _logging_is_enabled:
-
-        return False
-
-    if _log_filter:
-
-        if isinstance(_log_filter, (dict,)):
-            r = _log_filter.get(severity, _others_action)
-
-            if not r:
-
-                return False
-        elif callable(_log_filter):
-
-            if not _log_filter(severity):
-
-                return False
-        else:
-
-            if int(severity) > int(_log_filter):
-
-                return False
-
-    return True
 
 
 def set_log_filter(
@@ -249,6 +318,14 @@ def _do_log(
         trailing_prompt,
     )
 
+    if _flush_threshold is not None and int(severity) <= int(_flush_threshold):
+
+        flush = getattr(file, 'flush', None)
+
+        if flush:
+
+            flush()
+
 
 def log(
     severity,
@@ -285,6 +362,12 @@ def log(
             severity,
             message,
         )
+
+
+# ##########################################################
+# initialisation
+
+_apply_logging_environment()
 
 
 # ############################## end of file ############################# #

@@ -3,6 +3,8 @@
 
 ## 0.19.0-alpha1 - 22nd November 2026
 
+* functionality:
+  * logging and tracing take their enable flags, the logging threshold, and the flush threshold from the environment, preferring `DIAGNOSTICISM_*`, then `SIS_*`, then the generic name;
 
 
 ## 0.18.3 - 21st November 2026

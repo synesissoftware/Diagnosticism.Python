@@ -1,7 +1,9 @@
 #! /usr/bin/env python3
 
 from diagnosticism.logging import (
+    _apply_logging_environment,
     enable_logging,
+    is_logging_enabled,
     log,
     set_log_filter,
 )
@@ -380,6 +382,133 @@ class Logp_tester(unittest.TestCase):
         self.assertTrue(line_b in lines[0] or line_b in lines[1])
         self.assertFalse(line_a in lines[0] and line_b in lines[0])
         self.assertFalse(line_a in lines[1] and line_b in lines[1])
+
+
+    def test_ENABLE_LOGGING_PREFERS_DIAGNOSTICISM_THEN_FALLS_THROUGH(self):
+
+        previous_enabled = is_logging_enabled()
+        saved_filter = set_log_filter(None)
+
+        try:
+
+            with patch.dict('os.environ', {
+                'DIAGNOSTICISM_ENABLE_LOGGING': 'yes',
+                'ENABLE_LOGGING': 'no',
+            }):
+
+                _apply_logging_environment()
+
+                self.assertTrue(is_logging_enabled())
+
+            with patch.dict('os.environ', {
+                'DIAGNOSTICISM_ENABLE_LOGGING': 'maybe',
+                'SIS_ENABLE_LOGGING': 'no',
+                'ENABLE_LOGGING': 'yes',
+            }):
+
+                _apply_logging_environment()
+
+                self.assertFalse(is_logging_enabled())
+        finally:
+
+            set_log_filter(saved_filter[0], saved_filter[1])
+
+            if previous_enabled is None:
+
+                enable_logging(False)
+            else:
+
+                enable_logging(previous_enabled)
+
+
+    def test_LOGGING_THRESHOLD_PREFERS_DIAGNOSTICISM_NAME(self):
+
+        previous_enabled = enable_logging(True)
+        saved_filter = set_log_filter(None)
+        sink = StringIO()
+
+        try:
+
+            with patch.dict('os.environ', {
+                'DIAGNOSTICISM_ENABLE_LOGGING': 'yes',
+                'DIAGNOSTICISM_LOGGING_THRESHOLD': 'WARNING',
+                'LOGGING_THRESHOLD': 'DEBUG5',
+            }):
+
+                _apply_logging_environment()
+
+                log(WARNING, 'kept', file=sink)
+                log(NOTICE, 'dropped', file=sink)
+
+            text = sink.getvalue()
+
+            self.assertIn('kept', text)
+            self.assertNotIn('dropped', text)
+        finally:
+
+            set_log_filter(saved_filter[0], saved_filter[1])
+
+            if previous_enabled is None:
+
+                enable_logging(False)
+            else:
+
+                enable_logging(previous_enabled)
+
+
+    def test_FLUSH_THRESHOLD_PREFERS_DIAGNOSTICISM_NAME(self):
+
+        class _FlushSink(object):
+
+            def __init__(self):
+
+                self.flushes = 0
+                self.text = ''
+
+            def isatty(self):
+
+                return False
+
+            def write(self, text):
+
+                self.text += text
+
+            def flush(self):
+
+                self.flushes += 1
+
+        previous_enabled = enable_logging(True)
+        saved_filter = set_log_filter(None)
+        sink = _FlushSink()
+
+        try:
+
+            with patch.dict('os.environ', {
+                'DIAGNOSTICISM_ENABLE_LOGGING': 'yes',
+                'DIAGNOSTICISM_LOGGING_THRESHOLD': 'DEBUG5',
+                'DIAGNOSTICISM_FLUSH_THRESHOLD': 'not-a-severity',
+                'SIS_FLUSH_CEILING': 'DEBUG5',
+                'FLUSH_THRESHOLD': 'FAILURE',
+            }):
+
+                _apply_logging_environment()
+
+                log(ALERT, 'severe', file=sink)
+                log(INFORMATIONAL, 'routine', file=sink)
+
+            self.assertEqual(1, sink.flushes)
+            self.assertIn('severe', sink.text)
+            self.assertIn('routine', sink.text)
+        finally:
+
+            set_log_filter(saved_filter[0], saved_filter[1])
+
+            if previous_enabled is None:
+
+                enable_logging(False)
+            else:
+
+                enable_logging(previous_enabled)
 
 
 if '__main__' == __name__:

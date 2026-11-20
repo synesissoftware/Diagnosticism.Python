@@ -3,7 +3,7 @@
 
 * [x] `DOOMGram` and `DOOMScope`;
 * [x] `file` parameter for `abort()`, `log()`, `report()`, `trace()`, `warn()`;
-* [ ] Implicit and explicit facilities for inferring/obtaining logging/tracing levels from the environment;
+* [x] ~~~Implicit and explicit facilities for inferring/obtaining logging/tracing levels from the environment~~~ - ✅;
 * [ ] Logging/tracing interacting with existing logging libraries;
 * [x] Separate out the file/line/function facilities from `#trace()`;
 * [x] ~~~Use **pyproject.toml**~~~ - ✅;

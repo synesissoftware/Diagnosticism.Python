@@ -2,9 +2,11 @@
 
 from diagnosticism.program_name import set_program_name
 from diagnosticism.tracing import (
+    _apply_tracing_environment,
     dbg,
     enable_tracing,
     func,
+    is_tracing_enabled,
     line,
     trace,
     tracefunc,
@@ -269,3 +271,31 @@ class Trace_tester(unittest.TestCase):
             finally:
 
                 enable_tracing(tracing_enabled)
+
+
+    def test_ENABLE_TRACING_PREFERS_DIAGNOSTICISM_THEN_FALLS_THROUGH(self):
+
+        previous = is_tracing_enabled()
+
+        try:
+
+            with patch.dict('os.environ', {
+                'DIAGNOSTICISM_ENABLE_TRACING': 'yes',
+                'ENABLE_TRACING': 'no',
+            }):
+
+                _apply_tracing_environment()
+
+                self.assertTrue(is_tracing_enabled())
+
+            with patch.dict('os.environ', {
+                'DIAGNOSTICISM_ENABLE_TRACING': 'maybe',
+                'ENABLE_TRACING': 'no',
+            }):
+
+                _apply_tracing_environment()
+
+                self.assertFalse(is_tracing_enabled())
+        finally:
+
+            enable_tracing(True if previous else False)
