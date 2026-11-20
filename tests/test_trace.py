@@ -9,6 +9,7 @@ from diagnosticism.tracing import (
     trace,
     tracefunc,
 )
+import inspect
 import sys
 
 from diagnosticism.internal import _basename
@@ -174,6 +175,72 @@ class Trace_tester(unittest.TestCase):
 
                 enable_tracing(tracing_enabled)
 
+
+    def test__tracefunc__PRESERVES_NAME_AND_DOCSTRING(self):
+
+        def documented():
+            """the doc"""
+
+            return 1
+
+        wrapped = tracefunc(documented)
+
+        self.assertEqual('documented', wrapped.__name__)
+        self.assertEqual('the doc', wrapped.__doc__)
+        self.assertEqual(1, wrapped())
+
+
+    def test__tracefunc__WITH_file_ARGUMENT(self):
+
+        sink = StringIO()
+
+        @tracefunc(file=sink)
+        def named():
+
+            return 2
+
+        tracing_enabled = True if enable_tracing(True) else False
+
+        try:
+
+            set_program_name('myprog3')
+
+            self.assertEqual(2, named())
+            self.assertIn('named()', sink.getvalue())
+        finally:
+
+            enable_tracing(tracing_enabled)
+
+
+    def test__tracefunc__STATICMETHOD_KEEPS_self_PARAMETER(self):
+
+        sink = StringIO()
+
+        class Box(object):
+
+            @tracefunc(file=sink)
+            @staticmethod
+            def stat(self):
+
+                return self
+
+        tracing_enabled = True if enable_tracing(True) else False
+
+        try:
+
+            set_program_name('myprog3')
+
+            self.assertEqual('token', Box.stat('token'))
+
+            text = sink.getvalue()
+
+            self.assertIn('self(str)=token', text)
+            self.assertNotIn('Box.stat', text)
+        finally:
+
+            enable_tracing(tracing_enabled)
+
+
     if sys.version_info[0] >= 3:
         def test__asynctracefunc__RETURNS_COROUTINE(self):
 
@@ -191,7 +258,11 @@ class Trace_tester(unittest.TestCase):
 
             try:
 
-                result = namespace['f3']()
+                f3 = namespace['f3']
+
+                self.assertTrue(inspect.iscoroutinefunction(f3))
+
+                result = f3()
 
                 self.assertTrue(hasattr(result, '__await__'))
                 result.close()
