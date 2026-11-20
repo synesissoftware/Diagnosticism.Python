@@ -246,14 +246,25 @@ if hasattr(time, 'perf_counter_ns'):
 
         return time.perf_counter_ns()
 
-else:
+elif hasattr(time, 'monotonic'):
 
     def _perf_counter_ns():
         """
         Return a performance counter in nanoseconds.
         """
 
-        return int(time.time() * 1000000000)  # 1,000,000,000
+        return int(time.monotonic() * 1000000000) # 1,000,000,000
+
+else:
+
+    def _perf_counter_ns():
+        """
+        Return a performance counter in nanoseconds.
+
+        Python 2.7 has neither ``perf_counter_ns`` nor ``monotonic``.
+        """
+
+        return int(time.time() * 1000000000) # 1,000,000,000
 
 
 # ############################## end of file ############################# #
