@@ -32,6 +32,8 @@
   * canonicalising **NEWS.md**;
   * corrected historical notes: `parse_verbosity()` in 0.9.0, and Python 3.14 compatibility in 0.17.0;
   * **README.md** constant catalogs now sit under the matching API headings;
+  * added **INSTALL.md** and **FAQ.md**;
+  * older changelog bullets now end with `;`;
 * packaging:
   * `__version__` in **diagnosticism/__init__.py** is the only version string;
   * removed `universal = 1` from **setup.cfg**;
@@ -138,7 +140,7 @@
 
 ## 0.9.1 - 6th July 2025
 
-* fixed erroneous behaviour of `trace()` when used in module context
+* fixed erroneous behaviour of `trace()` when used in module context;
 
 
 ## 0.9.0 - 20th August 2024
@@ -148,23 +150,23 @@
 
 ## 0.8.0 - 17th August 2024
 
-* added `is_severity_logged()`
+* added `is_severity_logged()`;
 
 
 ## 0.7.3 - 16th August 2024
 
-* fixed filter logic
+* fixed filter logic;
 
 
 ## 0.7.2 - 16th August 2024
 
-* ANSI sequences on Windows 11+ (from build 22000 onwards)
+* ANSI sequences on Windows 11+ (from build 22000 onwards);
 
 
 ## 0.7.1 - 15th August 2024
 
-* added missing `set_log_filter` export to top-level module
-* ANSI sequences on Windows 10+
+* added missing `set_log_filter` export to top-level module;
+* ANSI sequences on Windows 10+;
 
 
 ## 0.7.0 - 14th August 2024
@@ -175,72 +177,72 @@
 
 ## 0.6.1 - 28th August 2020
 
-* fixed recently introduced defect in ``enable_tracing()``
+* fixed recently introduced defect in ``enable_tracing()``;
 
 
 ## 0.6.0 - 28th August 2020
 
-* added ``set_log_filter()``, which takes a severity-level as a threshold or a dictionary that controls emission of individual severity-levels
+* added ``set_log_filter()``, which takes a severity-level as a threshold or a dictionary that controls emission of individual severity-levels;
 
 
 ## 0.5.1 - 28th August 2020
 
-* added more documentation and parameter assertions
+* added more documentation and parameter assertions;
 
 
 ## 0.5.0 - 13th August 2020
 
-* ``log()`` now can take a message lamba as well as a message string
+* ``log()`` now can take a message lamba as well as a message string;
 
 
 ## 0.4.1 - 13th August 2020
 
-* added ``warn()`` (as an analogue of Ruby's ``Kernel#warn()``)
-* added ``conrep.set_default_usage_prompt()`` to allow a default usage prompt for ``abort()``
-* general improvements to documentation
+* added ``warn()`` (as an analogue of Ruby's ``Kernel#warn()``);
+* added ``conrep.set_default_usage_prompt()`` to allow a default usage prompt for ``abort()``;
+* general improvements to documentation;
 
 
 ## 0.4.0 - 11th July 2020
 
-* changed project name from **diagnosticism.Python** to **Diagnosticism.Python**
-* added **tests/test_conrep.py**
+* changed project name from **diagnosticism.Python** to **Diagnosticism.Python**;
+* added **tests/test_conrep.py**;
 
 
 ## 0.3.1 - 8th July 2019
 
-* ``abort()`` now applies ``str()`` on ``message`` param, to allow argument types such as exceptions
+* ``abort()`` now applies ``str()`` on ``message`` param, to allow argument types such as exceptions;
 
 
 ## 0.3.0 - 7th July 2019
 
-* added module ``diagnosticism.log``, with members ``enable_logging()``, ``is_logging_enabled()``, and ``log()``
-* added module ``diagnosticism.severity``, with members ``VIOLATION``, ``ALERT``, ... ``DEBUG5``, ``TRACE``
+* added module ``diagnosticism.log``, with members ``enable_logging()``, ``is_logging_enabled()``, and ``log()``;
+* added module ``diagnosticism.severity``, with members ``VIOLATION``, ``ALERT``, ... ``DEBUG5``, ``TRACE``;
 
 
 ## 0.2.1 - 7th July 2019
 
-* fixed missing name ``report`` exported at top-level
+* fixed missing name ``report`` exported at top-level;
 
 
 ## 0.2.0 - 7th July 2019
 
-* added module ``diagnosticism.program_name``, with members ``get_program_name()`` and ``set_program_name()``
-* added module ``diagnosticism.conrep``, with members ``abort()`` and ``report()``
+* added module ``diagnosticism.program_name``, with members ``get_program_name()`` and ``set_program_name()``;
+* added module ``diagnosticism.conrep``, with members ``abort()`` and ``report()``;
 
 
 ## 0.1.2 - 12th June 2019
 
-* enhancing ``trace()`` to handle methods elegantly
+* enhancing ``trace()`` to handle methods elegantly;
 
 
 ## 0.1.1 - 11th June 2019
 
-* ``trace()``
+* ``trace()``;
 
 
 ## 0.0.1 - 12th February 2019
 
-* project boilerplate
+* project boilerplate;
 
 
 <!-- ########################### end of file ########################### -->

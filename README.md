@@ -52,7 +52,7 @@ Diagnosticism, for Python
 
 ## Installation & usage
 
-Install via **pip** or **pip3**, as in:
+Install via **pip** or **pip3**, as in the following. [INSTALL.md](./INSTALL.md) has the same steps plus a source checkout:
 
 ```
 $ pip3 install diagnosticism
@@ -319,7 +319,7 @@ Examples are provided in the ```examples``` directory, along with a markdown des
 
 ### Where to get help
 
-[GitHub Page](https://github.com/synesissoftware/Diagnosticism.Python "GitHub Page")
+[GitHub Page](https://github.com/synesissoftware/Diagnosticism.Python "GitHub Page"). Common questions are in [FAQ.md](./FAQ.md).
 
 
 ### Contribution guidelines
