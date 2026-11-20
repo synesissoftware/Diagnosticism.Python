@@ -32,6 +32,9 @@
   * canonicalising **NEWS.md**;
   * corrected historical notes: `parse_verbosity()` in 0.9.0, and Python 3.14 compatibility in 0.17.0;
   * **README.md** constant catalogs now sit under the matching API headings;
+* packaging:
+  * `__version__` in **diagnosticism/__init__.py** is the only version string;
+  * removed `universal = 1` from **setup.cfg**;
 
 
 ## 0.18.1 - 14th September 2026

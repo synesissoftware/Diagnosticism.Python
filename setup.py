@@ -1,11 +1,25 @@
 
 import setuptools
 
+
+def _read_version():
+
+    with open('diagnosticism/__init__.py') as source:
+
+        for line in source:
+
+            if line.startswith('__version__'):
+
+                return line.split('=', 1)[1].strip().strip("'\"")
+
+    raise RuntimeError('__version__ was not found')
+
+
 setuptools.setup(
 
     name='diagnosticism',
     python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*, !=3.6.*, !=3.7.*',
-    version='0.18.1',
+    version=_read_version(),
 
     author='Matt Wilson',
     author_email='matthew@synesis.com.au',
