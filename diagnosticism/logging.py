@@ -217,7 +217,7 @@ def _do_log(
     # TODO: perf test this
     prefix = "[%s, %s, %s, %s]" % (get_program_name(), threading.current_thread().ident, str(now), ss)
 
-    if hasattr(message, '__call__'):
+    if callable(message):
         message = message()
 
     # TODO: perf test this

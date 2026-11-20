@@ -62,9 +62,13 @@ target-version = "py38"
 
 [tool.ruff.lint]
 ignore = [
+	# `raise ... from` is a syntax error on Python 2.7.
+	"B904",
+	# Existing lines are not being reflowed to the 76-column target.
 	"E501",
 ]
 select = [
+	"B",
 	"E",
 	"F",
 ]
