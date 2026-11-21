@@ -222,6 +222,29 @@ def _bool_from_env(args, fn_name):
     raise TypeError("`%s()` takes 1 or 2 arguments" % fn_name)
 
 
+def _bool_from_named_env(names):
+    """
+    Return the first recognised boolean among ``names``, in order.
+
+    A missing or unrecognised value yields to the next name. ``None``
+    means none of the names held a recognised boolean.
+    """
+
+    for name in names:
+
+        if name not in os.environ:
+
+            continue
+
+        value = _str2bool(os.environ[name], None)
+
+        if value is not None:
+
+            return value
+
+    return None
+
+
 def _is_python_2_7_or_later():
 
     return sys.version_info[:2] >= (2, 7)
@@ -246,14 +269,25 @@ if hasattr(time, 'perf_counter_ns'):
 
         return time.perf_counter_ns()
 
-else:
+elif hasattr(time, 'monotonic'):
 
     def _perf_counter_ns():
         """
         Return a performance counter in nanoseconds.
         """
 
-        return int(time.time() * 1000000000)  # 1,000,000,000
+        return int(time.monotonic() * 1000000000) # 1,000,000,000
+
+else:
+
+    def _perf_counter_ns():
+        """
+        Return a performance counter in nanoseconds.
+
+        Python 2.7 has neither ``perf_counter_ns`` nor ``monotonic``.
+        """
+
+        return int(time.time() * 1000000000) # 1,000,000,000
 
 
 # ############################## end of file ############################# #

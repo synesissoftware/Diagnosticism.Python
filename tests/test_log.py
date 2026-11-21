@@ -1,11 +1,15 @@
 #! /usr/bin/env python3
 
 from diagnosticism.logging import (
+    _apply_logging_environment,
     enable_logging,
+    is_logging_enabled,
     log,
     set_log_filter,
+    set_log_logger,
 )
 from diagnosticism.program_name import set_program_name
+from diagnosticism.warning import warn
 from diagnosticism.severity import (
     ALERT,
     CRITICAL,
@@ -17,6 +21,9 @@ from diagnosticism.severity import (
     WARNING,
 )
 
+import logging as stdlib_logging
+import threading
+import time
 import unittest
 from unittest.mock import patch
 
@@ -28,6 +35,19 @@ try:
 except ImportError:
 
     from io import StringIO
+
+
+class _ListHandler(stdlib_logging.Handler):
+
+    def __init__(self):
+
+        stdlib_logging.Handler.__init__(self)
+
+        self.records = []
+
+    def emit(self, record):
+
+        self.records.append(record)
 
 
 class Logp_tester(unittest.TestCase):
@@ -64,6 +84,24 @@ class Logp_tester(unittest.TestCase):
                 log(INFORMATIONAL, "msg-1")
 
                 self.assertRegex(fake_stderr.getvalue(), r'^\[myprog1, \d+, \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6}, .*INFORMATIONAL.*\]: msg-1')
+            finally:
+
+                enable_logging(logging_enabled)
+
+
+    def test__log__WITH_NON_STRING_MESSAGE(self):
+
+        with patch('sys.stderr', new=StringIO()) as fake_stderr:
+
+            logging_enabled = True if enable_logging(True) else False
+
+            try:
+
+                set_program_name('myprog1')
+
+                log(INFORMATIONAL, ValueError("boom"))
+
+                self.assertRegex(fake_stderr.getvalue(), r'\]: boom')
             finally:
 
                 enable_logging(logging_enabled)
@@ -226,6 +264,411 @@ class Logp_tester(unittest.TestCase):
             finally:
 
                 set_log_filter(log_filter[0], log_filter[1])
+
+
+    def test__set_log_filter__WITH_callable(self):
+
+        with patch('sys.stderr', new=StringIO()) as fake_stderr:
+
+            enable_logging(True)
+
+            invoked = []
+
+            def allow_warning(severity):
+
+                return severity == WARNING
+
+            log_filter = set_log_filter(allow_warning)
+
+            try:
+
+                set_program_name('myprog1')
+
+                log(DEBUG0, lambda: invoked.append('debug') or 'msg-debug0')
+                log(WARNING, "msg-warning")
+
+                self.assertEqual([], invoked)
+                self.assertRegex(fake_stderr.getvalue(), r'.*WARNING.*\]: msg-warning')
+                self.assertNotIn('msg-debug0', fake_stderr.getvalue())
+            finally:
+
+                set_log_filter(log_filter[0], log_filter[1])
+
+
+    def test__set_log_filter__NONE_CLEARS_THRESHOLD(self):
+
+        sink = StringIO()
+
+        enable_logging(True)
+
+        original = set_log_filter(WARNING)
+
+        try:
+
+            set_program_name('myprog1')
+
+            log(DEBUG0, "hidden", file=sink)
+            set_log_filter(None)
+            log(DEBUG0, "shown", file=sink)
+
+            text = sink.getvalue()
+
+            self.assertNotIn("hidden", text)
+            self.assertIn("shown", text)
+        finally:
+
+            set_log_filter(original[0], original[1])
+
+
+    def test__log__FROM_TWO_THREADS(self):
+
+        sink = StringIO()
+
+        enable_logging(True)
+
+        set_program_name('myprog1')
+
+        def from_a():
+
+            log(INFORMATIONAL, "from-a", file=sink)
+
+        def from_b():
+
+            log(INFORMATIONAL, "from-b", file=sink)
+
+        thread_a = threading.Thread(target=from_a)
+        thread_b = threading.Thread(target=from_b)
+
+        thread_a.start()
+        thread_b.start()
+        thread_a.join()
+        thread_b.join()
+
+        text = sink.getvalue()
+
+        self.assertIn("from-a", text)
+        self.assertIn("from-b", text)
+
+
+    def test__log__FROM_TWO_THREADS_DOES_NOT_INTERLEAVE(self):
+
+        class _SlowSink(object):
+
+            def __init__(self):
+
+                self.parts = []
+
+            def isatty(self):
+
+                return False
+
+            def write(self, text):
+
+                self.parts.append(text[:1])
+                time.sleep(0.01)
+                self.parts.append(text[1:])
+
+        sink = _SlowSink()
+        line_a = "A" * 40
+        line_b = "B" * 40
+
+        enable_logging(True)
+        set_program_name('myprog1')
+
+        def from_a():
+
+            log(INFORMATIONAL, line_a, file=sink)
+
+        def from_b():
+
+            log(INFORMATIONAL, line_b, file=sink)
+
+        thread_a = threading.Thread(target=from_a)
+        thread_b = threading.Thread(target=from_b)
+
+        thread_a.start()
+        thread_b.start()
+        thread_a.join()
+        thread_b.join()
+
+        lines = ''.join(sink.parts).splitlines()
+
+        self.assertEqual(2, len(lines))
+        self.assertTrue(line_a in lines[0] or line_a in lines[1])
+        self.assertTrue(line_b in lines[0] or line_b in lines[1])
+        self.assertFalse(line_a in lines[0] and line_b in lines[0])
+        self.assertFalse(line_a in lines[1] and line_b in lines[1])
+
+
+    def test_ENABLE_LOGGING_PREFERS_DIAGNOSTICISM_THEN_FALLS_THROUGH(self):
+
+        previous_enabled = is_logging_enabled()
+        saved_filter = set_log_filter(None)
+
+        try:
+
+            with patch.dict('os.environ', {
+                'DIAGNOSTICISM_ENABLE_LOGGING': 'yes',
+                'ENABLE_LOGGING': 'no',
+            }):
+
+                _apply_logging_environment()
+
+                self.assertTrue(is_logging_enabled())
+
+            with patch.dict('os.environ', {
+                'DIAGNOSTICISM_ENABLE_LOGGING': 'maybe',
+                'SIS_ENABLE_LOGGING': 'no',
+                'ENABLE_LOGGING': 'yes',
+            }):
+
+                _apply_logging_environment()
+
+                self.assertFalse(is_logging_enabled())
+        finally:
+
+            set_log_filter(saved_filter[0], saved_filter[1])
+
+            if previous_enabled is None:
+
+                enable_logging(False)
+            else:
+
+                enable_logging(previous_enabled)
+
+
+    def test_LOGGING_THRESHOLD_PREFERS_DIAGNOSTICISM_NAME(self):
+
+        previous_enabled = enable_logging(True)
+        saved_filter = set_log_filter(None)
+        sink = StringIO()
+
+        try:
+
+            with patch.dict('os.environ', {
+                'DIAGNOSTICISM_ENABLE_LOGGING': 'yes',
+                'DIAGNOSTICISM_LOGGING_THRESHOLD': 'WARNING',
+                'LOGGING_THRESHOLD': 'DEBUG5',
+            }):
+
+                _apply_logging_environment()
+
+                log(WARNING, 'kept', file=sink)
+                log(NOTICE, 'dropped', file=sink)
+
+            text = sink.getvalue()
+
+            self.assertIn('kept', text)
+            self.assertNotIn('dropped', text)
+        finally:
+
+            set_log_filter(saved_filter[0], saved_filter[1])
+
+            if previous_enabled is None:
+
+                enable_logging(False)
+            else:
+
+                enable_logging(previous_enabled)
+
+
+    def test_FLUSH_THRESHOLD_PREFERS_DIAGNOSTICISM_NAME(self):
+
+        class _FlushSink(object):
+
+            def __init__(self):
+
+                self.flushes = 0
+                self.text = ''
+
+            def isatty(self):
+
+                return False
+
+            def write(self, text):
+
+                self.text += text
+
+            def flush(self):
+
+                self.flushes += 1
+
+        previous_enabled = enable_logging(True)
+        saved_filter = set_log_filter(None)
+        sink = _FlushSink()
+
+        try:
+
+            with patch.dict('os.environ', {
+                'DIAGNOSTICISM_ENABLE_LOGGING': 'yes',
+                'DIAGNOSTICISM_LOGGING_THRESHOLD': 'DEBUG5',
+                'DIAGNOSTICISM_FLUSH_THRESHOLD': 'not-a-severity',
+                'SIS_FLUSH_CEILING': 'DEBUG5',
+                'FLUSH_THRESHOLD': 'FAILURE',
+            }):
+
+                _apply_logging_environment()
+
+                log(ALERT, 'severe', file=sink)
+                log(INFORMATIONAL, 'routine', file=sink)
+
+            self.assertEqual(1, sink.flushes)
+            self.assertIn('severe', sink.text)
+            self.assertIn('routine', sink.text)
+        finally:
+
+            set_log_filter(saved_filter[0], saved_filter[1])
+
+            if previous_enabled is None:
+
+                enable_logging(False)
+            else:
+
+                enable_logging(previous_enabled)
+
+
+    def test__set_log_logger__ROUTES_log_TO_STANDARD_LOGGER(self):
+
+        handler = _ListHandler()
+        logger = stdlib_logging.getLogger('diagnosticism.test.log_routes')
+        logger.addHandler(handler)
+        logger.setLevel(stdlib_logging.DEBUG)
+        logger.propagate = False
+
+        previous_enabled = enable_logging(True)
+        saved_filter = set_log_filter(None)
+        previous_logger = set_log_logger(logger)
+
+        try:
+
+            log(WARNING, "warn-text")
+            log(INFORMATIONAL, "info-text")
+
+            self.assertEqual(
+                [(stdlib_logging.WARNING, "warn-text"), (stdlib_logging.INFO, "info-text")],
+                [(r.levelno, r.getMessage()) for r in handler.records],
+            )
+        finally:
+
+            set_log_logger(previous_logger)
+            set_log_filter(saved_filter[0], saved_filter[1])
+            logger.removeHandler(handler)
+
+            if previous_enabled is None:
+
+                enable_logging(False)
+            else:
+
+                enable_logging(previous_enabled)
+
+
+    def test__set_log_logger__file_KWARG_STILL_WRITES_TO_FILE(self):
+
+        handler = _ListHandler()
+        logger = stdlib_logging.getLogger('diagnosticism.test.file_kwarg')
+        logger.addHandler(handler)
+        logger.setLevel(stdlib_logging.DEBUG)
+        logger.propagate = False
+
+        sink = StringIO()
+        previous_enabled = enable_logging(True)
+        saved_filter = set_log_filter(None)
+        previous_logger = set_log_logger(logger)
+
+        try:
+
+            set_program_name('myprog1')
+
+            log(WARNING, "to-file", file=sink)
+
+            self.assertIn("to-file", sink.getvalue())
+            self.assertEqual([], handler.records)
+        finally:
+
+            set_log_logger(previous_logger)
+            set_log_filter(saved_filter[0], saved_filter[1])
+            logger.removeHandler(handler)
+
+            if previous_enabled is None:
+
+                enable_logging(False)
+            else:
+
+                enable_logging(previous_enabled)
+
+
+    def test__set_log_logger__CALLABLE_NOT_INVOKED_WHEN_LOGGER_DISABLES_LEVEL(self):
+
+        handler = _ListHandler()
+        logger = stdlib_logging.getLogger('diagnosticism.test.level_gate')
+        logger.addHandler(handler)
+        logger.setLevel(stdlib_logging.WARNING)
+        logger.propagate = False
+
+        invoked = []
+
+        def message():
+
+            invoked.append(True)
+
+            return "never"
+
+        previous_enabled = enable_logging(True)
+        saved_filter = set_log_filter(None)
+        previous_logger = set_log_logger(logger)
+
+        try:
+
+            log(INFORMATIONAL, message)
+
+            self.assertEqual([], invoked)
+            self.assertEqual([], handler.records)
+        finally:
+
+            set_log_logger(previous_logger)
+            set_log_filter(saved_filter[0], saved_filter[1])
+            logger.removeHandler(handler)
+
+            if previous_enabled is None:
+
+                enable_logging(False)
+            else:
+
+                enable_logging(previous_enabled)
+
+
+    def test__warn__ROUTES_TO_STANDARD_LOGGER(self):
+
+        handler = _ListHandler()
+        logger = stdlib_logging.getLogger('diagnosticism.test.warn_routes')
+        logger.addHandler(handler)
+        logger.setLevel(stdlib_logging.DEBUG)
+        logger.propagate = False
+
+        previous_enabled = enable_logging(True)
+        saved_filter = set_log_filter(None)
+        previous_logger = set_log_logger(logger)
+
+        try:
+
+            with patch('sys.stderr', new=StringIO()) as fake_stderr:
+
+                warn("warn-text")
+
+            self.assertEqual([(stdlib_logging.WARNING, "warn-text")], [(r.levelno, r.getMessage()) for r in handler.records])
+            self.assertIn("warn-text", fake_stderr.getvalue())
+        finally:
+
+            set_log_logger(previous_logger)
+            set_log_filter(saved_filter[0], saved_filter[1])
+            logger.removeHandler(handler)
+
+            if previous_enabled is None:
+
+                enable_logging(False)
+            else:
+
+                enable_logging(previous_enabled)
 
 
 if '__main__' == __name__:

@@ -155,6 +155,20 @@ class Abort_tester(unittest.TestCase):
             self.assertEqual("myprog1: over and out!\n", fake_stderr.getvalue())
 
 
+    def test__abort__WITH_do_exit_True_CALLS_sys_exit(self):
+
+        with patch('sys.stderr', new=StringIO()) as fake_stderr:
+
+            set_program_name('myprog1')
+
+            with patch('diagnosticism.contingent_reporting.sys.exit') as exit:
+
+                abort("over and out!")
+
+            exit.assert_called_once_with(1)
+            self.assertIn("over and out!", fake_stderr.getvalue())
+
+
 if '__main__' == __name__:
 
     unittest.main()

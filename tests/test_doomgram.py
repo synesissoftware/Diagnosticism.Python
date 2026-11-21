@@ -378,5 +378,15 @@ class DOOMGram_tester(unittest.TestCase):
         self.assertEqual("DOOMGram(event_count=11110, total_event_time_ns=10101010000, min_event_time_ns=1, max_event_time_ns=1000000000, num_events_in_1ns=10000, num_events_in_10ns=0, num_events_in_100ns=0, num_events_in_1us=1000, num_events_in_10us=0, num_events_in_100us=0, num_events_in_1ms=100, num_events_in_10ms=0, num_events_in_100ms=0, num_events_in_1s=10, num_events_in_10s=0, num_events_ge_100s=0)", repr(dg))
 
 
+    def test__perf_counter_ns_IS_NON_DECREASING(self):
+
+        from diagnosticism.internal import _perf_counter_ns
+
+        earlier = _perf_counter_ns()
+        later = _perf_counter_ns()
+
+        self.assertGreaterEqual(later, earlier)
+
+
 # ############################## end of file ############################# #
 
