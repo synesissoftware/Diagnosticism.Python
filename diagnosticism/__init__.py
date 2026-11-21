@@ -26,6 +26,7 @@ from .logging import (
     is_severity_logged,
     log,
     set_log_filter,
+    set_log_logger,
 )
 from .program_name import (
     get_program_name,
@@ -124,6 +125,7 @@ __all__ = [
     'report',
     'set_default_trailing_prompt',
     'set_log_filter',
+    'set_log_logger',
     'set_program_name',
     'severity_to_string',
     'trace',

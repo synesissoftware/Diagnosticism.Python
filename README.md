@@ -105,7 +105,7 @@ The public API surface is listed in `diagnosticism.__all__`.
 * Time formatting
 * Tracing
 
-**NOTE**: for the moment, the Diagnostic Logging facilities emit to the standard error stream, via the Contingent Reporting API. In the near future this will be changed to work with more sophisticated logging libraries, including the standard logging facilities and the (as yet to be release) **Pantheios.Python**.
+**NOTE**: by default, the Diagnostic Logging facilities emit to the standard error stream, via the Contingent Reporting API. `set_log_logger()` sends them to a standard `logging` logger instead. Integration with the (as yet to be released) **Pantheios.Python** remains future work.
 
 
 ### Classes
@@ -279,6 +279,7 @@ The following functions are defined:
 | `is_severity_logged()` | Indicates whether a log statement at a given severity will be logged. |
 | `log()` | Submits a diagnostic log message at a given severity (which will be emitted in the case that `is_logging_enabled(sev))` would return `True`). |
 | `set_log_filter()` | Sets a logging filter - either a threshold severity, or a `dict`` mapping severity levels to enablement flags - that allows fine-grained control of which levels are emitted. |
+| `set_log_logger()` | Sends records without an explicit `file` to a standard `logging` logger, or back to standard error when given `None`. |
 
 
 #### Tracing API

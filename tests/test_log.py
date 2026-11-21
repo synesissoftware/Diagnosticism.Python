@@ -6,8 +6,10 @@ from diagnosticism.logging import (
     is_logging_enabled,
     log,
     set_log_filter,
+    set_log_logger,
 )
 from diagnosticism.program_name import set_program_name
+from diagnosticism.warning import warn
 from diagnosticism.severity import (
     ALERT,
     CRITICAL,
@@ -19,6 +21,7 @@ from diagnosticism.severity import (
     WARNING,
 )
 
+import logging as stdlib_logging
 import threading
 import time
 import unittest
@@ -32,6 +35,19 @@ try:
 except ImportError:
 
     from io import StringIO
+
+
+class _ListHandler(stdlib_logging.Handler):
+
+    def __init__(self):
+
+        stdlib_logging.Handler.__init__(self)
+
+        self.records = []
+
+    def emit(self, record):
+
+        self.records.append(record)
 
 
 class Logp_tester(unittest.TestCase):
@@ -502,6 +518,150 @@ class Logp_tester(unittest.TestCase):
         finally:
 
             set_log_filter(saved_filter[0], saved_filter[1])
+
+            if previous_enabled is None:
+
+                enable_logging(False)
+            else:
+
+                enable_logging(previous_enabled)
+
+
+    def test__set_log_logger__ROUTES_log_TO_STANDARD_LOGGER(self):
+
+        handler = _ListHandler()
+        logger = stdlib_logging.getLogger('diagnosticism.test.log_routes')
+        logger.addHandler(handler)
+        logger.setLevel(stdlib_logging.DEBUG)
+        logger.propagate = False
+
+        previous_enabled = enable_logging(True)
+        saved_filter = set_log_filter(None)
+        previous_logger = set_log_logger(logger)
+
+        try:
+
+            log(WARNING, "warn-text")
+            log(INFORMATIONAL, "info-text")
+
+            self.assertEqual(
+                [(stdlib_logging.WARNING, "warn-text"), (stdlib_logging.INFO, "info-text")],
+                [(r.levelno, r.getMessage()) for r in handler.records],
+            )
+        finally:
+
+            set_log_logger(previous_logger)
+            set_log_filter(saved_filter[0], saved_filter[1])
+            logger.removeHandler(handler)
+
+            if previous_enabled is None:
+
+                enable_logging(False)
+            else:
+
+                enable_logging(previous_enabled)
+
+
+    def test__set_log_logger__file_KWARG_STILL_WRITES_TO_FILE(self):
+
+        handler = _ListHandler()
+        logger = stdlib_logging.getLogger('diagnosticism.test.file_kwarg')
+        logger.addHandler(handler)
+        logger.setLevel(stdlib_logging.DEBUG)
+        logger.propagate = False
+
+        sink = StringIO()
+        previous_enabled = enable_logging(True)
+        saved_filter = set_log_filter(None)
+        previous_logger = set_log_logger(logger)
+
+        try:
+
+            set_program_name('myprog1')
+
+            log(WARNING, "to-file", file=sink)
+
+            self.assertIn("to-file", sink.getvalue())
+            self.assertEqual([], handler.records)
+        finally:
+
+            set_log_logger(previous_logger)
+            set_log_filter(saved_filter[0], saved_filter[1])
+            logger.removeHandler(handler)
+
+            if previous_enabled is None:
+
+                enable_logging(False)
+            else:
+
+                enable_logging(previous_enabled)
+
+
+    def test__set_log_logger__CALLABLE_NOT_INVOKED_WHEN_LOGGER_DISABLES_LEVEL(self):
+
+        handler = _ListHandler()
+        logger = stdlib_logging.getLogger('diagnosticism.test.level_gate')
+        logger.addHandler(handler)
+        logger.setLevel(stdlib_logging.WARNING)
+        logger.propagate = False
+
+        invoked = []
+
+        def message():
+
+            invoked.append(True)
+
+            return "never"
+
+        previous_enabled = enable_logging(True)
+        saved_filter = set_log_filter(None)
+        previous_logger = set_log_logger(logger)
+
+        try:
+
+            log(INFORMATIONAL, message)
+
+            self.assertEqual([], invoked)
+            self.assertEqual([], handler.records)
+        finally:
+
+            set_log_logger(previous_logger)
+            set_log_filter(saved_filter[0], saved_filter[1])
+            logger.removeHandler(handler)
+
+            if previous_enabled is None:
+
+                enable_logging(False)
+            else:
+
+                enable_logging(previous_enabled)
+
+
+    def test__warn__ROUTES_TO_STANDARD_LOGGER(self):
+
+        handler = _ListHandler()
+        logger = stdlib_logging.getLogger('diagnosticism.test.warn_routes')
+        logger.addHandler(handler)
+        logger.setLevel(stdlib_logging.DEBUG)
+        logger.propagate = False
+
+        previous_enabled = enable_logging(True)
+        saved_filter = set_log_filter(None)
+        previous_logger = set_log_logger(logger)
+
+        try:
+
+            with patch('sys.stderr', new=StringIO()) as fake_stderr:
+
+                warn("warn-text")
+
+            self.assertEqual([(stdlib_logging.WARNING, "warn-text")], [(r.levelno, r.getMessage()) for r in handler.records])
+            self.assertIn("warn-text", fake_stderr.getvalue())
+        finally:
+
+            set_log_logger(previous_logger)
+            set_log_filter(saved_filter[0], saved_filter[1])
+            logger.removeHandler(handler)
 
             if previous_enabled is None:
 

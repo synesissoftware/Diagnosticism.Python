@@ -10,6 +10,7 @@
 |**flf** |[examples/flf.py](/examples/flf.py)|Example illustrating use of `file()`, `func()`, `line()`, `fileline()`, `filelinefunc()`|
 |**log** |[examples/log.py](/examples/log.py)|Example illustrating use of `log()`|
 |**parse_severity** |[examples/parse_severity.py](/examples/parse_severity.py)|Example illustrating use of `parse_severity()` function|
+|**set_log_logger** |[examples/set_log_logger.py](/examples/set_log_logger.py)|Example illustrating use of `set_log_logger()` with the standard `logging` module|
 |**trace** |[examples/trace.py](/examples/trace.py)|Example illustrating use of `trace()` function|
 |**tracefunc** |[examples/tracefunc.py](/examples/tracefunc.py)|Example illustrating use of `@tracefunc` decorator|
 |**warn** |[examples/warn.py](/examples/warn.py)|Example illustrating use of `warn()` function|

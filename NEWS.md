@@ -2,7 +2,7 @@
 
 | Date                | News Item                                                                                                      | Details |
 | ------------------- | -------------------------------------------------------------------------------------------------------------- | ------- |
-| 22nd November 2026  | [**Diagnosticism.Python** 0.19.0-alpha1](https://github.com/synesissoftware/Diagnosticism.Python/releases/tag/0.19.0-alpha1) | Logging and tracing levels from the environment |
+| 22nd November 2026  | [**Diagnosticism.Python** 0.19.0-alpha1](https://github.com/synesissoftware/Diagnosticism.Python/releases/tag/0.19.0-alpha1) | Environment levels; standard `logging` bridge |
 | 21st November 2026  | [**Diagnosticism.Python** 0.18.3](https://github.com/synesissoftware/Diagnosticism.Python/releases/tag/0.18.3) | Locked log emit |
 | 20th November 2026  | [**Diagnosticism.Python** 0.18.2](https://github.com/synesissoftware/Diagnosticism.Python/releases/tag/0.18.2) | `tracefunc` repairs; one version string; CI on macOS and Windows; **INSTALL.md** and **FAQ.md** |
 | 14th September 2026 | [**Diagnosticism.Python** 0.18.1](https://github.com/synesissoftware/Diagnosticism.Python/releases/tag/0.18.1) | Packaging / CI modernisation |

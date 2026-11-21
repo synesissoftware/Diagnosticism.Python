@@ -1,5 +1,6 @@
 #! /usr/bin/env python3
 
+from diagnosticism.logging import set_log_logger
 from diagnosticism.program_name import set_program_name
 from diagnosticism.tracing import (
     _apply_tracing_environment,
@@ -12,6 +13,7 @@ from diagnosticism.tracing import (
     tracefunc,
 )
 import inspect
+import logging as stdlib_logging
 import sys
 
 from diagnosticism.internal import _basename
@@ -40,6 +42,19 @@ def f1():
 def f2():
 
     return "f2-result"
+
+
+class _ListHandler(stdlib_logging.Handler):
+
+    def __init__(self):
+
+        stdlib_logging.Handler.__init__(self)
+
+        self.records = []
+
+    def emit(self, record):
+
+        self.records.append(record)
 
 
 class Trace_tester(unittest.TestCase):
@@ -98,7 +113,7 @@ class Trace_tester(unittest.TestCase):
                 r = f1()
 
                 self.assertEqual('f1-result', r)
-                self.assertRegex(file.getvalue(), r'^\[myprog1, \d+, \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6}, .*TRACE.*\]: f1()')
+                self.assertRegex(file.getvalue(), r'^\[myprog1, \d+, \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6}, .*DEBUG5.*\]: f1()')
             finally:
 
                 file = None
@@ -172,7 +187,7 @@ class Trace_tester(unittest.TestCase):
                 r = f2()
 
                 self.assertEqual('f2-result', r)
-                self.assertRegex(fake_stderr.getvalue(), r'^\[myprog3, \d+, \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6}, .*TRACE.*\]: f2()')
+                self.assertRegex(fake_stderr.getvalue(), r'^\[myprog3, \d+, \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6}, .*DEBUG5.*\]: f2()')
             finally:
 
                 enable_tracing(tracing_enabled)
@@ -299,3 +314,31 @@ class Trace_tester(unittest.TestCase):
         finally:
 
             enable_tracing(True if previous else False)
+
+
+    def test__trace__ROUTES_TO_STANDARD_LOGGER_AT_DEBUG(self):
+
+        handler = _ListHandler()
+        logger = stdlib_logging.getLogger('diagnosticism.test.trace_routes')
+        logger.addHandler(handler)
+        logger.setLevel(stdlib_logging.DEBUG)
+        logger.propagate = False
+
+        def f():
+
+            trace()
+
+        previous_tracing = enable_tracing(True)
+        previous_logger = set_log_logger(logger)
+
+        try:
+
+            f()
+
+            self.assertEqual([stdlib_logging.DEBUG], [r.levelno for r in handler.records])
+            self.assertIn('f()', handler.records[0].getMessage())
+        finally:
+
+            set_log_logger(previous_logger)
+            logger.removeHandler(handler)
+            enable_tracing(previous_tracing)

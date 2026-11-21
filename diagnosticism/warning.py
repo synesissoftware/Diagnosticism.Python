@@ -5,9 +5,7 @@ from .contingent_reporting import (
     _output_lock,
 )
 from .logging import (
-    _do_log,
-    _get_log_file_or_default,
-    is_logging_enabled,
+    _route_log,
     is_severity_logged,
 )
 from . import severity
@@ -22,10 +20,6 @@ def _warn(
 
     file_cr = _get_cr_file_or_default(file_cr)
 
-    if is_logging_enabled():
-
-        file_dl = _get_log_file_or_default(file_dl)
-
     for message in message_lines:
 
         if callable(message):
@@ -38,11 +32,7 @@ def _warn(
 
                 if is_severity_logged(severity.WARN):
 
-                    _do_log(
-                        file_dl,
-                        severity.WARN,
-                        message,
-                    )
+                    _route_log(file_dl, severity.WARN, message)
 
             _add_eol_and_emit_to_cr_stm(
                 file_cr,

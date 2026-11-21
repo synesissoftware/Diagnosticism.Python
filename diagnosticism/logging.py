@@ -1,4 +1,6 @@
 
+from __future__ import absolute_import
+
 from .contingent_reporting import (
     _do_report,
     _get_cr_file_or_default,
@@ -14,6 +16,7 @@ from .internal import (
 )
 
 from datetime import datetime as dt
+import logging as stdlib_logging
 import os
 import sys
 import threading
@@ -47,6 +50,24 @@ def _apply_logging_environment():
     _flush_threshold = _threshold_from_env(_FLUSH_THRESHOLD_NAMES)
 
 
+def _emit_to_stdlib(severity, message):
+    """
+    Emits conditionally to the standard logging library.
+    """
+
+    level = _severity_to_stdlib_level(severity)
+
+    if callable(message):
+
+        if not _stdlib_logger.isEnabledFor(level):
+
+            return
+
+        message = message()
+
+    _stdlib_logger.log(level, str(message))
+
+
 def _get_stderr_dynamic():
 
     return sys.stderr
@@ -64,6 +85,21 @@ def _get_log_file_or_default(file):
         return file
 
     return _get_stderr_dynamic()
+
+
+def _route_log(file, severity, message):
+    """
+    Sends a record to the standard logger if one is set and no `file` is
+    given; otherwise to the file, or the standard error stream by default.
+    """
+
+    if not file and _stdlib_logger is not None:
+
+        _emit_to_stdlib(severity, message)
+
+        return
+
+    _do_log(_get_log_file_or_default(file), severity, message)
 
 
 def _severity_is_logged(severity):
@@ -92,6 +128,30 @@ def _severity_is_logged(severity):
                 return False
 
     return True
+
+
+def _severity_to_stdlib_level(severity):
+    """
+    Maps a Diagnosticism severity to a standard `logging` level.
+    """
+
+    if severity <= _severity.CRITICAL:
+
+        return stdlib_logging.CRITICAL
+
+    if severity <= _severity.FAILURE:
+
+        return stdlib_logging.ERROR
+
+    if severity <= _severity.WARNING:
+
+        return stdlib_logging.WARNING
+
+    if severity <= _severity.INFORMATIONAL:
+
+        return stdlib_logging.INFO
+
+    return stdlib_logging.DEBUG
 
 
 def _threshold_from_env(names):
@@ -149,6 +209,7 @@ _logging_is_enabled =   None
 _log_filter         =   None
 _others_action      =   None
 _flush_threshold    =   None
+_stdlib_logger      =   None
 
 _ENABLE_LOGGING_NAMES = (
     'DIAGNOSTICISM_ENABLE_LOGGING',
@@ -274,13 +335,38 @@ def set_log_filter(
         return (log_filter, others_action)
 
 
+def set_log_logger(logger):
+    """
+    Sets the standard `logging` logger that receives records which are not
+    given an explicit `file`, in place of the standard error stream.
+
+    Parameters
+    ----------
+    logger : logging.Logger or None
+        The logger to use, or `None` to restore the standard error stream.
+        Records given an explicit `file` are always written to that file.
+
+    Returns
+    -------
+    logging.Logger or None
+        The previous logger
+    """
+
+    global _stdlib_logger
+
+    with _output_lock:
+
+        _stdlib_logger, logger = logger, _stdlib_logger
+
+        return logger
+
+
 def _do_log(
     file,
     severity,
     message,
 ):
     """
-    INTERNAL FUNCTION ONLY
     """
 
     assert file
@@ -355,13 +441,7 @@ def log(
 
             return
 
-        file = _get_log_file_or_default(file)
-
-        return _do_log(
-            file,
-            severity,
-            message,
-        )
+        return _route_log(file, severity, message)
 
 
 # ##########################################################

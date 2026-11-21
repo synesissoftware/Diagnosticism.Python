@@ -9,7 +9,7 @@
 * [x] ~~~Use **pyproject.toml**~~~ - ✅;
 * [x] `warn()` can take multiple strings (a la **Ruby**'s `warn()`);
 * [x] ~~~`set_log_filter()` to allow filter to be callable~~~ - ✅;
-* [ ] `log()` to work with standard logger;
+* [x] ~~~`log()` to work with standard logger~~~ - ✅;
 
 
 <!-- ########################### end of file ########################### -->
