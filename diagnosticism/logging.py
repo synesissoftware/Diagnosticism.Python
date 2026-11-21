@@ -337,7 +337,7 @@ def set_log_filter(
 
 def set_log_logger(logger):
     """
-    Sets the standard `logging` logger that receives records which are not
+    Sets the standard `logging` logger that receives records that are not
     given an explicit `file`, in place of the standard error stream.
 
     Parameters

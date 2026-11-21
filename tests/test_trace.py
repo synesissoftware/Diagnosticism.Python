@@ -113,7 +113,7 @@ class Trace_tester(unittest.TestCase):
                 r = f1()
 
                 self.assertEqual('f1-result', r)
-                self.assertRegex(file.getvalue(), r'^\[myprog1, \d+, \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6}, .*DEBUG5.*\]: f1()')
+                self.assertRegex(file.getvalue(), r'^\[myprog1, \d+, \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6}, .*TRACE.*\]: f1()')
             finally:
 
                 file = None
@@ -187,7 +187,7 @@ class Trace_tester(unittest.TestCase):
                 r = f2()
 
                 self.assertEqual('f2-result', r)
-                self.assertRegex(fake_stderr.getvalue(), r'^\[myprog3, \d+, \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6}, .*DEBUG5.*\]: f2()')
+                self.assertRegex(fake_stderr.getvalue(), r'^\[myprog3, \d+, \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6}, .*TRACE.*\]: f2()')
             finally:
 
                 enable_tracing(tracing_enabled)

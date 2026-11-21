@@ -6,7 +6,7 @@
 * functionality:
   * logging and tracing take their enable flags, the logging threshold, and the flush threshold from the environment, preferring `DIAGNOSTICISM_*`, then `SIS_*`, then the generic name;
   * added `set_log_logger()`, which sends `log()`, `warn()`, `trace()`, and `dbg()` records without an explicit `file` to a standard `logging` logger;
-  * `trace()`, `dbg()`, and `dbgfl()` records are now at `DEBUG5` rather than `TRACE`, which the standard logger receives as `DEBUG`;
+  * `trace()`, `dbg()`, and `dbgfl()` still use Diagnosticism `TRACE`; when routed to a standard logger they are received as `DEBUG`;
   * added **examples/set_log_logger.py**;
 
 

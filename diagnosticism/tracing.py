@@ -102,10 +102,10 @@ def _dbg(
 
         if show_fileline:
 
-            _log_s(file, severity.DEBUG, "%s:%s: %s" % (_basename(file_name), line_number, s))
+            _log_s(file, severity.TRACE, "%s:%s: %s" % (_basename(file_name), line_number, s))
         else:
 
-            _log_s(file, severity.DEBUG, "%s" % s)
+            _log_s(file, severity.TRACE, "%s" % s)
     finally:
 
         del fr
@@ -360,7 +360,7 @@ def trace(
 
             if '<module>' == code.co_name:
 
-                _log_s(file, severity.DEBUG, "%s:%d" % (code.co_filename, fr.f_lineno))
+                _log_s(file, severity.TRACE, "%s:%d" % (code.co_filename, fr.f_lineno))
             else:
 
                 fname   =   code.co_name
@@ -382,13 +382,13 @@ def trace(
 
                         plist   =   ", ".join(["%s(%s)=%s" % _derive_param(pname, params) for pname in pnames[1:]])
 
-                        _log_s(file, severity.DEBUG, "%s.%s(%s)" % (typ0, fname, plist))
+                        _log_s(file, severity.TRACE, "%s.%s(%s)" % (typ0, fname, plist))
 
                         return
 
                 plist = ", ".join(["%s(%s)=%s" % _derive_param(pname, params) for pname in pnames])
 
-                _log_s(file, severity.DEBUG, "%s(%s)" % (fname, plist))
+                _log_s(file, severity.TRACE, "%s(%s)" % (fname, plist))
         finally:
 
             del fr
@@ -433,10 +433,10 @@ def _log_traced_py2(
 
     if type_name:
 
-        _log_s(file, severity.DEBUG, "%s.%s(%s)" % (type_name, func.__name__, plist))
+        _log_s(file, severity.TRACE, "%s.%s(%s)" % (type_name, func.__name__, plist))
     else:
 
-        _log_s(file, severity.DEBUG, "%s(%s)" % (func.__name__, plist))
+        _log_s(file, severity.TRACE, "%s(%s)" % (func.__name__, plist))
 
 
 if _is_python_2_7_or_later():
@@ -529,10 +529,10 @@ if _is_python_2_7_or_later():
 
             if typeS:
 
-                _log_s(file, severity.DEBUG, "%s.%s(%s)" % (typeS, fname, plist))
+                _log_s(file, severity.TRACE, "%s.%s(%s)" % (typeS, fname, plist))
             else:
 
-                _log_s(file, severity.DEBUG, "%s(%s)" % (fname, plist))
+                _log_s(file, severity.TRACE, "%s(%s)" % (fname, plist))
         finally:
 
             del sig
