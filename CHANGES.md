@@ -8,6 +8,9 @@
   * added `set_log_logger()`, which sends `log()`, `warn()`, `trace()`, and `dbg()` records without an explicit `file` to a standard `logging` logger;
   * `trace()`, `dbg()`, and `dbgfl()` still use Diagnosticism `TRACE`; when routed to a standard logger they are received as `DEBUG`;
   * added **examples/set_log_logger.py**;
+* documentation and boilerplate:
+  * **TODO.md** records the standard `logging` bridge as done, and keeps **Pantheios.Python** open;
+  * **INSTALL.md** and **FAQ.md** cover `set_log_logger()` and the environment variable names;
 
 
 ## 0.18.3 - 21st November 2026

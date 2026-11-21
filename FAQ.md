@@ -10,6 +10,7 @@ forum.
 - [Q1: "How do I install this library?"](#q1-how-do-i-install-this-library)
 - [Q2: "Which Python versions are supported?"](#q2-which-python-versions-are-supported)
 - [Q3: "What else do I need to install?"](#q3-what-else-do-i-need-to-install)
+- [Q4: "How do I send records to the standard logging module?"](#q4-how-do-i-send-records-to-the-standard-logging-module)
 
 
 ## Q1: "How do I install this library?"
@@ -31,6 +32,13 @@ See [INSTALL.md](./INSTALL.md) for a source checkout and a short usage example.
 ## Q3: "What else do I need to install?"
 
 Nothing for normal use. The unit tests on **Python 2.7** need **mock**.
+
+
+## Q4: "How do I send records to the standard logging module?"
+
+Call `set_log_logger()` with a standard `logging.Logger`. Records without an
+explicit `file` then go to that logger. Pass `None` to restore the standard
+error stream. See [examples/set_log_logger.py](./examples/set_log_logger.py).
 
 
 <!-- ########################### end of file ########################### -->
